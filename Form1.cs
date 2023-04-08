@@ -112,7 +112,9 @@ namespace DeliveryApplication
 
                 if (dt.Rows.Count > 0)
                 {
-                    MessageBox.Show("Авторизовано");
+                    this.Hide();
+                    MainForm form = new MainForm();
+                    form.Show();
                 }
                 else
                 {
