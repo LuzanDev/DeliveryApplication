@@ -17,7 +17,6 @@ namespace DeliveryApplication
         {
             InitializeComponent();
         }
-
         private void btnClose_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -28,11 +27,7 @@ namespace DeliveryApplication
             guna2Panel1.Location = new Point((this.ClientSize.Width - guna2Panel1.Width) / 2, guna2Panel1.Location.Y);
             guna2Panel1.Location = new Point(guna2Panel1.Location.X, (this.ClientSize.Height - guna2Panel1.Height) / 2);
         }
-
-        private void txtUser_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+        
         #region Фокус кнопок
         private void guna2Button1_Enter(object sender, EventArgs e)
         {
@@ -112,8 +107,9 @@ namespace DeliveryApplication
 
                 if (dt.Rows.Count > 0)
                 {
+                    StartWorkForm.CurrentEmployee = GetEmployeeFromTable(dt.Rows[0]);
                     this.Hide();
-                    MainForm form = new MainForm();
+                    StartWorkForm form = new StartWorkForm();
                     form.Show();
                 }
                 else
@@ -127,6 +123,17 @@ namespace DeliveryApplication
             }
         }
 
+        private Employee GetEmployeeFromTable(DataRow row)
+        {
+            int id = Convert.ToInt32(row["Id"]);
+            string login = row["empLogin"].ToString();
+            string name = row["empName"].ToString();
+            string surname = row["empSurname"].ToString();
+            string patronymic = row["empPatronymic"].ToString();
+            string email = row["empEmail"].ToString();
+            string phone = row["empNumberPhone"].ToString();
 
+            return new Employee(id,login,name,surname,patronymic,email,phone);
+        }
     }
 }

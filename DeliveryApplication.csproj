@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>DeliveryApplication</RootNamespace>
     <AssemblyName>DeliveryApplication</AssemblyName>
-    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -27,6 +27,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -66,31 +67,59 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\ControlMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Model\ControlMenu.Designer.cs">
+      <DependentUpon>ControlMenu.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataBaseControl.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Employee.cs" />
+    <Compile Include="Model\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Model\LoginForm.Designer.cs">
+      <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainForm.cs">
+    <Compile Include="Model\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Model\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Model\SendForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Model\SendForm.Designer.cs">
+      <DependentUpon>SendForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Model\StartWorkForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Model\StartWorkForm.Designer.cs">
+      <DependentUpon>StartWorkForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Model\ControlMenu.resx">
+      <DependentUpon>ControlMenu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Model\LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Model\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Model\SendForm.resx">
+      <DependentUpon>SendForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Model\StartWorkForm.resx">
+      <DependentUpon>StartWorkForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -122,6 +151,13 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>FastDeliveryDB.mdf</DependentUpon>
     </Content>
+    <None Include="Resources\btnEsc.png" />
+    <None Include="Resources\menuOther.png" />
+    <None Include="Resources\arrowDown.png" />
+    <None Include="Resources\userIcon.png" />
+    <None Include="Resources\flagRed.png" />
+    <None Include="Resources\flagBlue.png" />
+    <None Include="Resources\cars-commuting-in-early-morning-in-toronto.jpg" />
     <None Include="Resources\f4.png" />
     <None Include="Resources\f3.png" />
     <None Include="Resources\f2.png" />

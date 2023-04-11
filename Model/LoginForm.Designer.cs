@@ -31,14 +31,14 @@
             this.btnClose = new Guna.UI2.WinForms.Guna2ControlBox();
             this.imgLogo = new Guna.UI2.WinForms.Guna2PictureBox();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.lblPasswordError = new System.Windows.Forms.Label();
+            this.lblLoginError = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnInput = new Guna.UI2.WinForms.Guna2Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtPassword = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtUser = new Guna.UI2.WinForms.Guna2TextBox();
-            this.lblLoginError = new System.Windows.Forms.Label();
-            this.lblPasswordError = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).BeginInit();
             this.guna2Panel1.SuspendLayout();
             this.SuspendLayout();
@@ -85,6 +85,32 @@
             this.guna2Panel1.Size = new System.Drawing.Size(316, 435);
             this.guna2Panel1.TabIndex = 0;
             // 
+            // lblPasswordError
+            // 
+            this.lblPasswordError.AutoSize = true;
+            this.lblPasswordError.BackColor = System.Drawing.Color.White;
+            this.lblPasswordError.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblPasswordError.ForeColor = System.Drawing.Color.Red;
+            this.lblPasswordError.Location = new System.Drawing.Point(10, 298);
+            this.lblPasswordError.Name = "lblPasswordError";
+            this.lblPasswordError.Size = new System.Drawing.Size(119, 15);
+            this.lblPasswordError.TabIndex = 5;
+            this.lblPasswordError.Text = "Не заповнено поле";
+            this.lblPasswordError.Visible = false;
+            // 
+            // lblLoginError
+            // 
+            this.lblLoginError.AutoSize = true;
+            this.lblLoginError.BackColor = System.Drawing.Color.White;
+            this.lblLoginError.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblLoginError.ForeColor = System.Drawing.Color.Red;
+            this.lblLoginError.Location = new System.Drawing.Point(10, 230);
+            this.lblLoginError.Name = "lblLoginError";
+            this.lblLoginError.Size = new System.Drawing.Size(119, 15);
+            this.lblLoginError.TabIndex = 4;
+            this.lblLoginError.Text = "Не заповнено поле";
+            this.lblLoginError.Visible = false;
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -110,6 +136,7 @@
             // btnInput
             // 
             this.btnInput.BorderRadius = 5;
+            this.btnInput.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnInput.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
             this.btnInput.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
             this.btnInput.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
@@ -186,34 +213,7 @@
             this.txtUser.SelectedText = "";
             this.txtUser.Size = new System.Drawing.Size(310, 42);
             this.txtUser.TabIndex = 1;
-            this.txtUser.TextChanged += new System.EventHandler(this.txtUser_TextChanged);
             this.txtUser.Enter += new System.EventHandler(this.txtUser_Enter);
-            // 
-            // lblLoginError
-            // 
-            this.lblLoginError.AutoSize = true;
-            this.lblLoginError.BackColor = System.Drawing.Color.White;
-            this.lblLoginError.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblLoginError.ForeColor = System.Drawing.Color.Red;
-            this.lblLoginError.Location = new System.Drawing.Point(10, 230);
-            this.lblLoginError.Name = "lblLoginError";
-            this.lblLoginError.Size = new System.Drawing.Size(119, 15);
-            this.lblLoginError.TabIndex = 4;
-            this.lblLoginError.Text = "Не заповнено поле";
-            this.lblLoginError.Visible = false;
-            // 
-            // lblPasswordError
-            // 
-            this.lblPasswordError.AutoSize = true;
-            this.lblPasswordError.BackColor = System.Drawing.Color.White;
-            this.lblPasswordError.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblPasswordError.ForeColor = System.Drawing.Color.Red;
-            this.lblPasswordError.Location = new System.Drawing.Point(10, 298);
-            this.lblPasswordError.Name = "lblPasswordError";
-            this.lblPasswordError.Size = new System.Drawing.Size(119, 15);
-            this.lblPasswordError.TabIndex = 5;
-            this.lblPasswordError.Text = "Не заповнено поле";
-            this.lblPasswordError.Visible = false;
             // 
             // LoginForm
             // 
