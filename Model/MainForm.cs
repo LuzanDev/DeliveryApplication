@@ -10,8 +10,23 @@ namespace DeliveryApplication
         {
             InitializeComponent();
         }
-        
-        string currentDate = DateTime.Now.ToString("dd-MM-yy / HH:mm:ss").Replace('.','/');
+
+        string currentDate = DateTime.Now.ToString("dd-MM-yy / HH:mm:ss").Replace('.', '/');
+
+        private static string startDateWork;
+        public static string StartDateWork
+        {
+            get { return startDateWork; }
+            set { startDateWork = value; }
+        }
+
+
+        private static Employee currentEmployee;
+        public static Employee CurrentEmployee
+        {
+            get { return currentEmployee; }
+            set { currentEmployee = value; }
+        }
 
         private static MainForm obj;
         public static MainForm Instance
@@ -37,20 +52,17 @@ namespace DeliveryApplication
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
-            AddControls(new ControlMenu());
-            guna2Button6.Text = "Зміна "+ currentDate;
-            guna2CircleButton1.Text = StartWorkForm.CurrentEmployee.Surname[0].ToString();
+            //    AddControls(new ControlMenu());
+            //guna2Button6.Text = "Зміна " + currentDate;
+            timer.Start();
+            if (CurrentEmployee != null)
+                guna2CircleButton1.Text = CurrentEmployee.Surname[0].ToString();
             obj = this;
         }
 
-        private void guna2Button1_Click(object sender, EventArgs e)
+        private void timer_Tick(object sender, EventArgs e)
         {
-
-        }
-
-        private void guna2TextBox1_TextChanged(object sender, EventArgs e)
-        {
-
+            lblTimeRealLive.Text = DateTime.Now.ToString("HH:mm:ss");
         }
     }
 }

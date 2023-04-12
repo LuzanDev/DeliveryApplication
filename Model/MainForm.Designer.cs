@@ -28,15 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             this.guna2Button7 = new Guna.UI2.WinForms.Guna2Button();
+            this.guna2Button6 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button5 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2CircleButton1 = new Guna.UI2.WinForms.Guna2CircleButton();
-            this.centerPanel = new System.Windows.Forms.Panel();
-            this.guna2Button6 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2TextBox1 = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
+            this.centerPanel = new System.Windows.Forms.Panel();
+            this.lblTimeRealLive = new System.Windows.Forms.Label();
+            this.timer = new System.Windows.Forms.Timer(this.components);
             this.guna2Panel1.SuspendLayout();
+            this.centerPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // guna2Panel1
@@ -74,6 +78,31 @@
             this.guna2Button7.TabIndex = 8;
             this.guna2Button7.Text = "DELIPAY";
             // 
+            // guna2Button6
+            // 
+            this.guna2Button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.guna2Button6.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
+            this.guna2Button6.BorderRadius = 5;
+            this.guna2Button6.BorderThickness = 1;
+            this.guna2Button6.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.guna2Button6.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button6.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button6.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.guna2Button6.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.guna2Button6.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
+            this.guna2Button6.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.guna2Button6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
+            this.guna2Button6.Image = global::DeliveryApplication.Properties.Resources.flag;
+            this.guna2Button6.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.guna2Button6.ImageOffset = new System.Drawing.Point(5, 0);
+            this.guna2Button6.ImageSize = new System.Drawing.Size(15, 15);
+            this.guna2Button6.Location = new System.Drawing.Point(838, 8);
+            this.guna2Button6.Name = "guna2Button6";
+            this.guna2Button6.Size = new System.Drawing.Size(221, 45);
+            this.guna2Button6.TabIndex = 7;
+            this.guna2Button6.Text = "Зміна 26-03-23 / 08:33:22";
+            this.guna2Button6.TextOffset = new System.Drawing.Point(10, 0);
+            // 
             // guna2Button5
             // 
             this.guna2Button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -110,41 +139,7 @@
             this.guna2CircleButton1.ShadowDecoration.Mode = Guna.UI2.WinForms.Enums.ShadowMode.Circle;
             this.guna2CircleButton1.Size = new System.Drawing.Size(45, 45);
             this.guna2CircleButton1.TabIndex = 2;
-            this.guna2CircleButton1.TextOffset = new System.Drawing.Point(2, 0);
-            // 
-            // centerPanel
-            // 
-            this.centerPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.centerPanel.Location = new System.Drawing.Point(0, 60);
-            this.centerPanel.Margin = new System.Windows.Forms.Padding(0);
-            this.centerPanel.Name = "centerPanel";
-            this.centerPanel.Size = new System.Drawing.Size(1410, 664);
-            this.centerPanel.TabIndex = 6;
-            // 
-            // guna2Button6
-            // 
-            this.guna2Button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.guna2Button6.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(217)))), ((int)(((byte)(217)))));
-            this.guna2Button6.BorderRadius = 5;
-            this.guna2Button6.BorderThickness = 1;
-            this.guna2Button6.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.guna2Button6.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button6.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button6.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button6.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button6.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(247)))), ((int)(((byte)(247)))));
-            this.guna2Button6.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.guna2Button6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(77)))), ((int)(((byte)(77)))), ((int)(((byte)(77)))));
-            this.guna2Button6.Image = global::DeliveryApplication.Properties.Resources.flag;
-            this.guna2Button6.ImageAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2Button6.ImageOffset = new System.Drawing.Point(5, 0);
-            this.guna2Button6.ImageSize = new System.Drawing.Size(15, 15);
-            this.guna2Button6.Location = new System.Drawing.Point(838, 8);
-            this.guna2Button6.Name = "guna2Button6";
-            this.guna2Button6.Size = new System.Drawing.Size(221, 45);
-            this.guna2Button6.TabIndex = 7;
-            this.guna2Button6.Text = "Зміна 26-03-23 / 08:33:22";
-            this.guna2Button6.TextOffset = new System.Drawing.Point(10, 0);
+            this.guna2CircleButton1.TextOffset = new System.Drawing.Point(1, 0);
             // 
             // guna2TextBox1
             // 
@@ -171,7 +166,6 @@
             this.guna2TextBox1.Size = new System.Drawing.Size(337, 45);
             this.guna2TextBox1.TabIndex = 1;
             this.guna2TextBox1.TextOffset = new System.Drawing.Point(5, 0);
-            this.guna2TextBox1.TextChanged += new System.EventHandler(this.guna2TextBox1_TextChanged);
             // 
             // guna2Button1
             // 
@@ -191,7 +185,34 @@
             this.guna2Button1.Name = "guna2Button1";
             this.guna2Button1.Size = new System.Drawing.Size(45, 45);
             this.guna2Button1.TabIndex = 0;
-            this.guna2Button1.Click += new System.EventHandler(this.guna2Button1_Click);
+            // 
+            // centerPanel
+            // 
+            this.centerPanel.Controls.Add(this.lblTimeRealLive);
+            this.centerPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.centerPanel.Location = new System.Drawing.Point(0, 60);
+            this.centerPanel.Margin = new System.Windows.Forms.Padding(0);
+            this.centerPanel.Name = "centerPanel";
+            this.centerPanel.Size = new System.Drawing.Size(1410, 664);
+            this.centerPanel.TabIndex = 6;
+            // 
+            // lblTimeRealLive
+            // 
+            this.lblTimeRealLive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblTimeRealLive.AutoSize = true;
+            this.lblTimeRealLive.BackColor = System.Drawing.Color.Silver;
+            this.lblTimeRealLive.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblTimeRealLive.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
+            this.lblTimeRealLive.Location = new System.Drawing.Point(12, 635);
+            this.lblTimeRealLive.Name = "lblTimeRealLive";
+            this.lblTimeRealLive.Size = new System.Drawing.Size(71, 20);
+            this.lblTimeRealLive.TabIndex = 4;
+            this.lblTimeRealLive.Text = "12:22:44";
+            // 
+            // timer
+            // 
+            this.timer.Interval = 1000;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // MainForm
             // 
@@ -208,6 +229,8 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.guna2Panel1.ResumeLayout(false);
+            this.centerPanel.ResumeLayout(false);
+            this.centerPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -215,12 +238,14 @@
         #endregion
 
         private Guna.UI2.WinForms.Guna2Panel guna2Panel1;
-        private System.Windows.Forms.Panel centerPanel;
-        private Guna.UI2.WinForms.Guna2Button guna2Button1;
-        private Guna.UI2.WinForms.Guna2TextBox guna2TextBox1;
-        private Guna.UI2.WinForms.Guna2CircleButton guna2CircleButton1;
-        private Guna.UI2.WinForms.Guna2Button guna2Button5;
-        private Guna.UI2.WinForms.Guna2Button guna2Button6;
-        private Guna.UI2.WinForms.Guna2Button guna2Button7;
+        protected Guna.UI2.WinForms.Guna2TextBox guna2TextBox1;
+        protected System.Windows.Forms.Panel centerPanel;
+        protected Guna.UI2.WinForms.Guna2Button guna2Button1;
+        protected Guna.UI2.WinForms.Guna2CircleButton guna2CircleButton1;
+        protected Guna.UI2.WinForms.Guna2Button guna2Button5;
+        protected Guna.UI2.WinForms.Guna2Button guna2Button6;
+        protected Guna.UI2.WinForms.Guna2Button guna2Button7;
+        protected System.Windows.Forms.Timer timer;
+        protected System.Windows.Forms.Label lblTimeRealLive;
     }
 }

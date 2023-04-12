@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DeliveryApplication.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -107,9 +108,9 @@ namespace DeliveryApplication
 
                 if (dt.Rows.Count > 0)
                 {
-                    StartWorkForm.CurrentEmployee = GetEmployeeFromTable(dt.Rows[0]);
+                    MainForm.CurrentEmployee = GetEmployeeFromTable(dt.Rows[0]);
                     this.Hide();
-                    StartWorkForm form = new StartWorkForm();
+                    StartScreen form = new StartScreen();
                     form.Show();
                 }
                 else
