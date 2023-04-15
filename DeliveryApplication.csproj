@@ -67,12 +67,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\ButtonMain.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Model\ButtonMain.Designer.cs">
-      <DependentUpon>ButtonMain.cs</DependentUpon>
-    </Compile>
     <Compile Include="Model\ControlMenu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,17 +93,14 @@
     <Compile Include="Model\SendForm.Designer.cs">
       <DependentUpon>SendForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Model\StartScreen.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Model\StartScreen.Designer.cs">
-      <DependentUpon>StartScreen.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Model\ButtonMain.resx">
-      <DependentUpon>ButtonMain.cs</DependentUpon>
-    </EmbeddedResource>
+    <Compile Include="Model\StartImage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Model\StartImage.Designer.cs">
+      <DependentUpon>StartImage.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Model\ControlMenu.resx">
       <DependentUpon>ControlMenu.cs</DependentUpon>
     </EmbeddedResource>
@@ -122,13 +113,13 @@
     <EmbeddedResource Include="Model\SendForm.resx">
       <DependentUpon>SendForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Model\StartScreen.resx">
-      <DependentUpon>StartScreen.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Model\StartImage.resx">
+      <DependentUpon>StartImage.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

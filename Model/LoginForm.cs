@@ -110,7 +110,7 @@ namespace DeliveryApplication
                 {
                     MainForm.CurrentEmployee = GetEmployeeFromTable(dt.Rows[0]);
                     this.Hide();
-                    StartScreen form = new StartScreen();
+                    StartImage form = new StartImage();
                     form.Show();
                 }
                 else

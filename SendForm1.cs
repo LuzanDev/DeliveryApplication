@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DeliveryApplication.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,16 +9,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DeliveryApplication.Model
+namespace DeliveryApplication
 {
-    public partial class SendForm : Form
+    public partial class SendForm1 : MainForm
     {
-        public SendForm()
+        public SendForm1()
         {
             InitializeComponent();
         }
 
-        private void SendForm_Load(object sender, EventArgs e)
+        private void SendForm1_Load(object sender, EventArgs e)
         {
             int padding = 10;
             int workSizeWidth = (Screen.PrimaryScreen.Bounds.Width - padding * 5);
@@ -42,14 +43,13 @@ namespace DeliveryApplication.Model
             panelPayment.Location = new Point(padding * 4 + width * 3, padding + 90);
 
             btnCreate.Location = new Point((panelPayment.Location.X + panelPayment.Size.Width) - btnCreate.Size.Width, panelPayment.Location.Y + panelPayment.Size.Height + padding);
-
-
-
         }
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            MainForm.Instance.AddControls(new ControlMenu());
+            this.Hide();
+            ButtonMain.obj.Show();
+            
         }
     }
 }

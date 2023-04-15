@@ -34,7 +34,7 @@ namespace DeliveryApplication
 
         private void btnAcceptParcel_Click(object sender, EventArgs e)
         {
-            //MainForm.Instance.AddControls(new SendForm ());
+            MainForm.Instance.AddControls(new SendForm ());
         }
 
 
