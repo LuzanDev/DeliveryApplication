@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -24,5 +25,27 @@ namespace DeliveryApplication
             }
             return connection;
         }
+
+        public static DataTable GetClient(string qry)
+        {
+            DataTable tableClient = new DataTable();
+            try
+            {
+                SqlCommand cmd = new SqlCommand(qry, GetConnection());
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                da.Fill(tableClient);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Не удалось получить данные " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally 
+            {
+                GetConnection().Close();
+            }
+            return tableClient;
+        }
+
+
     }
 }

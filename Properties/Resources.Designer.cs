@@ -63,6 +63,26 @@ namespace DeliveryApplication.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap addOrga {
+            get {
+                object obj = ResourceManager.GetObject("addOrga", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap addOrganization {
+            get {
+                object obj = ResourceManager.GetObject("addOrganization", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap arrowDown {
             get {
                 object obj = ResourceManager.GetObject("arrowDown", resourceCulture);
