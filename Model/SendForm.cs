@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using Guna.UI2.WinForms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Header;
@@ -23,8 +24,10 @@ namespace DeliveryApplication.Model
         public SendForm()
         {
             InitializeComponent();
+            Obj = this;
         }
 
+        public static SendForm Obj { get; private set; }
         private void SendForm_Load(object sender, EventArgs e)
         {
             #region Отрисовка основных панелей управления формы Отправить
@@ -65,7 +68,9 @@ namespace DeliveryApplication.Model
             #endregion
             clients = new List<Client>();
             listBox1.Size = new Size(txtNumberSender.Width,20);
-
+            panelSender.Focus();
+            txtNumberSender.Focus();
+            
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -175,13 +180,28 @@ namespace DeliveryApplication.Model
         }
 
         //Ввод только цифры
-        private void General_KeyPress(object sender, KeyPressEventArgs e)
+        private void General_KeyPressOnlyNumbers(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
             }
         }
+
+        private void General_KeyPressFractionalNumbers(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+            
+            if (e.KeyChar == '.' && (sender as Guna.UI2.WinForms.Guna2TextBox).Text.IndexOf('.') > -1)
+            {
+                e.Handled = true;
+            }
+        }
+
+
         private void General_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (sender is Guna2TextBox button)
@@ -221,51 +241,70 @@ namespace DeliveryApplication.Model
         private void FillListBox(Guna2TextBox text)
         {
             string qry = $@"SELECT 
-                Client.cl_Id, Client.cl_NumberPhone, Client.cl_Name, Client.cl_Surname, Client.cl_Patronymic, Companies.com_Name, 
+                Client.cl_Id, Client.cl_NumberPhone, Client.cl_Name, Client.cl_Surname, Client.cl_Patronymic, 
                 City.city_Name, Client.cl_LastNumberStock 
                 FROM Client
-                LEFT OUTER JOIN Companies ON Client.cl_Company = Companies.com_Id
                 LEFT OUTER JOIN City ON Client.cl_City = City.city_Id
                 WHERE cl_NumberPhone = '{text.Text}'";
 
-            DataTable dt = DataBaseControl.GetClient(qry);
+            DataTable dt = DataBaseControl.GetData(qry);
             if (dt.Rows.Count > 0)
             {
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     Client client = GetClientFromTable(dt.Rows[i]);
-                    if (client.Company != "")
-                    {
-                        clients.Add(client);
-                    }
-                    Client privClient = (Client)client.Clone();
-                    privClient.Company = "Приватна особа";
-                    clients.Add(privClient);
+                    clients.Add(client);
                 }
             }
             else
             {
                 listBox1.Items.Add("Клієнта не знайдено -> Створити");
+                return;
             }
 
             foreach (var client in clients)
             {
-                listBox1.Items.Add(client);
+                for (int i = 0; i < client.Companies.Count; i++)
+                {
+                    listBox1.Items.Add(client.ToString() + "-> " + client.Companies[i].ToString());
+                }
+                listBox1.Items.Add(client.ToString() + "-> Приватна особа");
             }
         }
         private Client GetClientFromTable(DataRow row)
         {
-            return new Client 
+            Client client = new Client() 
             {
-            ID = Convert.ToInt32(row["cl_Id"]),
-            NumberPhone = row["cl_NumberPhone"].ToString(),
-            Name = row["cl_Name"].ToString(),
-            Surname = row["cl_Surname"].ToString(),
-            Patronymic = row["cl_Patronymic"].ToString(),
-            Company = row["com_Name"].ToString(),
-            City = row["city_Name"].ToString(),
-            LastNumberStock = Convert.ToInt32(row["cl_LastNumberStock"])
+                ID = Convert.ToInt32(row["cl_Id"]),
+                NumberPhone = row["cl_NumberPhone"].ToString(),
+                Name = row["cl_Name"].ToString(),
+                Surname = row["cl_Surname"].ToString(),
+                Patronymic = row["cl_Patronymic"].ToString(),
+                City = row["city_Name"].ToString(),
+                LastNumberStock = Convert.ToInt32(row["cl_LastNumberStock"])
             };
+            string qry = $@"SELECT 
+                         Companies.com_Id, Companies.com_Name, Companies.com_Number 
+                         FROM Companies
+                         INNER JOIN PeopleCompanies
+                         ON Companies.com_Id = PeopleCompanies.com_Id
+                         WHERE PeopleCompanies.cl_Id = {client.ID}";
+            DataTable dt = DataBaseControl.GetData(qry);
+            if (dt.Rows.Count > 0)
+            {
+                foreach (DataRow rows in dt.Rows)
+                {
+                    Company company = new Company
+                    {
+                        ID = Convert.ToInt32(rows["com_Id"]),
+                        Name = rows["com_Name"].ToString(),
+                        Code = Convert.ToInt32(rows["com_Number"])
+                    };
+                    client.Companies.Add(company);
+                }
+            }
+
+            return client;
         }
 
 
@@ -302,46 +341,75 @@ namespace DeliveryApplication.Model
             {
                 if (listBox1.SelectedItem != null)
                 {
-                    if (listBox1.SelectedItem is Client client)
+                    if (clients.Count > 0)
                     {
+                        //клиент получатель - в базе есть
                         if (panelRecipient.BorderColor == Color.FromArgb(46, 186, 119))
                         {
                             listBox1.Visible = false;
-                            txtNumberRecipient.Text = client.NumberPhone;
                             cbTypeRecipient.Items.Clear();
-                            foreach (var item in clients)
-                            {
-                                cbTypeRecipient.Items.Add(item.Company);
-                                if (item.Company == client.Company)
-                                {
-                                    cbTypeRecipient.SelectedIndex = cbTypeRecipient.Items.Count - 1;
-                                }
-                            }
+
+                            Client cl = GetClientFromString(listBox1.SelectedItem.ToString());
+                            
+                            string separator = "-> ";
+                            int separatorIndex = listBox1.SelectedItem.ToString().IndexOf(separator);
+                            string nameCompany = listBox1.SelectedItem.ToString().Substring(separatorIndex + separator.Length).TrimStart();
+
+                            txtNumberRecipient.Text = cl.NumberPhone;
                             imgAddOrgaRecipient.Visible = true;
-                            txtFullNameRecipient.Text = $"{client.Surname} {client.Name} {client.Patronymic}";
+                            for (int i = 0; i < cl.Companies.Count; i++)
+                            {
+                                cbTypeRecipient.Items.Add(cl.Companies[i].Name);
+                            }
+                            cbTypeRecipient.Items.Add("Приватна особа");
+                            int index = cbTypeRecipient.FindStringExact(nameCompany);
+                            cbTypeRecipient.SelectedIndex = index;
+
+                            txtFullNameRecipient.Text = cl.ToString();
+                            txtCityRecipient.Text = cl.City;
+                            txtLastNumberStockRecipient.Text = cl.LastNumberStock.ToString();
+
+                            cbTypeRecipient.Visible = true;
+                            imgAddOrgaRecipient.Visible = true;
+                            txtFullNameRecipient.Visible = true;
+                            txtCityRecipient.Visible = true;
+                            txtLastNumberStockRecipient.Visible = true;
+                            txtFullNameRecipient.Focus();
+                            txtFullNameRecipient.SelectionStart = txtFullNameRecipient.Text.Length;
                         }
+                        //клиент отправитель - в базе есть
                         if (panelSender.BorderColor == Color.FromArgb(46, 186, 119))
                         {
                             listBox1.Visible = false;
-                            txtNumberSender.Text = client.NumberPhone;
                             cbTypeSender.Items.Clear();
-                            foreach (var item in clients)
-                            {
-                                cbTypeSender.Items.Add(item.Company);
-                                if (item.Company == client.Company)
-                                {
-                                    cbTypeSender.SelectedIndex = cbTypeSender.Items.Count - 1;
-                                }
-                            }
-                            txtFullNameSender.Text = $"{client.Surname} {client.Name} {client.Patronymic}";
-                            cbTypeSender.Visible = true;
+
+                            Client cl = GetClientFromString(listBox1.SelectedItem.ToString());
+
+                            string separator = "-> ";
+                            int separatorIndex = listBox1.SelectedItem.ToString().IndexOf(separator);
+                            string nameCompany = listBox1.SelectedItem.ToString().Substring(separatorIndex + separator.Length).TrimStart();
+
+                            txtNumberSender.Text = cl.NumberPhone;
                             imgAddOrgaSender.Visible = true;
+                            for (int i = 0; i < cl.Companies.Count; i++)
+                            {
+                                cbTypeSender.Items.Add(cl.Companies[i].Name);
+                            }
+                            cbTypeSender.Items.Add("Приватна особа");
+                            int index = cbTypeSender.FindStringExact(nameCompany);
+                            cbTypeSender.SelectedIndex = index;
+
+                            txtFullNameSender.Text = cl.ToString();
+                            cbTypeSender.Visible = true;
                             txtFullNameSender.Visible = true;
+                            txtFullNameSender.Focus();
+                            txtFullNameSender.SelectionStart = txtFullNameSender.Text.Length;
                         }
 
                     }
-                    if (listBox1.SelectedItem is string)
+                    else
                     {
+                        //клиент отправитель - в базе не было
                         if (panelSender.BorderColor == Color.FromArgb(46, 186, 119))
                         {
                             listBox1.Visible = false;
@@ -350,18 +418,26 @@ namespace DeliveryApplication.Model
                             cbTypeSender.SelectedIndex = 0;
                             cbTypeSender.Visible = true;
                             txtFullNameSender.Text = string.Empty;
+                            txtFullNameSender.Text = string.Empty;
                             txtFullNameSender.Visible = true;
                             imgAddOrgaSender.Visible = true;
                             cbTypeSender.Focus();
                         }
+                        //клиент получатель - в базе не было
                         if (panelRecipient.BorderColor == Color.FromArgb(46, 186, 119))
                         {
                             listBox1.Visible = false;
                             cbTypeRecipient.Items.Clear();
                             cbTypeRecipient.Items.Add("Приватна особа");
                             cbTypeRecipient.SelectedIndex = 0;
-                            txtFullNameRecipient.Text = string.Empty;
+                            cbTypeRecipient.Visible = true;
                             imgAddOrgaRecipient.Visible = true;
+                            txtFullNameRecipient.Text = string.Empty;
+                            txtFullNameRecipient.Visible = true;
+                            txtCityRecipient.Text = string.Empty;
+                            txtCityRecipient.Visible = true;
+                            txtLastNumberStockRecipient.Text = string.Empty;
+                            txtLastNumberStockRecipient.Visible = true;
                             cbTypeRecipient.Focus();
                         }
                     }
@@ -370,7 +446,24 @@ namespace DeliveryApplication.Model
                 }
             }
         }
+        private Client GetClientFromString(string informatiomStringClient)
+        {
+            string strClient = listBox1.SelectedItem.ToString();
+            string[] words = strClient.Split(' ');
+            string fullNameClient = string.Join(" ", words.Take(3));
+            fullNameClient = fullNameClient.Substring(0, fullNameClient.Length - 2);
 
+            string separator = "-> ";
+            int separatorIndex = listBox1.SelectedItem.ToString().IndexOf(separator);
+            string nameCompany = listBox1.SelectedItem.ToString().Substring(separatorIndex + separator.Length).TrimStart();
+
+            Client cl = clients.FirstOrDefault(p =>
+                p.ToString() == fullNameClient && p.Companies.Any(c => c.Name == nameCompany));
+
+            if (cl == null)
+                cl = clients.FirstOrDefault(p => p.ToString() == fullNameClient);
+            return cl;
+        }
         private void txtNumberRecipient_TextChanged(object sender, EventArgs e)
         {
             listBox1.Visible = false;
@@ -386,6 +479,55 @@ namespace DeliveryApplication.Model
                 listBox1.Location = new Point(txtNumberRecipient.Location.X, txtNumberRecipient.Location.Y + 38);
                 listBox1.Visible = true;
             }
+            else
+            {
+                cbTypeRecipient.Visible = false;
+                txtFullNameRecipient.Visible = false;
+                txtCityRecipient.Visible = false;
+                txtLastNumberStockRecipient.Visible = false;
+            }
+        }
+
+        private void imgAddOrga_Click(object sender, EventArgs e)
+        {
+            AddCompany form = new AddCompany();
+            MainForm.BlurBackground(form);
+            Company company = form.SelectedCompany;
+            // if null
+            //добавление компании отправителя
+            if (company != null)
+            {
+                if (panelSender.BorderColor == Color.FromArgb(46, 186, 119))
+                {
+                    if (cbTypeSender.Items.Contains(company.Name))
+                    {
+                        int index = cbTypeSender.Items.IndexOf(company.Name);
+                        cbTypeSender.SelectedIndex = index;
+                    }
+                    else
+                    {
+                        cbTypeSender.Items.Add(company.Name);
+                        int index = cbTypeSender.Items.Count - 1;
+                        cbTypeSender.SelectedIndex = index;
+                    }
+                }
+                //добавление компании получателя
+                else if (panelRecipient.BorderColor == Color.FromArgb(46, 186, 119))
+                {
+                    if (cbTypeRecipient.Items.Contains(company.Name))
+                    {
+                        int index = cbTypeRecipient.Items.IndexOf(company.Name);
+                        cbTypeRecipient.SelectedIndex = index;
+                    }
+                    else
+                    {
+                        cbTypeRecipient.Items.Add(company.Name);
+                        int index = cbTypeRecipient.Items.Count - 1;
+                        cbTypeRecipient.SelectedIndex = index;
+                    }
+                }
+            }
+            
         }
     }
 }

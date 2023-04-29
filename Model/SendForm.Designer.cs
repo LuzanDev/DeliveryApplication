@@ -31,13 +31,20 @@ namespace DeliveryApplication.Model
         private void InitializeComponent()
         {
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.btnMenuPackage = new Guna.UI2.WinForms.Guna2Button();
+            this.btnExit = new Guna.UI2.WinForms.Guna2Button();
             this.lblDateNow = new System.Windows.Forms.Label();
             this.lblPackageNumber = new System.Windows.Forms.Label();
+            this.guna2PictureBox2 = new Guna.UI2.WinForms.Guna2PictureBox();
             this.lblVisitNumber = new System.Windows.Forms.Label();
+            this.imgClientLogo = new Guna.UI2.WinForms.Guna2PictureBox();
             this.panelSender = new Guna.UI2.WinForms.Guna2Panel();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.txtFullNameSender = new Guna.UI2.WinForms.Guna2TextBox();
+            this.imgAddOrgaSender = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.cbTypeSender = new Guna.UI2.WinForms.Guna2ComboBox();
             this.txtNumberSender = new Guna.UI2.WinForms.Guna2TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.panelPackageInfo = new Guna.UI2.WinForms.Guna2Panel();
             this.txtDesPackage = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtLength = new Guna.UI2.WinForms.Guna2TextBox();
@@ -49,6 +56,7 @@ namespace DeliveryApplication.Model
             this.cbTypeDelivery = new Guna.UI2.WinForms.Guna2ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panelRecipient = new Guna.UI2.WinForms.Guna2Panel();
+            this.imgAddOrgaRecipient = new Guna.UI2.WinForms.Guna2PictureBox();
             this.txtLastNumberStockRecipient = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtCityRecipient = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtFullNameRecipient = new Guna.UI2.WinForms.Guna2TextBox();
@@ -58,23 +66,15 @@ namespace DeliveryApplication.Model
             this.panelPayment = new Guna.UI2.WinForms.Guna2Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.btnCreate = new Guna.UI2.WinForms.Guna2Button();
-            this.cbTypeSender = new Guna.UI2.WinForms.Guna2ComboBox();
-            this.txtFullNameSender = new Guna.UI2.WinForms.Guna2TextBox();
-            this.imgAddOrgaRecipient = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.imgAddOrgaSender = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.btnMenuPackage = new Guna.UI2.WinForms.Guna2Button();
-            this.btnExit = new Guna.UI2.WinForms.Guna2Button();
-            this.guna2PictureBox2 = new Guna.UI2.WinForms.Guna2PictureBox();
-            this.imgClientLogo = new Guna.UI2.WinForms.Guna2PictureBox();
             this.guna2Panel1.SuspendLayout();
-            this.panelSender.SuspendLayout();
-            this.panelPackageInfo.SuspendLayout();
-            this.panelRecipient.SuspendLayout();
-            this.panelPayment.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.imgAddOrgaRecipient)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgAddOrgaSender)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgClientLogo)).BeginInit();
+            this.panelSender.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imgAddOrgaSender)).BeginInit();
+            this.panelPackageInfo.SuspendLayout();
+            this.panelRecipient.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imgAddOrgaRecipient)).BeginInit();
+            this.panelPayment.SuspendLayout();
             this.SuspendLayout();
             // 
             // guna2Panel1
@@ -91,6 +91,53 @@ namespace DeliveryApplication.Model
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(1257, 90);
             this.guna2Panel1.TabIndex = 5;
+            // 
+            // btnMenuPackage
+            // 
+            this.btnMenuPackage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnMenuPackage.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(155)))), ((int)(((byte)(155)))));
+            this.btnMenuPackage.BorderRadius = 5;
+            this.btnMenuPackage.BorderThickness = 1;
+            this.btnMenuPackage.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnMenuPackage.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnMenuPackage.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnMenuPackage.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnMenuPackage.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
+            this.btnMenuPackage.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.btnMenuPackage.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.btnMenuPackage.Image = global::DeliveryApplication.Properties.Resources.menuOther;
+            this.btnMenuPackage.Location = new System.Drawing.Point(1083, 29);
+            this.btnMenuPackage.Margin = new System.Windows.Forms.Padding(3, 3, 16, 3);
+            this.btnMenuPackage.Name = "btnMenuPackage";
+            this.btnMenuPackage.Size = new System.Drawing.Size(45, 45);
+            this.btnMenuPackage.TabIndex = 0;
+            // 
+            // btnExit
+            // 
+            this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExit.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(155)))), ((int)(((byte)(155)))));
+            this.btnExit.BorderRadius = 5;
+            this.btnExit.BorderThickness = 1;
+            this.btnExit.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnExit.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnExit.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnExit.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnExit.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
+            this.btnExit.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.btnExit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.btnExit.Image = global::DeliveryApplication.Properties.Resources.btnEsc;
+            this.btnExit.ImageAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.btnExit.ImageOffset = new System.Drawing.Point(0, 1);
+            this.btnExit.ImageSize = new System.Drawing.Size(22, 22);
+            this.btnExit.Location = new System.Drawing.Point(1137, 29);
+            this.btnExit.Margin = new System.Windows.Forms.Padding(3, 3, 10, 3);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(106, 45);
+            this.btnExit.TabIndex = 0;
+            this.btnExit.Text = "ВИЙТИ";
+            this.btnExit.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+            this.btnExit.TextOffset = new System.Drawing.Point(-3, 0);
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // lblDateNow
             // 
@@ -116,6 +163,18 @@ namespace DeliveryApplication.Model
             this.lblPackageNumber.TabIndex = 0;
             this.lblPackageNumber.Text = "7424";
             // 
+            // guna2PictureBox2
+            // 
+            this.guna2PictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.guna2PictureBox2.Image = global::DeliveryApplication.Properties.Resources.arrowDown;
+            this.guna2PictureBox2.ImageRotate = 0F;
+            this.guna2PictureBox2.Location = new System.Drawing.Point(155, 50);
+            this.guna2PictureBox2.Name = "guna2PictureBox2";
+            this.guna2PictureBox2.Size = new System.Drawing.Size(25, 25);
+            this.guna2PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.guna2PictureBox2.TabIndex = 2;
+            this.guna2PictureBox2.TabStop = false;
+            // 
             // lblVisitNumber
             // 
             this.lblVisitNumber.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -127,6 +186,18 @@ namespace DeliveryApplication.Model
             this.lblVisitNumber.Size = new System.Drawing.Size(78, 23);
             this.lblVisitNumber.TabIndex = 0;
             this.lblVisitNumber.Text = "Візит 10";
+            // 
+            // imgClientLogo
+            // 
+            this.imgClientLogo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.imgClientLogo.Image = global::DeliveryApplication.Properties.Resources.userIcon;
+            this.imgClientLogo.ImageRotate = 0F;
+            this.imgClientLogo.Location = new System.Drawing.Point(10, 37);
+            this.imgClientLogo.Name = "imgClientLogo";
+            this.imgClientLogo.Size = new System.Drawing.Size(50, 50);
+            this.imgClientLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.imgClientLogo.TabIndex = 0;
+            this.imgClientLogo.TabStop = false;
             // 
             // panelSender
             // 
@@ -144,22 +215,72 @@ namespace DeliveryApplication.Model
             this.panelSender.Location = new System.Drawing.Point(10, 96);
             this.panelSender.Name = "panelSender";
             this.panelSender.Size = new System.Drawing.Size(299, 579);
-            this.panelSender.TabIndex = 1;
+            this.panelSender.TabIndex = 0;
             this.panelSender.Enter += new System.EventHandler(this.panel_Enter);
             this.panelSender.Leave += new System.EventHandler(this.panel_Leave);
             // 
-            // listBox1
+            // txtFullNameSender
             // 
-            this.listBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 21;
-            this.listBox1.Location = new System.Drawing.Point(17, 109);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(265, 21);
-            this.listBox1.TabIndex = 1;
-            this.listBox1.Visible = false;
-            this.listBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listBox1_KeyDown);
+            this.txtFullNameSender.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtFullNameSender.BorderRadius = 10;
+            this.txtFullNameSender.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtFullNameSender.DefaultText = "";
+            this.txtFullNameSender.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtFullNameSender.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtFullNameSender.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtFullNameSender.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtFullNameSender.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(186)))), ((int)(((byte)(119)))));
+            this.txtFullNameSender.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.txtFullNameSender.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtFullNameSender.Location = new System.Drawing.Point(17, 195);
+            this.txtFullNameSender.Margin = new System.Windows.Forms.Padding(5);
+            this.txtFullNameSender.Name = "txtFullNameSender";
+            this.txtFullNameSender.Padding = new System.Windows.Forms.Padding(3);
+            this.txtFullNameSender.PasswordChar = '\0';
+            this.txtFullNameSender.PlaceholderText = "Контактна особа";
+            this.txtFullNameSender.SelectedText = "";
+            this.txtFullNameSender.Size = new System.Drawing.Size(265, 36);
+            this.txtFullNameSender.TabIndex = 2;
+            this.txtFullNameSender.Visible = false;
+            // 
+            // imgAddOrgaSender
+            // 
+            this.imgAddOrgaSender.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.imgAddOrgaSender.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.imgAddOrgaSender.Image = global::DeliveryApplication.Properties.Resources.addOrganization;
+            this.imgAddOrgaSender.ImageRotate = 0F;
+            this.imgAddOrgaSender.Location = new System.Drawing.Point(261, 141);
+            this.imgAddOrgaSender.Name = "imgAddOrgaSender";
+            this.imgAddOrgaSender.Size = new System.Drawing.Size(21, 21);
+            this.imgAddOrgaSender.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.imgAddOrgaSender.TabIndex = 8;
+            this.imgAddOrgaSender.TabStop = false;
+            this.imgAddOrgaSender.Visible = false;
+            this.imgAddOrgaSender.Click += new System.EventHandler(this.imgAddOrga_Click);
+            // 
+            // cbTypeSender
+            // 
+            this.cbTypeSender.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbTypeSender.BackColor = System.Drawing.Color.Transparent;
+            this.cbTypeSender.BorderRadius = 10;
+            this.cbTypeSender.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cbTypeSender.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTypeSender.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(186)))), ((int)(((byte)(119)))));
+            this.cbTypeSender.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(186)))), ((int)(((byte)(119)))));
+            this.cbTypeSender.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.cbTypeSender.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
+            this.cbTypeSender.IntegralHeight = false;
+            this.cbTypeSender.ItemHeight = 30;
+            this.cbTypeSender.Items.AddRange(new object[] {
+            "Приватна особа"});
+            this.cbTypeSender.Location = new System.Drawing.Point(17, 133);
+            this.cbTypeSender.Name = "cbTypeSender";
+            this.cbTypeSender.Size = new System.Drawing.Size(238, 36);
+            this.cbTypeSender.StartIndex = 0;
+            this.cbTypeSender.TabIndex = 1;
+            this.cbTypeSender.Visible = false;
             // 
             // txtNumberSender
             // 
@@ -191,7 +312,7 @@ namespace DeliveryApplication.Model
             this.txtNumberSender.TabIndex = 0;
             this.txtNumberSender.TextChanged += new System.EventHandler(this.txtNumberSender_TextChanged);
             this.txtNumberSender.KeyDown += new System.Windows.Forms.KeyEventHandler(this.General_KeyDown);
-            this.txtNumberSender.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.General_KeyPress);
+            this.txtNumberSender.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.General_KeyPressOnlyNumbers);
             // 
             // label4
             // 
@@ -202,8 +323,21 @@ namespace DeliveryApplication.Model
             this.label4.Margin = new System.Windows.Forms.Padding(3);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(101, 23);
-            this.label4.TabIndex = 4;
+            this.label4.TabIndex = 3;
             this.label4.Text = "Відправник";
+            // 
+            // listBox1
+            // 
+            this.listBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.listBox1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 21;
+            this.listBox1.Location = new System.Drawing.Point(17, 109);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(265, 21);
+            this.listBox1.TabIndex = 1;
+            this.listBox1.Visible = false;
+            this.listBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listBox1_KeyDown);
             // 
             // panelPackageInfo
             // 
@@ -224,7 +358,7 @@ namespace DeliveryApplication.Model
             this.panelPackageInfo.Location = new System.Drawing.Point(315, 96);
             this.panelPackageInfo.Name = "panelPackageInfo";
             this.panelPackageInfo.Size = new System.Drawing.Size(299, 579);
-            this.panelPackageInfo.TabIndex = 2;
+            this.panelPackageInfo.TabIndex = 1;
             this.panelPackageInfo.Enter += new System.EventHandler(this.panel_Enter);
             this.panelPackageInfo.Leave += new System.EventHandler(this.panel_Leave);
             // 
@@ -299,6 +433,7 @@ namespace DeliveryApplication.Model
             this.txtLength.Size = new System.Drawing.Size(85, 36);
             this.txtLength.TabIndex = 6;
             this.txtLength.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtLength.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.General_KeyPressFractionalNumbers);
             // 
             // txtHeight
             // 
@@ -323,6 +458,7 @@ namespace DeliveryApplication.Model
             this.txtHeight.Size = new System.Drawing.Size(85, 36);
             this.txtHeight.TabIndex = 7;
             this.txtHeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtHeight.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.General_KeyPressFractionalNumbers);
             // 
             // txtWidth
             // 
@@ -346,6 +482,7 @@ namespace DeliveryApplication.Model
             this.txtWidth.Size = new System.Drawing.Size(85, 36);
             this.txtWidth.TabIndex = 5;
             this.txtWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtWidth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.General_KeyPressFractionalNumbers);
             // 
             // btnAddPackage
             // 
@@ -393,6 +530,7 @@ namespace DeliveryApplication.Model
             this.txtWeight.Size = new System.Drawing.Size(89, 36);
             this.txtWeight.TabIndex = 3;
             this.txtWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtWeight.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.General_KeyPressFractionalNumbers);
             // 
             // txtPriceParcel
             // 
@@ -418,6 +556,7 @@ namespace DeliveryApplication.Model
             this.txtPriceParcel.Size = new System.Drawing.Size(166, 36);
             this.txtPriceParcel.TabIndex = 2;
             this.txtPriceParcel.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtPriceParcel.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.General_KeyPressFractionalNumbers);
             // 
             // cbTypeDelivery
             // 
@@ -474,9 +613,24 @@ namespace DeliveryApplication.Model
             this.panelRecipient.Location = new System.Drawing.Point(631, 96);
             this.panelRecipient.Name = "panelRecipient";
             this.panelRecipient.Size = new System.Drawing.Size(299, 579);
-            this.panelRecipient.TabIndex = 3;
+            this.panelRecipient.TabIndex = 2;
             this.panelRecipient.Enter += new System.EventHandler(this.panel_Enter);
             this.panelRecipient.Leave += new System.EventHandler(this.panel_Leave);
+            // 
+            // imgAddOrgaRecipient
+            // 
+            this.imgAddOrgaRecipient.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.imgAddOrgaRecipient.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.imgAddOrgaRecipient.Image = global::DeliveryApplication.Properties.Resources.addOrganization;
+            this.imgAddOrgaRecipient.ImageRotate = 0F;
+            this.imgAddOrgaRecipient.Location = new System.Drawing.Point(261, 141);
+            this.imgAddOrgaRecipient.Name = "imgAddOrgaRecipient";
+            this.imgAddOrgaRecipient.Size = new System.Drawing.Size(21, 21);
+            this.imgAddOrgaRecipient.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.imgAddOrgaRecipient.TabIndex = 6;
+            this.imgAddOrgaRecipient.TabStop = false;
+            this.imgAddOrgaRecipient.Visible = false;
+            this.imgAddOrgaRecipient.Click += new System.EventHandler(this.imgAddOrga_Click);
             // 
             // txtLastNumberStockRecipient
             // 
@@ -501,6 +655,7 @@ namespace DeliveryApplication.Model
             this.txtLastNumberStockRecipient.SelectedText = "";
             this.txtLastNumberStockRecipient.Size = new System.Drawing.Size(265, 36);
             this.txtLastNumberStockRecipient.TabIndex = 4;
+            this.txtLastNumberStockRecipient.Visible = false;
             // 
             // txtCityRecipient
             // 
@@ -613,6 +768,7 @@ namespace DeliveryApplication.Model
             this.txtCityRecipient.SelectedText = "";
             this.txtCityRecipient.Size = new System.Drawing.Size(265, 36);
             this.txtCityRecipient.TabIndex = 3;
+            this.txtCityRecipient.Visible = false;
             // 
             // txtFullNameRecipient
             // 
@@ -637,6 +793,7 @@ namespace DeliveryApplication.Model
             this.txtFullNameRecipient.SelectedText = "";
             this.txtFullNameRecipient.Size = new System.Drawing.Size(265, 36);
             this.txtFullNameRecipient.TabIndex = 2;
+            this.txtFullNameRecipient.Visible = false;
             // 
             // txtNumberRecipient
             // 
@@ -664,7 +821,7 @@ namespace DeliveryApplication.Model
             this.txtNumberRecipient.TabIndex = 0;
             this.txtNumberRecipient.TextChanged += new System.EventHandler(this.txtNumberRecipient_TextChanged);
             this.txtNumberRecipient.KeyDown += new System.Windows.Forms.KeyEventHandler(this.General_KeyDown);
-            this.txtNumberRecipient.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.General_KeyPress);
+            this.txtNumberRecipient.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.General_KeyPressOnlyNumbers);
             this.txtNumberRecipient.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.General_MouseDoubleClick);
             // 
             // cbTypeRecipient
@@ -688,6 +845,7 @@ namespace DeliveryApplication.Model
             this.cbTypeRecipient.Size = new System.Drawing.Size(238, 36);
             this.cbTypeRecipient.StartIndex = 0;
             this.cbTypeRecipient.TabIndex = 1;
+            this.cbTypeRecipient.Visible = false;
             // 
             // label2
             // 
@@ -746,153 +904,6 @@ namespace DeliveryApplication.Model
             this.btnCreate.TabIndex = 5;
             this.btnCreate.Text = "СТВОРИТИ";
             // 
-            // cbTypeSender
-            // 
-            this.cbTypeSender.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbTypeSender.BackColor = System.Drawing.Color.Transparent;
-            this.cbTypeSender.BorderRadius = 10;
-            this.cbTypeSender.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cbTypeSender.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbTypeSender.FocusedColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(186)))), ((int)(((byte)(119)))));
-            this.cbTypeSender.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(186)))), ((int)(((byte)(119)))));
-            this.cbTypeSender.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.cbTypeSender.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
-            this.cbTypeSender.IntegralHeight = false;
-            this.cbTypeSender.ItemHeight = 30;
-            this.cbTypeSender.Items.AddRange(new object[] {
-            "Приватна особа"});
-            this.cbTypeSender.Location = new System.Drawing.Point(17, 133);
-            this.cbTypeSender.Name = "cbTypeSender";
-            this.cbTypeSender.Size = new System.Drawing.Size(238, 36);
-            this.cbTypeSender.StartIndex = 0;
-            this.cbTypeSender.TabIndex = 7;
-            this.cbTypeSender.Visible = false;
-            // 
-            // txtFullNameSender
-            // 
-            this.txtFullNameSender.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtFullNameSender.BorderRadius = 10;
-            this.txtFullNameSender.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtFullNameSender.DefaultText = "";
-            this.txtFullNameSender.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.txtFullNameSender.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.txtFullNameSender.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtFullNameSender.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtFullNameSender.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(186)))), ((int)(((byte)(119)))));
-            this.txtFullNameSender.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.txtFullNameSender.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtFullNameSender.Location = new System.Drawing.Point(17, 195);
-            this.txtFullNameSender.Margin = new System.Windows.Forms.Padding(5);
-            this.txtFullNameSender.Name = "txtFullNameSender";
-            this.txtFullNameSender.Padding = new System.Windows.Forms.Padding(3);
-            this.txtFullNameSender.PasswordChar = '\0';
-            this.txtFullNameSender.PlaceholderText = "Контактна особа";
-            this.txtFullNameSender.SelectedText = "";
-            this.txtFullNameSender.Size = new System.Drawing.Size(265, 36);
-            this.txtFullNameSender.TabIndex = 9;
-            this.txtFullNameSender.Visible = false;
-            // 
-            // imgAddOrgaRecipient
-            // 
-            this.imgAddOrgaRecipient.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.imgAddOrgaRecipient.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.imgAddOrgaRecipient.Image = global::DeliveryApplication.Properties.Resources.addOrganization;
-            this.imgAddOrgaRecipient.ImageRotate = 0F;
-            this.imgAddOrgaRecipient.Location = new System.Drawing.Point(261, 141);
-            this.imgAddOrgaRecipient.Name = "imgAddOrgaRecipient";
-            this.imgAddOrgaRecipient.Size = new System.Drawing.Size(21, 21);
-            this.imgAddOrgaRecipient.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.imgAddOrgaRecipient.TabIndex = 6;
-            this.imgAddOrgaRecipient.TabStop = false;
-            this.imgAddOrgaRecipient.Visible = false;
-            // 
-            // imgAddOrgaSender
-            // 
-            this.imgAddOrgaSender.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.imgAddOrgaSender.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.imgAddOrgaSender.Image = global::DeliveryApplication.Properties.Resources.addOrganization;
-            this.imgAddOrgaSender.ImageRotate = 0F;
-            this.imgAddOrgaSender.Location = new System.Drawing.Point(261, 141);
-            this.imgAddOrgaSender.Name = "imgAddOrgaSender";
-            this.imgAddOrgaSender.Size = new System.Drawing.Size(21, 21);
-            this.imgAddOrgaSender.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.imgAddOrgaSender.TabIndex = 8;
-            this.imgAddOrgaSender.TabStop = false;
-            this.imgAddOrgaSender.Visible = false;
-            // 
-            // btnMenuPackage
-            // 
-            this.btnMenuPackage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMenuPackage.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(155)))), ((int)(((byte)(155)))));
-            this.btnMenuPackage.BorderRadius = 5;
-            this.btnMenuPackage.BorderThickness = 1;
-            this.btnMenuPackage.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnMenuPackage.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnMenuPackage.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnMenuPackage.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnMenuPackage.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
-            this.btnMenuPackage.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.btnMenuPackage.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
-            this.btnMenuPackage.Image = global::DeliveryApplication.Properties.Resources.menuOther;
-            this.btnMenuPackage.Location = new System.Drawing.Point(1083, 29);
-            this.btnMenuPackage.Margin = new System.Windows.Forms.Padding(3, 3, 16, 3);
-            this.btnMenuPackage.Name = "btnMenuPackage";
-            this.btnMenuPackage.Size = new System.Drawing.Size(45, 45);
-            this.btnMenuPackage.TabIndex = 0;
-            // 
-            // btnExit
-            // 
-            this.btnExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExit.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(155)))), ((int)(((byte)(155)))));
-            this.btnExit.BorderRadius = 5;
-            this.btnExit.BorderThickness = 1;
-            this.btnExit.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.btnExit.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.btnExit.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.btnExit.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.btnExit.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
-            this.btnExit.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.btnExit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
-            this.btnExit.Image = global::DeliveryApplication.Properties.Resources.btnEsc;
-            this.btnExit.ImageAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.btnExit.ImageOffset = new System.Drawing.Point(0, 1);
-            this.btnExit.ImageSize = new System.Drawing.Size(22, 22);
-            this.btnExit.Location = new System.Drawing.Point(1137, 29);
-            this.btnExit.Margin = new System.Windows.Forms.Padding(3, 3, 10, 3);
-            this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(106, 45);
-            this.btnExit.TabIndex = 0;
-            this.btnExit.Text = "ВИЙТИ";
-            this.btnExit.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.btnExit.TextOffset = new System.Drawing.Point(-3, 0);
-            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
-            // 
-            // guna2PictureBox2
-            // 
-            this.guna2PictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.guna2PictureBox2.Image = global::DeliveryApplication.Properties.Resources.arrowDown;
-            this.guna2PictureBox2.ImageRotate = 0F;
-            this.guna2PictureBox2.Location = new System.Drawing.Point(155, 50);
-            this.guna2PictureBox2.Name = "guna2PictureBox2";
-            this.guna2PictureBox2.Size = new System.Drawing.Size(25, 25);
-            this.guna2PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.guna2PictureBox2.TabIndex = 2;
-            this.guna2PictureBox2.TabStop = false;
-            // 
-            // imgClientLogo
-            // 
-            this.imgClientLogo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.imgClientLogo.Image = global::DeliveryApplication.Properties.Resources.userIcon;
-            this.imgClientLogo.ImageRotate = 0F;
-            this.imgClientLogo.Location = new System.Drawing.Point(10, 37);
-            this.imgClientLogo.Name = "imgClientLogo";
-            this.imgClientLogo.Size = new System.Drawing.Size(50, 50);
-            this.imgClientLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.imgClientLogo.TabIndex = 0;
-            this.imgClientLogo.TabStop = false;
-            // 
             // SendForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -913,18 +924,18 @@ namespace DeliveryApplication.Model
             this.Load += new System.EventHandler(this.SendForm_Load);
             this.guna2Panel1.ResumeLayout(false);
             this.guna2Panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgClientLogo)).EndInit();
             this.panelSender.ResumeLayout(false);
             this.panelSender.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imgAddOrgaSender)).EndInit();
             this.panelPackageInfo.ResumeLayout(false);
             this.panelPackageInfo.PerformLayout();
             this.panelRecipient.ResumeLayout(false);
             this.panelRecipient.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imgAddOrgaRecipient)).EndInit();
             this.panelPayment.ResumeLayout(false);
             this.panelPayment.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.imgAddOrgaRecipient)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgAddOrgaSender)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.imgClientLogo)).EndInit();
             this.ResumeLayout(false);
 
         }

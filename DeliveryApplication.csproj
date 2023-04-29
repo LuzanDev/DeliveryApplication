@@ -241,6 +241,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client.cs" />
+    <Compile Include="Company.cs" />
+    <Compile Include="Model\AddCompany.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Model\AddCompany.Designer.cs">
+      <DependentUpon>AddCompany.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model\ControlMenu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -275,6 +282,9 @@
     <Compile Include="Model\StartImage.Designer.cs">
       <DependentUpon>StartImage.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Model\AddCompany.resx">
+      <DependentUpon>AddCompany.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Model\ControlMenu.resx">
       <DependentUpon>ControlMenu.cs</DependentUpon>
     </EmbeddedResource>

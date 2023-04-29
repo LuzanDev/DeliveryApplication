@@ -25,12 +25,36 @@ namespace DeliveryApplication
             set { startDateWork = value; }
         }
 
+        public static int CountCharactersWithoutSpaces(string str)
+        {
+            return str.Replace(" ", "").Length;
+        }
 
         private static Employee currentEmployee;
         public static Employee CurrentEmployee
         {
             get { return currentEmployee; }
             set { currentEmployee = value; }
+        }
+
+        public static void BlurBackground(Form model)
+        {
+            Form Background = new Form();
+            using (model)
+            {
+                Background.StartPosition = FormStartPosition.Manual;
+                Background.FormBorderStyle = FormBorderStyle.None;
+                Background.Opacity = 0.5d;
+                Background.BackColor = Color.Black;
+                Background.Size = MainForm.Instance.Size; //образец
+                Background.Location = MainForm.Instance.Location;
+                Background.ShowInTaskbar = false;
+                Background.Show();
+
+                model.Owner = Background;
+                model.ShowDialog(Background);
+                Background.Dispose();
+            }
         }
 
         private static MainForm obj;

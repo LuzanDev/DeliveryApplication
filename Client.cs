@@ -6,35 +6,25 @@ using System.Threading.Tasks;
 
 namespace DeliveryApplication
 {
-    internal class Client : ICloneable
+    internal class Client 
     {
         public int ID { get; set; }
         public string NumberPhone { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Patronymic { get; set; }
-        public string Company { get; set; }
+        public List<Company> Companies { get; set; }
         public string City { get; set; }
         public int LastNumberStock { get; set; }
 
-        public object Clone()
+        public Client()
         {
-            return new Client
-            {
-                ID = ID,
-                NumberPhone = NumberPhone,
-                Name = Name,
-                Surname = Surname,
-                Patronymic = Patronymic,
-                Company = Company,
-                City= City,
-                LastNumberStock= LastNumberStock
-            };
+            Companies = new List<Company>();
         }
 
         public override string ToString()
         {
-            return $"{Surname} {Name} {Patronymic} ->{Company}";
+            return $"{Surname} {Name} {Patronymic}";
         }
     }
 }
