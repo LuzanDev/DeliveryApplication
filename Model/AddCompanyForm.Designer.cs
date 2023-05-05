@@ -1,6 +1,6 @@
 ﻿namespace DeliveryApplication.Model
 {
-    partial class AddCompany
+    partial class AddCompanyForm
     {
         /// <summary>
         /// Required designer variable.

@@ -1,33 +1,27 @@
-﻿using System;
-using System.Collections;
+﻿using Guna.UI2.WinForms;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.Design;
 using System.Data;
-using System.Data.SqlClient;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
-using Guna.UI2.WinForms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Header;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 
 namespace DeliveryApplication.Model
 {
     public partial class SendForm : Form
     {
+        private List<Client> clients;
+        private List<Stock> stocks;
+        public static SendForm Obj { get; private set; }
+
         public SendForm()
         {
             InitializeComponent();
             Obj = this;
         }
 
-        public static SendForm Obj { get; private set; }
+
         private void SendForm_Load(object sender, EventArgs e)
         {
             #region Отрисовка основных панелей управления формы Отправить
@@ -67,10 +61,11 @@ namespace DeliveryApplication.Model
             txtHeight.Location = new Point(txtDesPackage.Location.X + 10 + txtLength.Size.Width + txtWidth.Size.Width, btnAddPackage.Location.Y + 62);
             #endregion
             clients = new List<Client>();
-            listBox1.Size = new Size(txtNumberSender.Width,20);
+            stocks = new List<Stock>();
+            listBox1.Size = new Size(txtNumberSender.Width, 20);
             panelSender.Focus();
             txtNumberSender.Focus();
-            
+
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -118,7 +113,7 @@ namespace DeliveryApplication.Model
         {
             if (sender is Guna2TextBox activeButton)
             {
-                
+
                 if (activeButton.Text == "+38 (")
                 {
                     activeButton.Text = "";
@@ -194,14 +189,12 @@ namespace DeliveryApplication.Model
             {
                 e.Handled = true;
             }
-            
+
             if (e.KeyChar == '.' && (sender as Guna.UI2.WinForms.Guna2TextBox).Text.IndexOf('.') > -1)
             {
                 e.Handled = true;
             }
         }
-
-
         private void General_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (sender is Guna2TextBox button)
@@ -211,10 +204,10 @@ namespace DeliveryApplication.Model
                     Clipboard.SetText(button.Text);
                 }
             }
-            
+
         }
 
-        private List<Client> clients;
+
         private void txtNumberSender_TextChanged(object sender, EventArgs e)
         {
             listBox1.Visible = false;
@@ -228,7 +221,7 @@ namespace DeliveryApplication.Model
                 FillListBox((Guna2TextBox)sender);
                 listBox1.Height = listBox1.PreferredHeight;
                 panelSender.Controls.Add(listBox1);
-                listBox1.Location = new Point(txtNumberSender.Location.X,txtNumberSender.Location.Y + 38);
+                listBox1.Location = new Point(txtNumberSender.Location.X, txtNumberSender.Location.Y + 38);
                 listBox1.Visible = true;
             }
             else
@@ -242,11 +235,12 @@ namespace DeliveryApplication.Model
         {
             string qry = $@"SELECT 
                 Client.cl_Id, Client.cl_NumberPhone, Client.cl_Name, Client.cl_Surname, Client.cl_Patronymic, 
-                City.city_Name, Client.cl_LastNumberStock 
+                City.city_Name, Stock.StockNumber, Stock.StockAddress, Stock.StockSityID 
                 FROM Client
-                LEFT OUTER JOIN City ON Client.cl_City = City.city_Id
+                LEFT OUTER JOIN Stock ON Client.cl_LastNumberStock = Stock.StockID
+                JOIN City ON Stock.StockSityID = City.city_Id
                 WHERE cl_NumberPhone = '{text.Text}'";
-
+            //LEFT OUTER JOIN City ON Client.cl_City = City.city_Id
             DataTable dt = DataBaseControl.GetData(qry);
             if (dt.Rows.Count > 0)
             {
@@ -273,7 +267,7 @@ namespace DeliveryApplication.Model
         }
         private Client GetClientFromTable(DataRow row)
         {
-            Client client = new Client() 
+            Client client = new Client()
             {
                 ID = Convert.ToInt32(row["cl_Id"]),
                 NumberPhone = row["cl_NumberPhone"].ToString(),
@@ -281,7 +275,7 @@ namespace DeliveryApplication.Model
                 Surname = row["cl_Surname"].ToString(),
                 Patronymic = row["cl_Patronymic"].ToString(),
                 City = row["city_Name"].ToString(),
-                LastNumberStock = Convert.ToInt32(row["cl_LastNumberStock"])
+                LastNumberStock = "Відділення №" + row["StockNumber"].ToString() + ": " + row["StockAddress"].ToString()
             };
             string qry = $@"SELECT 
                          Companies.com_Id, Companies.com_Name, Companies.com_Number 
@@ -335,12 +329,13 @@ namespace DeliveryApplication.Model
 
         private void listBox1_KeyDown(object sender, KeyEventArgs e)
         {
-            
+
 
             if (e.KeyCode == Keys.Enter)
             {
                 if (listBox1.SelectedItem != null)
                 {
+
                     if (clients.Count > 0)
                     {
                         //клиент получатель - в базе есть
@@ -350,13 +345,14 @@ namespace DeliveryApplication.Model
                             cbTypeRecipient.Items.Clear();
 
                             Client cl = GetClientFromString(listBox1.SelectedItem.ToString());
-                            
+
                             string separator = "-> ";
                             int separatorIndex = listBox1.SelectedItem.ToString().IndexOf(separator);
                             string nameCompany = listBox1.SelectedItem.ToString().Substring(separatorIndex + separator.Length).TrimStart();
 
                             txtNumberRecipient.Text = cl.NumberPhone;
-                            imgAddOrgaRecipient.Visible = true;
+
+
                             for (int i = 0; i < cl.Companies.Count; i++)
                             {
                                 cbTypeRecipient.Items.Add(cl.Companies[i].Name);
@@ -368,9 +364,10 @@ namespace DeliveryApplication.Model
                             txtFullNameRecipient.Text = cl.ToString();
                             txtCityRecipient.Text = cl.City;
                             txtLastNumberStockRecipient.Text = cl.LastNumberStock.ToString();
-
+                            FillListStockByCity();
                             cbTypeRecipient.Visible = true;
                             imgAddOrgaRecipient.Visible = true;
+                            imgListStocks.Visible = true;
                             txtFullNameRecipient.Visible = true;
                             txtCityRecipient.Visible = true;
                             txtLastNumberStockRecipient.Visible = true;
@@ -432,6 +429,7 @@ namespace DeliveryApplication.Model
                             cbTypeRecipient.SelectedIndex = 0;
                             cbTypeRecipient.Visible = true;
                             imgAddOrgaRecipient.Visible = true;
+                            imgListStocks.Visible = true;
                             txtFullNameRecipient.Text = string.Empty;
                             txtFullNameRecipient.Visible = true;
                             txtCityRecipient.Text = string.Empty;
@@ -441,8 +439,8 @@ namespace DeliveryApplication.Model
                             cbTypeRecipient.Focus();
                         }
                     }
-                    
-                    
+
+
                 }
             }
         }
@@ -468,6 +466,10 @@ namespace DeliveryApplication.Model
         {
             listBox1.Visible = false;
             imgAddOrgaRecipient.Visible = false;
+            imgListStocks.Visible = false;
+            lbStocks.Visible = false;
+            lbStocks.Items.Clear();
+            stocks.Clear();
             listBox1.Items.Clear();
             clients.Clear();
             Generel_TextChanged(sender, e);
@@ -490,11 +492,10 @@ namespace DeliveryApplication.Model
 
         private void imgAddOrga_Click(object sender, EventArgs e)
         {
-            AddCompany form = new AddCompany();
+            AddCompanyForm form = new AddCompanyForm();
             MainForm.BlurBackground(form);
             Company company = form.SelectedCompany;
-            // if null
-            //добавление компании отправителя
+
             if (company != null)
             {
                 if (panelSender.BorderColor == Color.FromArgb(46, 186, 119))
@@ -527,7 +528,116 @@ namespace DeliveryApplication.Model
                     }
                 }
             }
-            
+
         }
+        private void txtCityRecipient_TextChanged(object sender, EventArgs e)
+        {
+            txtLastNumberStockRecipient.Text = string.Empty;
+            stocks.Clear();
+            lbStocks.Items.Clear();
+        }
+
+        private void txtLastNumberStockRecipient_TextChanged(object sender, EventArgs e)
+        {
+            lbStocks.Visible = false;
+            lbStocks.Items.Clear();
+            int number;
+            if (int.TryParse(txtLastNumberStockRecipient.Text, out number))
+            {
+                for (int i = 0; i < stocks.Count; i++)
+                {
+                    if (stocks[i].Number.Equals(number))
+                    {
+                        lbStocks.Items.Add(stocks[i]);
+                    }
+                }
+            }
+            if (lbStocks.Items.Count > 0)
+            {
+                lbStocks.Visible = true;
+            }
+
+        }
+
+        private void txtCityRecipient_Leave(object sender, EventArgs e)
+        {
+            txtCityRecipient.Text = txtCityRecipient.Text.Trim();
+            stocks.Clear();
+            FillListStockByCity();
+        }
+
+
+        private void FillListStockByCity()
+        {
+            if (txtCityRecipient.AutoCompleteCustomSource.Contains(txtCityRecipient.Text))
+            {
+                int cityID = DataBaseControl.GetCityIDByName(txtCityRecipient.Text);
+                string qry = $@"SELECT Stock.StockID, Stock.StockNumber, Stock.StockAddress, City.city_Name 
+                         FROM Stock 
+                         JOIN City ON Stock.StockSityID = City.city_Id 
+                         WHERE StockSityID = {cityID} ORDER BY StockNumber ASC";
+                DataTable dt = DataBaseControl.GetData(qry);
+                foreach (DataRow row in dt.Rows)
+                {
+                    Stock stock = new Stock
+                    {
+                        ID = Convert.ToInt32(row["StockID"]),
+                        Number = Convert.ToInt32(row["StockNumber"]),
+                        Address = row["StockAddress"].ToString(),
+                        City = row["city_Name"].ToString()
+                    };
+                    stocks.Add(stock);
+                }
+            }
+        }
+        private void imgListStocks_Click(object sender, EventArgs e)
+        {
+            lbStocks.Items.Clear();
+            foreach (Stock stock in stocks)
+            {
+                lbStocks.Items.Add(stock);
+            }
+            lbStocks.Visible = true;
+
+            if (lbStocks.Items.Count > 0)
+            {
+                lbStocks.Focus();
+                lbStocks.SelectedIndex = 0;
+            }
+
+        }
+
+        private void txtLastNumberStockRecipient_Leave(object sender, EventArgs e)
+        {
+            if (lbStocks.Items.Count > 0)
+            {
+                lbStocks.TabStop = true;
+                lbStocks.Focus();
+                lbStocks.SelectedIndex = 0;
+            }
+            else
+            {
+                lbStocks.TabStop = false;
+            }
+        }
+
+        private void txtLastNumberStockRecipient_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Down && lbStocks.Items.Count > 0)
+            {
+                lbStocks.Focus();
+                lbStocks.SelectedIndex = 0;
+                e.Handled = true;
+            }
+        }
+
+        private void lbStocks_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter && lbStocks.SelectedItem != null)
+            {
+                txtLastNumberStockRecipient.Text = lbStocks.SelectedItem.ToString();
+            }
+        }
+
     }
 }

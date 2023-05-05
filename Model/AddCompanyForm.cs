@@ -13,9 +13,9 @@ using System.Xml.Linq;
 
 namespace DeliveryApplication.Model
 {
-    public partial class AddCompany : Form
+    public partial class AddCompanyForm : Form
     {
-        public AddCompany()
+        public AddCompanyForm()
         {
             InitializeComponent();
             companies = new List<Company>();

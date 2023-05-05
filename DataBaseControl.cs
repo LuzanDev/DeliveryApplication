@@ -27,6 +27,26 @@ namespace DeliveryApplication
             return connection;
         }
 
+        public static int GetCityIDByName(string cityName)
+        {
+            int result = 0;
+            using (SqlConnection connection = GetConnection())
+            {
+                using (SqlCommand command = new SqlCommand("SELECT city_Id FROM City WHERE city_Name = @cityName", connection))
+                {
+                    command.Parameters.Add("@cityName", SqlDbType.NVarChar, 50).Value = cityName;
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            result = reader.GetInt32(0);
+                        }
+                    }
+                }
+            }
+            return result;
+        }
+
         public static DataTable GetData(string qry)
         {
             DataTable table = new DataTable();
@@ -46,7 +66,6 @@ namespace DeliveryApplication
             }
             return table;
         }
-
         public async  static Task LoadCompaniesAsync(List<Company> companies)
         {
             DataTable dt = new DataTable();
@@ -105,7 +124,43 @@ namespace DeliveryApplication
             return company;
         }
 
+        public static List<PackagingMaterial> GetPackagings()
+        {
+            List<PackagingMaterial> packagings = new List<PackagingMaterial>();
 
+            string qry = "SELECT * FROM Packaging";
+            DataTable dt = GetData(qry);
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                if (dt.Rows[i]["PackagingHeight"] != DBNull.Value)
+                {
+                    Container container = new Container
+                    {
+                        ID = Convert.ToInt32(dt.Rows[i]["PackagingID"]),
+                        Name = dt.Rows[i]["PackagingName"].ToString(),
+                        Price = Convert.ToDecimal(dt.Rows[i]["PackagingPrice"]),
+                        Volume = Convert.ToSingle(dt.Rows[i]["PackagingVolume"]),
+                        Width = Convert.ToSingle(dt.Rows[i]["PackagingWidth"]),
+                        Length = Convert.ToSingle(dt.Rows[i]["PackagingLength"]),
+                        Height = Convert.ToSingle(dt.Rows[i]["PackagingHeight"]),
+                    };
+                    packagings.Add(container);
+                }
+                else
+                {
+                    PackagingMaterial material = new PackagingMaterial
+                    {
+                        ID = Convert.ToInt32(dt.Rows[i]["PackagingID"]),
+                        Name = dt.Rows[i]["PackagingName"].ToString(),
+                        Price = Convert.ToDecimal(dt.Rows[i]["PackagingPrice"])
+                    };
+                    packagings.Add(material);
+                }
+            }
+
+
+            return packagings;
+        }
 
         public static int CheckExistence(string qry, Hashtable ht)
         {

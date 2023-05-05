@@ -56,8 +56,10 @@ namespace DeliveryApplication.Model
             this.cbTypeDelivery = new Guna.UI2.WinForms.Guna2ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panelRecipient = new Guna.UI2.WinForms.Guna2Panel();
-            this.imgAddOrgaRecipient = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.imgListStocks = new Guna.UI2.WinForms.Guna2PictureBox();
             this.txtLastNumberStockRecipient = new Guna.UI2.WinForms.Guna2TextBox();
+            this.lbStocks = new System.Windows.Forms.ListBox();
+            this.imgAddOrgaRecipient = new Guna.UI2.WinForms.Guna2PictureBox();
             this.txtCityRecipient = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtFullNameRecipient = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtNumberRecipient = new Guna.UI2.WinForms.Guna2TextBox();
@@ -73,6 +75,7 @@ namespace DeliveryApplication.Model
             ((System.ComponentModel.ISupportInitialize)(this.imgAddOrgaSender)).BeginInit();
             this.panelPackageInfo.SuspendLayout();
             this.panelRecipient.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imgListStocks)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgAddOrgaRecipient)).BeginInit();
             this.panelPayment.SuspendLayout();
             this.SuspendLayout();
@@ -600,8 +603,10 @@ namespace DeliveryApplication.Model
             this.panelRecipient.BorderColor = System.Drawing.Color.White;
             this.panelRecipient.BorderRadius = 12;
             this.panelRecipient.BorderThickness = 2;
-            this.panelRecipient.Controls.Add(this.imgAddOrgaRecipient);
+            this.panelRecipient.Controls.Add(this.imgListStocks);
             this.panelRecipient.Controls.Add(this.txtLastNumberStockRecipient);
+            this.panelRecipient.Controls.Add(this.lbStocks);
+            this.panelRecipient.Controls.Add(this.imgAddOrgaRecipient);
             this.panelRecipient.Controls.Add(this.txtCityRecipient);
             this.panelRecipient.Controls.Add(this.listBox1);
             this.panelRecipient.Controls.Add(this.txtFullNameRecipient);
@@ -616,6 +621,72 @@ namespace DeliveryApplication.Model
             this.panelRecipient.TabIndex = 2;
             this.panelRecipient.Enter += new System.EventHandler(this.panel_Enter);
             this.panelRecipient.Leave += new System.EventHandler(this.panel_Leave);
+            // 
+            // imgListStocks
+            // 
+            this.imgListStocks.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.imgListStocks.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.imgListStocks.Image = global::DeliveryApplication.Properties.Resources.STLIST;
+            this.imgListStocks.ImageRotate = 0F;
+            this.imgListStocks.Location = new System.Drawing.Point(255, 319);
+            this.imgListStocks.Name = "imgListStocks";
+            this.imgListStocks.Size = new System.Drawing.Size(33, 36);
+            this.imgListStocks.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.imgListStocks.TabIndex = 9;
+            this.imgListStocks.TabStop = false;
+            this.imgListStocks.Visible = false;
+            this.imgListStocks.Click += new System.EventHandler(this.imgListStocks_Click);
+            // 
+            // txtLastNumberStockRecipient
+            // 
+            this.txtLastNumberStockRecipient.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtLastNumberStockRecipient.AutoCompleteCustomSource.AddRange(new string[] {
+            "Дніпро (місто)",
+            "Київ (місто)",
+            "Львів (місто)",
+            "Одеса (місто)",
+            "Запоріжжя (місто)",
+            "Полтава (місто)",
+            "Харків (місто)"});
+            this.txtLastNumberStockRecipient.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.txtLastNumberStockRecipient.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.txtLastNumberStockRecipient.BorderRadius = 10;
+            this.txtLastNumberStockRecipient.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtLastNumberStockRecipient.DefaultText = "";
+            this.txtLastNumberStockRecipient.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtLastNumberStockRecipient.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtLastNumberStockRecipient.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtLastNumberStockRecipient.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtLastNumberStockRecipient.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(186)))), ((int)(((byte)(119)))));
+            this.txtLastNumberStockRecipient.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.txtLastNumberStockRecipient.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtLastNumberStockRecipient.Location = new System.Drawing.Point(17, 319);
+            this.txtLastNumberStockRecipient.Margin = new System.Windows.Forms.Padding(5);
+            this.txtLastNumberStockRecipient.Name = "txtLastNumberStockRecipient";
+            this.txtLastNumberStockRecipient.Padding = new System.Windows.Forms.Padding(3);
+            this.txtLastNumberStockRecipient.PasswordChar = '\0';
+            this.txtLastNumberStockRecipient.PlaceholderText = "Номер відділення";
+            this.txtLastNumberStockRecipient.SelectedText = "";
+            this.txtLastNumberStockRecipient.Size = new System.Drawing.Size(238, 36);
+            this.txtLastNumberStockRecipient.TabIndex = 4;
+            this.txtLastNumberStockRecipient.Visible = false;
+            this.txtLastNumberStockRecipient.TextChanged += new System.EventHandler(this.txtLastNumberStockRecipient_TextChanged);
+            this.txtLastNumberStockRecipient.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtLastNumberStockRecipient_KeyDown);
+            this.txtLastNumberStockRecipient.Leave += new System.EventHandler(this.txtLastNumberStockRecipient_Leave);
+            // 
+            // lbStocks
+            // 
+            this.lbStocks.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lbStocks.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbStocks.FormattingEnabled = true;
+            this.lbStocks.ItemHeight = 21;
+            this.lbStocks.Location = new System.Drawing.Point(17, 357);
+            this.lbStocks.Name = "lbStocks";
+            this.lbStocks.Size = new System.Drawing.Size(265, 210);
+            this.lbStocks.TabIndex = 5;
+            this.lbStocks.TabStop = false;
+            this.lbStocks.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lbStocks_KeyDown);
             // 
             // imgAddOrgaRecipient
             // 
@@ -632,122 +703,19 @@ namespace DeliveryApplication.Model
             this.imgAddOrgaRecipient.Visible = false;
             this.imgAddOrgaRecipient.Click += new System.EventHandler(this.imgAddOrga_Click);
             // 
-            // txtLastNumberStockRecipient
-            // 
-            this.txtLastNumberStockRecipient.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtLastNumberStockRecipient.BorderRadius = 10;
-            this.txtLastNumberStockRecipient.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtLastNumberStockRecipient.DefaultText = "";
-            this.txtLastNumberStockRecipient.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.txtLastNumberStockRecipient.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.txtLastNumberStockRecipient.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtLastNumberStockRecipient.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtLastNumberStockRecipient.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(186)))), ((int)(((byte)(119)))));
-            this.txtLastNumberStockRecipient.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.txtLastNumberStockRecipient.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtLastNumberStockRecipient.Location = new System.Drawing.Point(17, 319);
-            this.txtLastNumberStockRecipient.Margin = new System.Windows.Forms.Padding(5);
-            this.txtLastNumberStockRecipient.Name = "txtLastNumberStockRecipient";
-            this.txtLastNumberStockRecipient.Padding = new System.Windows.Forms.Padding(3);
-            this.txtLastNumberStockRecipient.PasswordChar = '\0';
-            this.txtLastNumberStockRecipient.PlaceholderText = "Адреса";
-            this.txtLastNumberStockRecipient.SelectedText = "";
-            this.txtLastNumberStockRecipient.Size = new System.Drawing.Size(265, 36);
-            this.txtLastNumberStockRecipient.TabIndex = 4;
-            this.txtLastNumberStockRecipient.Visible = false;
-            // 
             // txtCityRecipient
             // 
             this.txtCityRecipient.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtCityRecipient.AutoCompleteCustomSource.AddRange(new string[] {
-            "Запоріжжя",
-            "Львів",
-            "Київ",
-            "Харків",
-            "Одеса",
-            "Дніпро",
-            "Донецьк",
-            "Івано-Франківськ",
-            "Луцьк",
-            "Миколаїв",
-            "Полтава",
-            "Рівне",
-            "Суми",
-            "Тернопіль",
-            "Ужгород",
-            "Херсон",
-            "Черкаси",
-            "Чернівці",
-            "Чернігів",
-            "Житомир",
-            "Кропивницький (Кіровоград)",
-            "Кременчук",
-            "Кам\'янець-Подільський",
-            "Мукачево",
-            "Хмельницький",
-            "Ізмаїл",
-            "Бердянськ",
-            "Біла Церква",
-            "Ковель",
-            "Краматорськ",
-            "Маріуполь",
-            "Мелітополь",
-            "Нікополь",
-            "Новоград-Волинський",
-            "Севастополь",
-            "Сімферополь",
-            "Хуст",
-            "Ялта",
-            "Берегове",
-            "Бориспіль",
-            "Бровари",
-            "Вінниця",
-            "Горлівка",
-            "Дрогобич",
-            "Євпаторія",
-            "Жданівка",
-            "Жмеринка",
-            "Знам\'янка",
-            "Ізюм",
-            "Ірпінь",
-            "Калуш",
-            "Кам\'янка-Дніпровська",
-            "Каховка",
-            "Коростень",
-            "Лебедин",
-            "Лисичанськ",
-            "Лозова",
-            "Мена",
-            "Мукачево",
-            "Нова Каховка",
-            "Обухів",
-            "Острог",
-            "Павлоград",
-            "Первомайськ",
-            "Прилуки",
-            "Ржищів",
-            "Саки",
-            "Слов\'янськ",
-            "Сміла",
-            "Старокостянтинів",
-            "Токмак",
-            "Умань",
-            "Фастів",
-            "Харцизьк",
-            "Червоноград",
-            "Щастя",
-            "Щолкіне",
-            "Южноукраїнськ",
-            "Яремче",
-            "Алчевськ",
-            "Бахмут",
-            "Вугледар",
-            "Гайворон",
-            "Дебальцеве",
-            "Жовква"});
-            this.txtCityRecipient.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            "Дніпро (місто)",
+            "Київ (місто)",
+            "Львів (місто)",
+            "Одеса (місто)",
+            "Запоріжжя (місто)",
+            "Полтава (місто)",
+            "Харків (місто)"});
+            this.txtCityRecipient.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.txtCityRecipient.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.txtCityRecipient.BorderRadius = 10;
             this.txtCityRecipient.Cursor = System.Windows.Forms.Cursors.IBeam;
@@ -769,6 +737,8 @@ namespace DeliveryApplication.Model
             this.txtCityRecipient.Size = new System.Drawing.Size(265, 36);
             this.txtCityRecipient.TabIndex = 3;
             this.txtCityRecipient.Visible = false;
+            this.txtCityRecipient.TextChanged += new System.EventHandler(this.txtCityRecipient_TextChanged);
+            this.txtCityRecipient.Leave += new System.EventHandler(this.txtCityRecipient_Leave);
             // 
             // txtFullNameRecipient
             // 
@@ -856,7 +826,7 @@ namespace DeliveryApplication.Model
             this.label2.Margin = new System.Windows.Forms.Padding(3);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(100, 23);
-            this.label2.TabIndex = 5;
+            this.label2.TabIndex = 6;
             this.label2.Text = "Отримувач";
             // 
             // panelPayment
@@ -870,7 +840,7 @@ namespace DeliveryApplication.Model
             this.panelPayment.Location = new System.Drawing.Point(945, 96);
             this.panelPayment.Name = "panelPayment";
             this.panelPayment.Size = new System.Drawing.Size(299, 579);
-            this.panelPayment.TabIndex = 4;
+            this.panelPayment.TabIndex = 3;
             this.panelPayment.Enter += new System.EventHandler(this.panel_Enter);
             this.panelPayment.Leave += new System.EventHandler(this.panel_Leave);
             // 
@@ -883,7 +853,7 @@ namespace DeliveryApplication.Model
             this.label3.Margin = new System.Windows.Forms.Padding(3);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(94, 23);
-            this.label3.TabIndex = 9;
+            this.label3.TabIndex = 0;
             this.label3.Text = "До сплати";
             // 
             // btnCreate
@@ -933,6 +903,7 @@ namespace DeliveryApplication.Model
             this.panelPackageInfo.PerformLayout();
             this.panelRecipient.ResumeLayout(false);
             this.panelRecipient.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imgListStocks)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgAddOrgaRecipient)).EndInit();
             this.panelPayment.ResumeLayout(false);
             this.panelPayment.PerformLayout();
@@ -965,7 +936,6 @@ namespace DeliveryApplication.Model
         private Guna.UI2.WinForms.Guna2Button btnAddPackage;
         private Guna.UI2.WinForms.Guna2ComboBox cbTypeRecipient;
         private System.Windows.Forms.Label label2;
-        private Guna.UI2.WinForms.Guna2TextBox txtLastNumberStockRecipient;
         private Guna.UI2.WinForms.Guna2TextBox txtCityRecipient;
         private Guna.UI2.WinForms.Guna2TextBox txtFullNameRecipient;
         private Guna.UI2.WinForms.Guna2TextBox txtNumberRecipient;
@@ -978,5 +948,8 @@ namespace DeliveryApplication.Model
         private Guna.UI2.WinForms.Guna2PictureBox imgAddOrgaSender;
         private Guna.UI2.WinForms.Guna2ComboBox cbTypeSender;
         private Guna.UI2.WinForms.Guna2TextBox txtFullNameSender;
+        public System.Windows.Forms.ListBox lbStocks;
+        private Guna.UI2.WinForms.Guna2TextBox txtLastNumberStockRecipient;
+        private Guna.UI2.WinForms.Guna2PictureBox imgListStocks;
     }
 }

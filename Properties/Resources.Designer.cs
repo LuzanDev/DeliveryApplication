@@ -183,6 +183,26 @@ namespace DeliveryApplication.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_больше_чем_100 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-больше-чем-100", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_больше_чем_100__1_ {
+            get {
+                object obj = ResourceManager.GetObject("icons8-больше-чем-100 (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap linse {
             get {
                 object obj = ResourceManager.GetObject("linse", resourceCulture);
@@ -226,6 +246,26 @@ namespace DeliveryApplication.Properties {
         internal static System.Drawing.Bitmap numf1 {
             get {
                 object obj = ResourceManager.GetObject("numf1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap STLIST {
+            get {
+                object obj = ResourceManager.GetObject("STLIST", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap StockList {
+            get {
+                object obj = ResourceManager.GetObject("StockList", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -15,7 +15,7 @@ namespace DeliveryApplication
         public string Patronymic { get; set; }
         public List<Company> Companies { get; set; }
         public string City { get; set; }
-        public int LastNumberStock { get; set; }
+        public string LastNumberStock { get; set; }
 
         public Client()
         {
