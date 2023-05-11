@@ -13,6 +13,12 @@ namespace DeliveryApplication.Model
     {
         private List<Client> clients;
         private List<Stock> stocks;
+        private List<DataGridViewRow> currentPackaging;
+        public List<DataGridViewRow> CurrentPackaging
+        {
+            get { return currentPackaging; }
+        }
+
         public static SendForm Obj { get; private set; }
 
         public SendForm()
@@ -639,5 +645,36 @@ namespace DeliveryApplication.Model
             }
         }
 
+        private void btnAddPackage_Click(object sender, EventArgs e)
+        {
+            if (currentPackaging == null)
+            {
+                currentPackaging = new List<DataGridViewRow>();
+                AddPackagingForm form = new AddPackagingForm(txtDesPackage.Text);
+                form.SaveTable += Form_SaveTable;
+                MainForm.BlurBackground(form);
+            }
+            else
+            {
+                AddPackagingForm form = new AddPackagingForm(txtDesPackage.Text, true);
+                form.SaveTable += Form_SaveTable;
+                MainForm.BlurBackground(form);
+            }
+            
+        }
+
+        private void Form_SaveTable(object sender, EventArgs e)
+        {
+            currentPackaging.Clear();
+            foreach (DataGridViewRow row in ((AddPackagingForm)sender).MainTable.Rows)
+            {
+                DataGridViewRow newRow = (DataGridViewRow)row.Clone();
+                for (int i = 0; i < row.Cells.Count; i++)
+                {
+                    newRow.Cells[i].Value = row.Cells[i].Value;
+                }
+                currentPackaging.Add(newRow);
+            }
+        }
     }
 }

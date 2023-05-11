@@ -290,6 +290,7 @@
     <Compile Include="Model\StartImage.Designer.cs">
       <DependentUpon>StartImage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Service.cs" />
     <Compile Include="Stock.cs" />
     <EmbeddedResource Include="Model\AddCompanyForm.resx">
       <DependentUpon>AddCompanyForm.cs</DependentUpon>
@@ -347,6 +348,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>FastDeliveryDB.mdf</DependentUpon>
     </Content>
+    <None Include="Resources\cart.png" />
     <None Include="Resources\STLIST.png" />
     <None Include="Resources\StockList.png" />
     <None Include="Resources\icons8-больше-чем-100.png" />
