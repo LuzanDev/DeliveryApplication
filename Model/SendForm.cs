@@ -660,7 +660,7 @@ namespace DeliveryApplication.Model
                 form.SaveTable += Form_SaveTable;
                 MainForm.BlurBackground(form);
             }
-            
+
         }
 
         private void Form_SaveTable(object sender, EventArgs e)
@@ -675,6 +675,47 @@ namespace DeliveryApplication.Model
                 }
                 currentPackaging.Add(newRow);
             }
+            ResetDimensionDefault();
+            if (((AddPackagingForm)sender).CurrentMaterials.Count > 1)
+            {
+                btnAddPackage.Text = $"Всього: {((AddPackagingForm)sender).CurrentMaterials.Count} пакувань";
+                foreach (PackagingMaterial mat in ((AddPackagingForm)sender).CurrentMaterials)
+                {
+                    if (mat is Container box)
+                    {
+                        SetBoxDimensions(box);
+                        break;
+                    }
+                }
+            }
+            else if (((AddPackagingForm)sender).CurrentMaterials.Count == 1)
+            {
+                if (((AddPackagingForm)sender).CurrentMaterials[0] is Container box)
+                {
+                    SetBoxDimensions(box);
+                    btnAddPackage.Text = $"1x {box.Name}";
+                }
+                else
+                {
+                    btnAddPackage.Text = $"1x {((AddPackagingForm)sender).CurrentMaterials[0].Name} {currentPackaging[0].Cells[3].Value.ToString()} м";
+                }
+            }
+        }
+        private void SetBoxDimensions(Container box)
+        {
+            txtWidth.Text = box.Width.ToString();
+            txtWidth.Enabled = false;
+            txtLength.Text = box.Length.ToString();
+            txtLength.Enabled = false;
+            txtHeight.Text = box.Height.ToString();
+            txtHeight.Enabled = false;
+        }
+        private void ResetDimensionDefault()
+        {
+            btnAddPackage.Text = "Додати пакування";
+            txtWidth.Enabled = true;
+            txtLength.Enabled = true;
+            txtHeight.Enabled = true;
         }
     }
 }

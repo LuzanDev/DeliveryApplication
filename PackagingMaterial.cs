@@ -9,7 +9,7 @@ namespace DeliveryApplication
     /// <summary>
     /// Упаковочный материал
     /// </summary>
-    internal class PackagingMaterial
+    public class PackagingMaterial
     {
         public int ID { get; set; }
         public string Name { get; set; }

@@ -435,7 +435,6 @@ namespace DeliveryApplication.Model
             this.txtLength.SelectedText = "";
             this.txtLength.Size = new System.Drawing.Size(85, 36);
             this.txtLength.TabIndex = 6;
-            this.txtLength.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtLength.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.General_KeyPressFractionalNumbers);
             // 
             // txtHeight
@@ -460,7 +459,6 @@ namespace DeliveryApplication.Model
             this.txtHeight.SelectedText = "";
             this.txtHeight.Size = new System.Drawing.Size(85, 36);
             this.txtHeight.TabIndex = 7;
-            this.txtHeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtHeight.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.General_KeyPressFractionalNumbers);
             // 
             // txtWidth
@@ -484,7 +482,6 @@ namespace DeliveryApplication.Model
             this.txtWidth.SelectedText = "";
             this.txtWidth.Size = new System.Drawing.Size(85, 36);
             this.txtWidth.TabIndex = 5;
-            this.txtWidth.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtWidth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.General_KeyPressFractionalNumbers);
             // 
             // btnAddPackage
@@ -507,6 +504,7 @@ namespace DeliveryApplication.Model
             this.btnAddPackage.Size = new System.Drawing.Size(265, 36);
             this.btnAddPackage.TabIndex = 4;
             this.btnAddPackage.Text = "Додати пакування";
+            this.btnAddPackage.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnAddPackage.Click += new System.EventHandler(this.btnAddPackage_Click);
             this.btnAddPackage.Enter += new System.EventHandler(this.panel_Enter);
             this.btnAddPackage.Leave += new System.EventHandler(this.panel_Leave);
@@ -533,7 +531,6 @@ namespace DeliveryApplication.Model
             this.txtWeight.SelectedText = "";
             this.txtWeight.Size = new System.Drawing.Size(89, 36);
             this.txtWeight.TabIndex = 3;
-            this.txtWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtWeight.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.General_KeyPressFractionalNumbers);
             // 
             // txtPriceParcel
@@ -559,7 +556,6 @@ namespace DeliveryApplication.Model
             this.txtPriceParcel.SelectedText = "";
             this.txtPriceParcel.Size = new System.Drawing.Size(166, 36);
             this.txtPriceParcel.TabIndex = 2;
-            this.txtPriceParcel.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtPriceParcel.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.General_KeyPressFractionalNumbers);
             // 
             // cbTypeDelivery

@@ -13,6 +13,11 @@ namespace DeliveryApplication.Model
         private List<PackagingMaterial> materials;
         private List<PackagingMaterial> materialsForDocument;
         private List<PackagingMaterial> currentMaterials;
+        public List<PackagingMaterial> CurrentMaterials
+        {
+            get { return currentMaterials; }
+        }
+
         public Guna2DataGridView MainTable
         {
             get { return dataGridView1; }
