@@ -209,5 +209,24 @@ namespace DeliveryApplication
             }
             return result;
         }
+
+        public static int GetPriceDelivery(string nameColumn, int localID)
+        {
+            int price = 0;
+            string qry = $"SELECT {nameColumn} FROM CostOfDelivery WHERE LocalityID = {localID}";
+            using (SqlConnection connection = GetConnection())
+            {
+                using (SqlCommand command = new SqlCommand(qry, connection))
+                {
+                    object result = command.ExecuteScalar();
+
+                    if (result != null && result != DBNull.Value && result is IConvertible)
+                    {
+                         price = Convert.ToInt32(result);
+                    }
+                }
+            }
+            return price;
+        }
     }
 }

@@ -46,6 +46,14 @@ namespace DeliveryApplication.Model
             this.label4 = new System.Windows.Forms.Label();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.panelPackageInfo = new Guna.UI2.WinForms.Guna2Panel();
+            this.lblHeightError = new System.Windows.Forms.Label();
+            this.lblLengthError = new System.Windows.Forms.Label();
+            this.lblWidthError = new System.Windows.Forms.Label();
+            this.lblWeightError = new System.Windows.Forms.Label();
+            this.VolumeWeightPanel = new Guna.UI2.WinForms.Guna2Panel();
+            this.txtValue = new System.Windows.Forms.Label();
+            this.imgBox = new Guna.UI2.WinForms.Guna2PictureBox();
+            this.txtVolumeWeight = new System.Windows.Forms.Label();
             this.txtDesPackage = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtLength = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtHeight = new Guna.UI2.WinForms.Guna2TextBox();
@@ -74,6 +82,8 @@ namespace DeliveryApplication.Model
             this.panelSender.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgAddOrgaSender)).BeginInit();
             this.panelPackageInfo.SuspendLayout();
+            this.VolumeWeightPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imgBox)).BeginInit();
             this.panelRecipient.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgListStocks)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgAddOrgaRecipient)).BeginInit();
@@ -348,6 +358,11 @@ namespace DeliveryApplication.Model
             this.panelPackageInfo.BorderColor = System.Drawing.Color.White;
             this.panelPackageInfo.BorderRadius = 12;
             this.panelPackageInfo.BorderThickness = 2;
+            this.panelPackageInfo.Controls.Add(this.lblHeightError);
+            this.panelPackageInfo.Controls.Add(this.lblLengthError);
+            this.panelPackageInfo.Controls.Add(this.lblWidthError);
+            this.panelPackageInfo.Controls.Add(this.lblWeightError);
+            this.panelPackageInfo.Controls.Add(this.VolumeWeightPanel);
             this.panelPackageInfo.Controls.Add(this.txtDesPackage);
             this.panelPackageInfo.Controls.Add(this.txtLength);
             this.panelPackageInfo.Controls.Add(this.txtHeight);
@@ -364,6 +379,107 @@ namespace DeliveryApplication.Model
             this.panelPackageInfo.TabIndex = 1;
             this.panelPackageInfo.Enter += new System.EventHandler(this.panel_Enter);
             this.panelPackageInfo.Leave += new System.EventHandler(this.panel_Leave);
+            // 
+            // lblHeightError
+            // 
+            this.lblHeightError.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lblHeightError.AutoSize = true;
+            this.lblHeightError.BackColor = System.Drawing.Color.Transparent;
+            this.lblHeightError.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblHeightError.ForeColor = System.Drawing.Color.Red;
+            this.lblHeightError.Location = new System.Drawing.Point(197, 355);
+            this.lblHeightError.Name = "lblHeightError";
+            this.lblHeightError.Size = new System.Drawing.Size(76, 15);
+            this.lblHeightError.TabIndex = 13;
+            this.lblHeightError.Text = "max: 170 см";
+            this.lblHeightError.Visible = false;
+            // 
+            // lblLengthError
+            // 
+            this.lblLengthError.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lblLengthError.AutoSize = true;
+            this.lblLengthError.BackColor = System.Drawing.Color.Transparent;
+            this.lblLengthError.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblLengthError.ForeColor = System.Drawing.Color.Red;
+            this.lblLengthError.Location = new System.Drawing.Point(107, 355);
+            this.lblLengthError.Name = "lblLengthError";
+            this.lblLengthError.Size = new System.Drawing.Size(76, 15);
+            this.lblLengthError.TabIndex = 12;
+            this.lblLengthError.Text = "max: 300 см";
+            this.lblLengthError.Visible = false;
+            // 
+            // lblWidthError
+            // 
+            this.lblWidthError.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lblWidthError.AutoSize = true;
+            this.lblWidthError.BackColor = System.Drawing.Color.Transparent;
+            this.lblWidthError.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblWidthError.ForeColor = System.Drawing.Color.Red;
+            this.lblWidthError.Location = new System.Drawing.Point(17, 355);
+            this.lblWidthError.Name = "lblWidthError";
+            this.lblWidthError.Size = new System.Drawing.Size(76, 15);
+            this.lblWidthError.TabIndex = 11;
+            this.lblWidthError.Text = "max: 300 см";
+            this.lblWidthError.Visible = false;
+            // 
+            // lblWeightError
+            // 
+            this.lblWeightError.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblWeightError.AutoSize = true;
+            this.lblWeightError.BackColor = System.Drawing.Color.Transparent;
+            this.lblWeightError.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblWeightError.ForeColor = System.Drawing.Color.Red;
+            this.lblWeightError.Location = new System.Drawing.Point(198, 231);
+            this.lblWeightError.Name = "lblWeightError";
+            this.lblWeightError.Size = new System.Drawing.Size(79, 15);
+            this.lblWeightError.TabIndex = 10;
+            this.lblWeightError.Text = "max: 1000 кг";
+            this.lblWeightError.Visible = false;
+            // 
+            // VolumeWeightPanel
+            // 
+            this.VolumeWeightPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.VolumeWeightPanel.Controls.Add(this.txtValue);
+            this.VolumeWeightPanel.Controls.Add(this.imgBox);
+            this.VolumeWeightPanel.Controls.Add(this.txtVolumeWeight);
+            this.VolumeWeightPanel.Location = new System.Drawing.Point(17, 373);
+            this.VolumeWeightPanel.Name = "VolumeWeightPanel";
+            this.VolumeWeightPanel.Size = new System.Drawing.Size(256, 45);
+            this.VolumeWeightPanel.TabIndex = 9;
+            this.VolumeWeightPanel.Visible = false;
+            // 
+            // txtValue
+            // 
+            this.txtValue.AutoSize = true;
+            this.txtValue.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.txtValue.Location = new System.Drawing.Point(137, 11);
+            this.txtValue.Name = "txtValue";
+            this.txtValue.Size = new System.Drawing.Size(92, 23);
+            this.txtValue.TabIndex = 2;
+            this.txtValue.Text = "999.99 кг ";
+            this.txtValue.Visible = false;
+            // 
+            // imgBox
+            // 
+            this.imgBox.Image = global::DeliveryApplication.Properties.Resources.imgBox;
+            this.imgBox.ImageRotate = 0F;
+            this.imgBox.Location = new System.Drawing.Point(0, 11);
+            this.imgBox.Name = "imgBox";
+            this.imgBox.Size = new System.Drawing.Size(23, 23);
+            this.imgBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.imgBox.TabIndex = 1;
+            this.imgBox.TabStop = false;
+            // 
+            // txtVolumeWeight
+            // 
+            this.txtVolumeWeight.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.txtVolumeWeight.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.txtVolumeWeight.Location = new System.Drawing.Point(24, 11);
+            this.txtVolumeWeight.Name = "txtVolumeWeight";
+            this.txtVolumeWeight.Size = new System.Drawing.Size(119, 23);
+            this.txtVolumeWeight.TabIndex = 0;
+            this.txtVolumeWeight.Text = "Об\'ємна вага:";
             // 
             // txtDesPackage
             // 
@@ -428,6 +544,7 @@ namespace DeliveryApplication.Model
             this.txtLength.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtLength.Location = new System.Drawing.Point(107, 319);
             this.txtLength.Margin = new System.Windows.Forms.Padding(5);
+            this.txtLength.MaxLength = 6;
             this.txtLength.Name = "txtLength";
             this.txtLength.Padding = new System.Windows.Forms.Padding(3);
             this.txtLength.PasswordChar = '\0';
@@ -435,6 +552,7 @@ namespace DeliveryApplication.Model
             this.txtLength.SelectedText = "";
             this.txtLength.Size = new System.Drawing.Size(85, 36);
             this.txtLength.TabIndex = 6;
+            this.txtLength.TextChanged += new System.EventHandler(this.txtDimensions_TextChanged);
             this.txtLength.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.General_KeyPressFractionalNumbers);
             // 
             // txtHeight
@@ -452,6 +570,7 @@ namespace DeliveryApplication.Model
             this.txtHeight.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtHeight.Location = new System.Drawing.Point(197, 319);
             this.txtHeight.Margin = new System.Windows.Forms.Padding(5);
+            this.txtHeight.MaxLength = 6;
             this.txtHeight.Name = "txtHeight";
             this.txtHeight.Padding = new System.Windows.Forms.Padding(3);
             this.txtHeight.PasswordChar = '\0';
@@ -459,6 +578,7 @@ namespace DeliveryApplication.Model
             this.txtHeight.SelectedText = "";
             this.txtHeight.Size = new System.Drawing.Size(85, 36);
             this.txtHeight.TabIndex = 7;
+            this.txtHeight.TextChanged += new System.EventHandler(this.txtDimensions_TextChanged);
             this.txtHeight.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.General_KeyPressFractionalNumbers);
             // 
             // txtWidth
@@ -475,6 +595,7 @@ namespace DeliveryApplication.Model
             this.txtWidth.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtWidth.Location = new System.Drawing.Point(17, 319);
             this.txtWidth.Margin = new System.Windows.Forms.Padding(5);
+            this.txtWidth.MaxLength = 6;
             this.txtWidth.Name = "txtWidth";
             this.txtWidth.Padding = new System.Windows.Forms.Padding(3);
             this.txtWidth.PasswordChar = '\0';
@@ -482,6 +603,7 @@ namespace DeliveryApplication.Model
             this.txtWidth.SelectedText = "";
             this.txtWidth.Size = new System.Drawing.Size(85, 36);
             this.txtWidth.TabIndex = 5;
+            this.txtWidth.TextChanged += new System.EventHandler(this.txtDimensions_TextChanged);
             this.txtWidth.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.General_KeyPressFractionalNumbers);
             // 
             // btnAddPackage
@@ -524,6 +646,7 @@ namespace DeliveryApplication.Model
             this.txtWeight.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtWeight.Location = new System.Drawing.Point(193, 195);
             this.txtWeight.Margin = new System.Windows.Forms.Padding(5);
+            this.txtWeight.MaxLength = 6;
             this.txtWeight.Name = "txtWeight";
             this.txtWeight.Padding = new System.Windows.Forms.Padding(3);
             this.txtWeight.PasswordChar = '\0';
@@ -531,6 +654,7 @@ namespace DeliveryApplication.Model
             this.txtWeight.SelectedText = "";
             this.txtWeight.Size = new System.Drawing.Size(89, 36);
             this.txtWeight.TabIndex = 3;
+            this.txtWeight.TextChanged += new System.EventHandler(this.txtWeight_TextChanged);
             this.txtWeight.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.General_KeyPressFractionalNumbers);
             // 
             // txtPriceParcel
@@ -549,6 +673,7 @@ namespace DeliveryApplication.Model
             this.txtPriceParcel.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtPriceParcel.Location = new System.Drawing.Point(17, 195);
             this.txtPriceParcel.Margin = new System.Windows.Forms.Padding(5);
+            this.txtPriceParcel.MaxLength = 7;
             this.txtPriceParcel.Name = "txtPriceParcel";
             this.txtPriceParcel.Padding = new System.Windows.Forms.Padding(3);
             this.txtPriceParcel.PasswordChar = '\0';
@@ -556,6 +681,7 @@ namespace DeliveryApplication.Model
             this.txtPriceParcel.SelectedText = "";
             this.txtPriceParcel.Size = new System.Drawing.Size(166, 36);
             this.txtPriceParcel.TabIndex = 2;
+            this.txtPriceParcel.TextChanged += new System.EventHandler(this.txtPriceParcel_TextChanged);
             this.txtPriceParcel.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.General_KeyPressFractionalNumbers);
             // 
             // cbTypeDelivery
@@ -713,7 +839,8 @@ namespace DeliveryApplication.Model
             "Одеса (місто)",
             "Запоріжжя (місто)",
             "Полтава (місто)",
-            "Харків (місто)"});
+            "Харків (місто)",
+            "Царичанка (село)"});
             this.txtCityRecipient.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.txtCityRecipient.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.txtCityRecipient.BorderRadius = 10;
@@ -840,7 +967,7 @@ namespace DeliveryApplication.Model
             this.panelPayment.Name = "panelPayment";
             this.panelPayment.Size = new System.Drawing.Size(299, 579);
             this.panelPayment.TabIndex = 3;
-            this.panelPayment.Enter += new System.EventHandler(this.panel_Enter);
+            this.panelPayment.Enter += new System.EventHandler(this.panelPayment_Enter);
             this.panelPayment.Leave += new System.EventHandler(this.panel_Leave);
             // 
             // label3
@@ -900,6 +1027,9 @@ namespace DeliveryApplication.Model
             ((System.ComponentModel.ISupportInitialize)(this.imgAddOrgaSender)).EndInit();
             this.panelPackageInfo.ResumeLayout(false);
             this.panelPackageInfo.PerformLayout();
+            this.VolumeWeightPanel.ResumeLayout(false);
+            this.VolumeWeightPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imgBox)).EndInit();
             this.panelRecipient.ResumeLayout(false);
             this.panelRecipient.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgListStocks)).EndInit();
@@ -950,5 +1080,13 @@ namespace DeliveryApplication.Model
         public System.Windows.Forms.ListBox lbStocks;
         private Guna.UI2.WinForms.Guna2TextBox txtLastNumberStockRecipient;
         private Guna.UI2.WinForms.Guna2PictureBox imgListStocks;
+        private Guna.UI2.WinForms.Guna2Panel VolumeWeightPanel;
+        private Guna.UI2.WinForms.Guna2PictureBox imgBox;
+        private System.Windows.Forms.Label txtVolumeWeight;
+        private System.Windows.Forms.Label txtValue;
+        private System.Windows.Forms.Label lblWeightError;
+        private System.Windows.Forms.Label lblHeightError;
+        private System.Windows.Forms.Label lblLengthError;
+        private System.Windows.Forms.Label lblWidthError;
     }
 }

@@ -349,6 +349,13 @@ namespace DeliveryApplication.Model
             this.Close();
             SendForm.Obj.Show();
         }
-        
+
+        private void AddPackagingForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.Enter)
+            {
+                btnSave_Click(sender, e as EventArgs);
+            }
+        }
     }
 }

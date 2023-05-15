@@ -243,6 +243,7 @@
     <Compile Include="Container.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="Company.cs" />
+    <Compile Include="Enums.cs" />
     <Compile Include="Model\AddCompanyForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -348,6 +349,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>FastDeliveryDB.mdf</DependentUpon>
     </Content>
+    <None Include="Resources\imgBox.png" />
     <None Include="Resources\cart.png" />
     <None Include="Resources\STLIST.png" />
     <None Include="Resources\StockList.png" />

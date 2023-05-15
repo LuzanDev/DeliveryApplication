@@ -2,10 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace DeliveryApplication.Model
 {
@@ -66,6 +69,15 @@ namespace DeliveryApplication.Model
             txtLength.Location = new Point(txtDesPackage.Location.X + 5 + txtWidth.Size.Width, btnAddPackage.Location.Y + 62);
             txtHeight.Location = new Point(txtDesPackage.Location.X + 10 + txtLength.Size.Width + txtWidth.Size.Width, btnAddPackage.Location.Y + 62);
             #endregion
+
+            //txtVolumeWeight.Location = new Point((VolumeWeightPanel.Width - txtVolumeWeight.Width) / 2, 11);
+            //imgBox.Location = new Point(txtVolumeWeight.Location.X - 24, 11);
+            //txtValue.Location = new Point(txtVolumeWeight.Location.X + 116, 12);
+
+
+            lblWidthError.Location = new Point(txtWidth.Location.X, txtWidth.Location.Y + 36);
+            lblLengthError.Location = new Point(txtLength.Location.X, txtLength.Location.Y + 36);
+            lblHeightError.Location = new Point(txtHeight.Location.X, txtHeight.Location.Y + 36);
             clients = new List<Client>();
             stocks = new List<Stock>();
             listBox1.Size = new Size(txtNumberSender.Width, 20);
@@ -81,6 +93,7 @@ namespace DeliveryApplication.Model
 
         private void guna2TextBox1_TextChanged(object sender, EventArgs e)
         {
+            txtDesPackage.BorderColor = Color.FromArgb(213, 218, 223);
             if (txtDesPackage.Text.Length > 2)
             {
                 cbTypeDelivery.Enabled = true;
@@ -188,15 +201,14 @@ namespace DeliveryApplication.Model
                 e.Handled = true;
             }
         }
-
         private void General_KeyPressFractionalNumbers(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.')
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != ',')
             {
                 e.Handled = true;
             }
 
-            if (e.KeyChar == '.' && (sender as Guna.UI2.WinForms.Guna2TextBox).Text.IndexOf('.') > -1)
+            if (e.KeyChar == ',' && (sender as Guna.UI2.WinForms.Guna2TextBox).Text.IndexOf(',') > -1)
             {
                 e.Handled = true;
             }
@@ -538,6 +550,7 @@ namespace DeliveryApplication.Model
         }
         private void txtCityRecipient_TextChanged(object sender, EventArgs e)
         {
+            txtCityRecipient.BorderColor = Color.FromArgb(213, 218, 223);
             txtLastNumberStockRecipient.Text = string.Empty;
             stocks.Clear();
             lbStocks.Items.Clear();
@@ -595,6 +608,10 @@ namespace DeliveryApplication.Model
                     stocks.Add(stock);
                 }
             }
+            else
+            {
+                txtCityRecipient.BorderColor = Color.Red;
+            }
         }
         private void imgListStocks_Click(object sender, EventArgs e)
         {
@@ -624,6 +641,7 @@ namespace DeliveryApplication.Model
             else
             {
                 lbStocks.TabStop = false;
+                panelPayment.Focus();
             }
         }
 
@@ -642,6 +660,7 @@ namespace DeliveryApplication.Model
             if (e.KeyCode == Keys.Enter && lbStocks.SelectedItem != null)
             {
                 txtLastNumberStockRecipient.Text = lbStocks.SelectedItem.ToString();
+                panelPayment.Focus();
             }
         }
 
@@ -700,7 +719,9 @@ namespace DeliveryApplication.Model
                     btnAddPackage.Text = $"1x {((AddPackagingForm)sender).CurrentMaterials[0].Name} {currentPackaging[0].Cells[3].Value.ToString()} м";
                 }
             }
+            ShowVolumeWeight();
         }
+        #region Установка габаритов упаковки (если она есть)
         private void SetBoxDimensions(Container box)
         {
             txtWidth.Text = box.Width.ToString();
@@ -716,6 +737,256 @@ namespace DeliveryApplication.Model
             txtWidth.Enabled = true;
             txtLength.Enabled = true;
             txtHeight.Enabled = true;
+        }
+        #endregion
+        private void ShowVolumeWeight()
+        {
+            VolumeWeightPanel.Visible = false;
+            txtValue.Visible = false;
+            float width;
+            float height;
+            float length;
+
+            if (float.TryParse(txtWidth.Text, out width)
+                && float.TryParse(txtLength.Text, out length)
+                && float.TryParse(txtHeight.Text, out height))
+            {
+                float volumeWeight = (width * height * length) / 4000;
+
+                if (volumeWeight > 1000.00f)
+                {
+                    txtValue.Text = $"> 1000 кг";
+                }
+                else
+                {
+                    txtValue.Text = $"{volumeWeight.ToString("F2").Replace(',', '.')} кг";
+                }
+
+                VolumeWeightPanel.Width = imgBox.Width + txtValue.Width + txtVolumeWeight.Width;
+                VolumeWeightPanel.Location = new Point((panelPackageInfo.Width - VolumeWeightPanel.Width) / 2, 373);
+                VolumeWeightPanel.Visible = true;
+                txtValue.Visible = true;
+            }
+        }
+
+        private void txtDimensions_TextChanged(object sender, EventArgs e)
+        {
+            txtWidth.BorderColor = Color.FromArgb(213, 218, 223);
+            txtLength.BorderColor = Color.FromArgb(213, 218, 223);
+            txtHeight.BorderColor = Color.FromArgb(213, 218, 223);
+
+            lblWidthError.Visible = false;
+            lblLengthError.Visible = false;
+            lblHeightError.Visible = false;
+
+            float width;
+            float length;
+            float height;
+
+            if (float.TryParse(txtWidth.Text, out width))
+            {
+                if (width > 300.00f)
+                {
+                    txtWidth.BorderColor = Color.Red;
+                    lblWidthError.Visible = true;
+                }
+            }
+            if (float.TryParse(txtLength.Text, out length))
+            {
+                if (length > 300.00f)
+                {
+                    txtLength.BorderColor = Color.Red;
+                    lblLengthError.Visible = true;
+                }
+            }
+            if (float.TryParse(txtHeight.Text, out height))
+            {
+                if (height > 170.00f)
+                {
+                    txtHeight.BorderColor = Color.Red;
+                    lblHeightError.Visible = true;
+                }
+            }
+            ShowVolumeWeight();
+        }
+        private void txtWeight_TextChanged(object sender, EventArgs e)
+        {
+            txtWeight.BorderColor = Color.FromArgb(213, 218, 223);
+            lblWeightError.Visible = false;
+            float weight;
+
+            if (float.TryParse(txtWeight.Text, out weight))
+            {
+                if (weight > 1000.00f)
+                {
+                    txtWeight.BorderColor = Color.Red;
+                    lblWeightError.Visible = true;
+                }
+            }
+        }
+        private void PriceСalculation()
+        {
+            if (PackageIsCorrect())
+            {
+                Location locality = GetLocal();
+
+                float weight = (float.Parse(txtWeight.Text) >= float.Parse(txtValue.Text.Replace(" кг", string.Empty).Replace('.', ',')))
+                    ? float.Parse(txtWeight.Text) :
+                    float.Parse(txtValue.Text.Replace(" кг", string.Empty).Replace('.', ','));
+                ParcelCategory category = GetCategory(weight);
+                int price = Service.CalcShippingCost(category, locality, weight, cbTypeDelivery.SelectedIndex);
+
+                if (float.Parse(txtPriceParcel.Text) > 500.00f)
+                {
+                    //сумма процента от оценки
+                    int insurance = CalcPercent();
+                    price += insurance;
+                }
+                
+                MessageBox.Show(price.ToString());
+            }
+
+
+        }
+
+        private int CalcPercent()
+        {
+            float price;
+            float percent = 0;
+            float roundedPercent = 0;
+            if (float.TryParse(txtPriceParcel.Text, out price))
+            {
+                percent = price * 0.005f;
+                
+                if (percent % 1 >= 0.5)
+                {
+                    roundedPercent = (float)Math.Ceiling(percent);
+                }
+                else
+                {
+                    roundedPercent = (float)Math.Floor(percent);
+                }
+            }
+            return (int)roundedPercent;
+        }
+
+        private ParcelCategory GetCategory(float weight)
+        {
+            if (weight <= 2.00f)
+            {
+                if (txtDesPackage.Text != "Документи")
+                {
+                    return ParcelCategory.small;
+                }
+                else
+                {
+                    return ParcelCategory.documentation;
+                }
+            }
+            else if (weight > 2.00f && weight <= 10.00f)
+            {
+                return ParcelCategory.average;
+            }
+            else if (weight > 10.00f && weight <= 30.00f)
+            {
+                return ParcelCategory.big;
+            }
+            else
+            {
+                return ParcelCategory.huge;
+            }
+        }
+
+        private Location GetLocal()
+        {
+            if (txtCityRecipient.Text == Service.SityLocation)
+            {
+                return DeliveryApplication.Location.City;
+            }
+            else if (txtCityRecipient.Text.Contains("(смт)") || txtCityRecipient.Text.Contains("(село)"))
+            {
+                return DeliveryApplication.Location.Villages;
+            }
+            else
+            {
+                return DeliveryApplication.Location.Ukraine;
+            }
+        }
+
+        private void txtPriceParcel_TextChanged(object sender, EventArgs e)
+        {
+            txtPriceParcel.BorderColor = Color.FromArgb(213, 218, 223);
+        }
+
+        private bool PackageIsCorrect()
+        {
+            if (txtDesPackage.Text.Trim().Length < 2)
+            {
+                txtDesPackage.BorderColor = Color.Red;
+            }
+            float price;
+            if (!float.TryParse(txtPriceParcel.Text, out price))
+            {
+                txtPriceParcel.BorderColor = Color.Red;
+            }
+            float weight;
+            if (!float.TryParse(txtWeight.Text, out weight))
+            {
+                txtWeight.BorderColor = Color.Red;
+            }
+            float width;
+            float height;
+            float length;
+
+            if (!float.TryParse(txtWidth.Text, out width))
+            {
+                txtWidth.BorderColor = Color.Red;
+            }
+            if (!float.TryParse(txtLength.Text, out length))
+            {
+                txtLength.BorderColor = Color.Red;
+            }
+            if (!float.TryParse(txtHeight.Text, out height))
+            {
+                txtHeight.BorderColor = Color.Red;
+            }
+            if (!txtCityRecipient.AutoCompleteCustomSource.Contains(txtCityRecipient.Text))
+            {
+                txtCityRecipient.BorderColor = Color.Red;
+            }
+            if (float.TryParse(txtWidth.Text, out width)
+                && float.TryParse(txtLength.Text, out length)
+                && float.TryParse(txtHeight.Text, out height))
+            {
+                float volume = (width * length * height) / 4000;
+                if (volume > 1000.00f)
+                {
+                    txtWidth.BorderColor = Color.Red;
+                    txtHeight.BorderColor = Color.Red;
+                    txtLength.BorderColor = Color.Red;
+                }
+            }
+            foreach (Control item in panelPackageInfo.Controls)
+            {
+                if (item is Guna2TextBox box)
+                {
+                    if (box.BorderColor == Color.Red)
+                    {
+                        return false;
+                    }
+                }
+            }
+            if (txtCityRecipient.BorderColor == Color.Red)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private void panelPayment_Enter(object sender, EventArgs e)
+        {
+            panel_Enter(sender,e);
+            PriceСalculation();
         }
     }
 }
