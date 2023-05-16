@@ -202,11 +202,18 @@ namespace DeliveryApplication.Model
                 }
                 else
                 {
-                    int count = Convert.ToInt32(dataGridView1.CurrentRow.Cells["dgvCount"].Value);
-                    decimal price = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["dgvPrice"].Value) / count;
-
-                    dataGridView1.Rows[e.RowIndex].Cells["dgvCount"].Value = (count + 1);
-                    dataGridView1.Rows[e.RowIndex].Cells["dgvPrice"].Value = price * (count + 1);
+                    if (int.TryParse(dataGridView1.CurrentRow.Cells["dgvCount"].Value.ToString(), out int count))
+                    {
+                        decimal price = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["dgvPrice"].Value) / count;
+                        if (count < 999)
+                        {
+                            dataGridView1.Rows[e.RowIndex].Cells["dgvCount"].Value = (count + 1);
+                            dataGridView1.Rows[e.RowIndex].Cells["dgvPrice"].Value = price * (count + 1);
+                        }
+                    }
+                     //count = Convert.ToInt32(dataGridView1.CurrentRow.Cells["dgvCount"].Value);
+                    
+                    
                 }
 
             }
@@ -242,13 +249,25 @@ namespace DeliveryApplication.Model
             {
                 DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
 
-                int newCount = Convert.ToInt32(row.Cells["dgvCount"].Value);
-                if (newCount < 1) newCount = 1;
-                decimal price = (materials.SingleOrDefault(m => m.Name == row.Cells["dgvName"].Value.ToString())).Price;
-                decimal newPrice = price * newCount;
+               
+                if (int.TryParse(row.Cells["dgvCount"].Value.ToString(), out int newCount))
+                {
+                    if (newCount < 1) newCount = 1;
+                    if (newCount > 999) newCount = 999;
+                    decimal price = (materials.SingleOrDefault(m => m.Name == row.Cells["dgvName"].Value.ToString())).Price;
+                    decimal newPrice = price * newCount;
+                    row.Cells["dgvCount"].Value = newCount;
+                    row.Cells["dgvPrice"].Value = newPrice;
+                }
+                else
+                {
+                    guna2MessageDialog1.Buttons = MessageDialogButtons.OK;
+                    guna2MessageDialog1.Icon = Guna.UI2.WinForms.MessageDialogIcon.Error;
+                    guna2MessageDialog1.Show("Не коректна кількість");
+                    row.Cells["dgvCount"].Value = 1;
+                }
 
-                row.Cells["dgvCount"].Value = newCount;
-                row.Cells["dgvPrice"].Value = newPrice;
+                
             }
             if (e.ColumnIndex == dataGridView1.Columns["dgvCheck"].Index)
             {

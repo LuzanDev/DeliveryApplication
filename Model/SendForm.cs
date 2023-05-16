@@ -1,7 +1,9 @@
 ﻿using Guna.UI2.WinForms;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlTypes;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
@@ -641,7 +643,7 @@ namespace DeliveryApplication.Model
             else
             {
                 lbStocks.TabStop = false;
-                panelPayment.Focus();
+                //panelPayment.Focus();
             }
         }
 
@@ -828,25 +830,78 @@ namespace DeliveryApplication.Model
         {
             if (PackageIsCorrect())
             {
+                Hashtable ht = new Hashtable();
                 Location locality = GetLocal();
 
                 float weight = (float.Parse(txtWeight.Text) >= float.Parse(txtValue.Text.Replace(" кг", string.Empty).Replace('.', ',')))
                     ? float.Parse(txtWeight.Text) :
                     float.Parse(txtValue.Text.Replace(" кг", string.Empty).Replace('.', ','));
                 ParcelCategory category = GetCategory(weight);
-                int price = Service.CalcShippingCost(category, locality, weight, cbTypeDelivery.SelectedIndex);
+                int priceDelivery = Service.CalcShippingCost(category, locality, weight, cbTypeDelivery.SelectedIndex);
 
+                int insurance = 0;
                 if (float.Parse(txtPriceParcel.Text) > 500.00f)
                 {
                     //сумма процента от оценки
-                    int insurance = CalcPercent();
-                    price += insurance;
+                    insurance = CalcPercent();
                 }
-                
-                MessageBox.Show(price.ToString());
+                int packingPrice = CalcPackingPrice();
+                FillHashTable(ht, locality,priceDelivery, insurance, packingPrice);
+                ShowPriceDelivery(ht, priceDelivery + insurance + packingPrice);
             }
 
 
+        }
+
+        private void ShowPriceDelivery(Hashtable ht, int mainSum)
+        {
+            Label[] labelsName = { lblName1, lblName2, lblName3 }; 
+            Label[] labelsPrice = { lblPrice1, lblPrice2, lblPrice3 };
+            int i = 0;
+            foreach (DictionaryEntry entry in ht)
+            {
+                labelsName[i].Text = entry.Key.ToString();
+                labelsPrice[i].Text = $"₴ {Convert.ToInt32(entry.Value).ToString("N").Replace(',', '.')}";
+                labelsName[i].Visible = true;
+                labelsPrice[i].Visible = true;
+                i++;
+            }
+            lblPriceMain.Text = $"₴ {mainSum.ToString("N").Replace(',','.')}";
+            lblPriceMain.Visible = true;
+        }
+
+        private void FillHashTable(Hashtable ht, Location locality, int priceDelivery, int insurance, int packingPrice)
+        {
+            switch (locality)
+            {
+                case DeliveryApplication.Location.City:
+                    ht.Add("Доставка посилок по місту", priceDelivery);
+                    break;
+                case DeliveryApplication.Location.Ukraine:
+                    ht.Add("Доставка посилок по Україні", priceDelivery);
+                    break;
+                case DeliveryApplication.Location.Villages:
+                    ht.Add("Доставка посилок у смт або село", priceDelivery);
+                    break;
+            }
+            if (insurance != 0)
+            {
+                ht.Add("Комісія від вартості", insurance);
+            }
+            if (packingPrice != 0)
+            {
+                ht.Add("Пакування відправлення", packingPrice);
+            }
+        }
+
+        private int CalcPackingPrice()
+        {
+            int result = 0;
+            foreach (var item in CurrentPackaging)
+            {
+                result += (int)Convert.ToDecimal(item.Cells[5].Value.ToString());
+            }
+            return result;
         }
 
         private int CalcPercent()
@@ -987,6 +1042,25 @@ namespace DeliveryApplication.Model
         {
             panel_Enter(sender,e);
             PriceСalculation();
+        }
+
+        private void panelPayment_Leave(object sender, EventArgs e)
+        {
+            panel_Leave(sender,e);
+            HideLabelsPrice();
+        }
+
+        private void HideLabelsPrice()
+        {
+            lblPrice1.Visible = false;
+            lblPrice2.Visible = false;
+            lblPrice3.Visible = false;
+
+            lblName1.Visible = false;
+            lblName2.Visible = false;
+            lblName3.Visible = false;
+
+            lblPriceMain.Visible = false;
         }
     }
 }
