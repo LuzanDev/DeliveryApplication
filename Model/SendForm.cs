@@ -72,10 +72,6 @@ namespace DeliveryApplication.Model
             txtHeight.Location = new Point(txtDesPackage.Location.X + 10 + txtLength.Size.Width + txtWidth.Size.Width, btnAddPackage.Location.Y + 62);
             #endregion
 
-            //txtVolumeWeight.Location = new Point((VolumeWeightPanel.Width - txtVolumeWeight.Width) / 2, 11);
-            //imgBox.Location = new Point(txtVolumeWeight.Location.X - 24, 11);
-            //txtValue.Location = new Point(txtVolumeWeight.Location.X + 116, 12);
-
 
             lblWidthError.Location = new Point(txtWidth.Location.X, txtWidth.Location.Y + 36);
             lblLengthError.Location = new Point(txtLength.Location.X, txtLength.Location.Y + 36);
@@ -1061,6 +1057,36 @@ namespace DeliveryApplication.Model
             lblName3.Visible = false;
 
             lblPriceMain.Visible = false;
+        }
+
+        private void GeneralRadioButton_Enter(object sender, EventArgs e)
+        {
+
+            ((Guna2Button)sender).BorderColor = Color.Gray;
+        }
+
+        private void GeneralRadioButton_Leave(object sender, EventArgs e)
+        {
+            ((Guna2Button)sender).BorderColor = Color.White;
+        }
+
+        private void guna2Button1_Click(object sender, EventArgs e)
+        {
+            guna2Button2.Checked = false;
+            guna2Button1.Checked = true;
+
+            guna2Button2.FillColor = Color.White;
+            guna2Button1.FillColor = Color.FromArgb(46, 186, 119);
+
+        }
+
+        private void guna2Button2_Click(object sender, EventArgs e)
+        {
+            guna2Button2.Checked = true;
+            guna2Button1.Checked = false;
+
+            guna2Button1.FillColor = Color.White;
+            guna2Button2.FillColor = Color.FromArgb(46, 186, 119);
         }
     }
 }

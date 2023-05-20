@@ -104,6 +104,7 @@
             this.btnGiveParcel.Text = "Видати\nвідправлення";
             this.btnGiveParcel.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnGiveParcel.TextOffset = new System.Drawing.Point(0, 55);
+            this.btnGiveParcel.Click += new System.EventHandler(this.btnGiveParcel_Click);
             // 
             // btnSaleBoxes
             // 

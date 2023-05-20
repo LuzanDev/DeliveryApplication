@@ -37,6 +37,9 @@ namespace DeliveryApplication
             MainForm.Instance.AddControls(new SendForm ());
         }
 
-
+        private void btnGiveParcel_Click(object sender, EventArgs e)
+        {
+            MainForm.Instance.AddControls(new Visit());
+        }
     }
 }

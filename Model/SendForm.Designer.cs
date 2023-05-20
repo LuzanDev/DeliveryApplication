@@ -74,6 +74,11 @@ namespace DeliveryApplication.Model
             this.cbTypeRecipient = new Guna.UI2.WinForms.Guna2ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.panelPayment = new Guna.UI2.WinForms.Guna2Panel();
+            this.guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
+            this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.lblPrice3 = new System.Windows.Forms.Label();
+            this.lblPrice2 = new System.Windows.Forms.Label();
             this.lblPrice1 = new System.Windows.Forms.Label();
             this.lblName3 = new System.Windows.Forms.Label();
             this.lblName2 = new System.Windows.Forms.Label();
@@ -81,8 +86,6 @@ namespace DeliveryApplication.Model
             this.lblPriceMain = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.btnCreate = new Guna.UI2.WinForms.Guna2Button();
-            this.lblPrice2 = new System.Windows.Forms.Label();
-            this.lblPrice3 = new System.Windows.Forms.Label();
             this.guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgClientLogo)).BeginInit();
@@ -525,6 +528,7 @@ namespace DeliveryApplication.Model
             this.txtDesPackage.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
             this.txtDesPackage.Location = new System.Drawing.Point(17, 71);
             this.txtDesPackage.Margin = new System.Windows.Forms.Padding(5);
+            this.txtDesPackage.MaxLength = 40;
             this.txtDesPackage.Name = "txtDesPackage";
             this.txtDesPackage.Padding = new System.Windows.Forms.Padding(3);
             this.txtDesPackage.PasswordChar = '\0';
@@ -969,6 +973,9 @@ namespace DeliveryApplication.Model
             this.panelPayment.BorderColor = System.Drawing.Color.White;
             this.panelPayment.BorderRadius = 12;
             this.panelPayment.BorderThickness = 2;
+            this.panelPayment.Controls.Add(this.guna2Button2);
+            this.panelPayment.Controls.Add(this.guna2Button1);
+            this.panelPayment.Controls.Add(this.label5);
             this.panelPayment.Controls.Add(this.lblPrice3);
             this.panelPayment.Controls.Add(this.lblPrice2);
             this.panelPayment.Controls.Add(this.lblPrice1);
@@ -985,6 +992,89 @@ namespace DeliveryApplication.Model
             this.panelPayment.TabStop = true;
             this.panelPayment.Enter += new System.EventHandler(this.panelPayment_Enter);
             this.panelPayment.Leave += new System.EventHandler(this.panelPayment_Leave);
+            // 
+            // guna2Button2
+            // 
+            this.guna2Button2.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.guna2Button2.BorderRadius = 10;
+            this.guna2Button2.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
+            this.guna2Button2.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button2.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.guna2Button2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.guna2Button2.FillColor = System.Drawing.Color.White;
+            this.guna2Button2.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2Button2.ForeColor = System.Drawing.Color.Black;
+            this.guna2Button2.Location = new System.Drawing.Point(156, 355);
+            this.guna2Button2.Name = "guna2Button2";
+            this.guna2Button2.Size = new System.Drawing.Size(134, 36);
+            this.guna2Button2.TabIndex = 10;
+            this.guna2Button2.Text = "Отримувач";
+            this.guna2Button2.Click += new System.EventHandler(this.guna2Button2_Click);
+            this.guna2Button2.Enter += new System.EventHandler(this.GeneralRadioButton_Enter);
+            this.guna2Button2.Leave += new System.EventHandler(this.GeneralRadioButton_Leave);
+            // 
+            // guna2Button1
+            // 
+            this.guna2Button1.BorderColor = System.Drawing.Color.White;
+            this.guna2Button1.BorderRadius = 5;
+            this.guna2Button1.BorderThickness = 1;
+            this.guna2Button1.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
+            this.guna2Button1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.guna2Button1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.guna2Button1.FillColor = System.Drawing.Color.White;
+            this.guna2Button1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2Button1.ForeColor = System.Drawing.Color.Black;
+            this.guna2Button1.Location = new System.Drawing.Point(16, 355);
+            this.guna2Button1.Name = "guna2Button1";
+            this.guna2Button1.Size = new System.Drawing.Size(134, 36);
+            this.guna2Button1.TabIndex = 9;
+            this.guna2Button1.Text = "Відправник";
+            this.guna2Button1.Click += new System.EventHandler(this.guna2Button1_Click);
+            this.guna2Button1.Enter += new System.EventHandler(this.GeneralRadioButton_Enter);
+            this.guna2Button1.Leave += new System.EventHandler(this.GeneralRadioButton_Leave);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.label5.Location = new System.Drawing.Point(13, 319);
+            this.label5.Margin = new System.Windows.Forms.Padding(3);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(73, 21);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "Платник";
+            // 
+            // lblPrice3
+            // 
+            this.lblPrice3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblPrice3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblPrice3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.lblPrice3.Location = new System.Drawing.Point(41, 123);
+            this.lblPrice3.Margin = new System.Windows.Forms.Padding(3);
+            this.lblPrice3.Name = "lblPrice3";
+            this.lblPrice3.Size = new System.Drawing.Size(250, 20);
+            this.lblPrice3.TabIndex = 7;
+            this.lblPrice3.Text = "11";
+            this.lblPrice3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblPrice3.Visible = false;
+            // 
+            // lblPrice2
+            // 
+            this.lblPrice2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblPrice2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblPrice2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.lblPrice2.Location = new System.Drawing.Point(41, 97);
+            this.lblPrice2.Margin = new System.Windows.Forms.Padding(3);
+            this.lblPrice2.Name = "lblPrice2";
+            this.lblPrice2.Size = new System.Drawing.Size(250, 20);
+            this.lblPrice2.TabIndex = 5;
+            this.lblPrice2.Text = "11";
+            this.lblPrice2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblPrice2.Visible = false;
             // 
             // lblPrice1
             // 
@@ -1082,34 +1172,6 @@ namespace DeliveryApplication.Model
             this.btnCreate.TabIndex = 4;
             this.btnCreate.Text = "СТВОРИТИ";
             // 
-            // lblPrice2
-            // 
-            this.lblPrice2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblPrice2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblPrice2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
-            this.lblPrice2.Location = new System.Drawing.Point(41, 97);
-            this.lblPrice2.Margin = new System.Windows.Forms.Padding(3);
-            this.lblPrice2.Name = "lblPrice2";
-            this.lblPrice2.Size = new System.Drawing.Size(250, 20);
-            this.lblPrice2.TabIndex = 5;
-            this.lblPrice2.Text = "11";
-            this.lblPrice2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lblPrice2.Visible = false;
-            // 
-            // lblPrice3
-            // 
-            this.lblPrice3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblPrice3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblPrice3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
-            this.lblPrice3.Location = new System.Drawing.Point(41, 123);
-            this.lblPrice3.Margin = new System.Windows.Forms.Padding(3);
-            this.lblPrice3.Name = "lblPrice3";
-            this.lblPrice3.Size = new System.Drawing.Size(250, 20);
-            this.lblPrice3.TabIndex = 7;
-            this.lblPrice3.Text = "11";
-            this.lblPrice3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lblPrice3.Visible = false;
-            // 
             // SendForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1205,5 +1267,8 @@ namespace DeliveryApplication.Model
         private System.Windows.Forms.Label lblName1;
         private System.Windows.Forms.Label lblPrice3;
         private System.Windows.Forms.Label lblPrice2;
+        private Guna.UI2.WinForms.Guna2Button guna2Button2;
+        private Guna.UI2.WinForms.Guna2Button guna2Button1;
+        private System.Windows.Forms.Label label5;
     }
 }
