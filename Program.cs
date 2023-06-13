@@ -17,7 +17,7 @@ namespace DeliveryApplication
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Service service = new Service();
+            Service service = new Service();
             Application.Run(new LoginForm ());
         }
     }

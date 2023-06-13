@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,10 @@ namespace DeliveryApplication
     internal class Service
     {
         private static List<PackagingMaterial> materials;
+        public static Image RightArrow { get; } = Image.FromFile(@"D:\arrmore.png");
+        public static Image LefttArrow { get; } = Image.FromFile(@"D:\arrdown.png");
         public static string SityLocation { get; } = "Дніпро (місто)";
+        public static string StockLocation { get; } = "Відділення №2: вул. Ламана, 2";
         public static List<PackagingMaterial> Materials
         {
             get { return materials; }

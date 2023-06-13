@@ -32,6 +32,7 @@
             this.guna2Button4 = new Guna.UI2.WinForms.Guna2Button();
             this.btnGiveParcel = new Guna.UI2.WinForms.Guna2Button();
             this.btnSaleBoxes = new Guna.UI2.WinForms.Guna2Button();
+            this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
             this.SuspendLayout();
             // 
             // btnAcceptParcel
@@ -129,12 +130,28 @@
             this.btnSaleBoxes.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnSaleBoxes.TextOffset = new System.Drawing.Point(0, 55);
             // 
+            // guna2Button1
+            // 
+            this.guna2Button1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.guna2Button1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.guna2Button1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.guna2Button1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.guna2Button1.ForeColor = System.Drawing.Color.White;
+            this.guna2Button1.Location = new System.Drawing.Point(586, 248);
+            this.guna2Button1.Name = "guna2Button1";
+            this.guna2Button1.Size = new System.Drawing.Size(263, 45);
+            this.guna2Button1.TabIndex = 10;
+            this.guna2Button1.Text = "guna2Button1";
+            this.guna2Button1.Click += new System.EventHandler(this.guna2Button1_Click);
+            // 
             // ControlMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
             this.ClientSize = new System.Drawing.Size(1410, 664);
+            this.Controls.Add(this.guna2Button1);
             this.Controls.Add(this.btnAcceptParcel);
             this.Controls.Add(this.guna2Button4);
             this.Controls.Add(this.btnGiveParcel);
@@ -153,5 +170,6 @@
         private Guna.UI2.WinForms.Guna2Button guna2Button4;
         private Guna.UI2.WinForms.Guna2Button btnGiveParcel;
         private Guna.UI2.WinForms.Guna2Button btnSaleBoxes;
+        private Guna.UI2.WinForms.Guna2Button guna2Button1;
     }
 }

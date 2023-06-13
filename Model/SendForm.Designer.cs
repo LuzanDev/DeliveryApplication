@@ -31,6 +31,7 @@ namespace DeliveryApplication.Model
         private void InitializeComponent()
         {
             this.guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
+            this.lblDate = new System.Windows.Forms.Label();
             this.btnMenuPackage = new Guna.UI2.WinForms.Guna2Button();
             this.btnExit = new Guna.UI2.WinForms.Guna2Button();
             this.lblDateNow = new System.Windows.Forms.Label();
@@ -39,6 +40,8 @@ namespace DeliveryApplication.Model
             this.lblVisitNumber = new System.Windows.Forms.Label();
             this.imgClientLogo = new Guna.UI2.WinForms.Guna2PictureBox();
             this.panelSender = new Guna.UI2.WinForms.Guna2Panel();
+            this.txtLastNumberStockSender = new Guna.UI2.WinForms.Guna2TextBox();
+            this.txtCitySender = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtFullNameSender = new Guna.UI2.WinForms.Guna2TextBox();
             this.imgAddOrgaSender = new Guna.UI2.WinForms.Guna2PictureBox();
             this.cbTypeSender = new Guna.UI2.WinForms.Guna2ComboBox();
@@ -74,8 +77,11 @@ namespace DeliveryApplication.Model
             this.cbTypeRecipient = new Guna.UI2.WinForms.Guna2ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.panelPayment = new Guna.UI2.WinForms.Guna2Panel();
-            this.guna2Button2 = new Guna.UI2.WinForms.Guna2Button();
-            this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
+            this.rbtnNonCash = new Guna.UI2.WinForms.Guna2RadioButton();
+            this.rbtnCash = new Guna.UI2.WinForms.Guna2RadioButton();
+            this.panelTypePayer = new Guna.UI2.WinForms.Guna2Panel();
+            this.btnSenderPayer = new Guna.UI2.WinForms.Guna2Button();
+            this.btnRecPayer = new Guna.UI2.WinForms.Guna2Button();
             this.label5 = new System.Windows.Forms.Label();
             this.lblPrice3 = new System.Windows.Forms.Label();
             this.lblPrice2 = new System.Windows.Forms.Label();
@@ -98,10 +104,12 @@ namespace DeliveryApplication.Model
             ((System.ComponentModel.ISupportInitialize)(this.imgListStocks)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgAddOrgaRecipient)).BeginInit();
             this.panelPayment.SuspendLayout();
+            this.panelTypePayer.SuspendLayout();
             this.SuspendLayout();
             // 
             // guna2Panel1
             // 
+            this.guna2Panel1.Controls.Add(this.lblDate);
             this.guna2Panel1.Controls.Add(this.btnMenuPackage);
             this.guna2Panel1.Controls.Add(this.btnExit);
             this.guna2Panel1.Controls.Add(this.lblDateNow);
@@ -114,6 +122,17 @@ namespace DeliveryApplication.Model
             this.guna2Panel1.Name = "guna2Panel1";
             this.guna2Panel1.Size = new System.Drawing.Size(1257, 90);
             this.guna2Panel1.TabIndex = 5;
+            // 
+            // lblDate
+            // 
+            this.lblDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblDate.AutoSize = true;
+            this.lblDate.Font = new System.Drawing.Font("Segoe UI Semibold", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.lblDate.Location = new System.Drawing.Point(359, 52);
+            this.lblDate.Name = "lblDate";
+            this.lblDate.Size = new System.Drawing.Size(0, 23);
+            this.lblDate.TabIndex = 3;
             // 
             // btnMenuPackage
             // 
@@ -168,11 +187,11 @@ namespace DeliveryApplication.Model
             this.lblDateNow.AutoSize = true;
             this.lblDateNow.Font = new System.Drawing.Font("Segoe UI Semibold", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblDateNow.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
-            this.lblDateNow.Location = new System.Drawing.Point(240, 51);
+            this.lblDateNow.Location = new System.Drawing.Point(309, 52);
             this.lblDateNow.Name = "lblDateNow";
-            this.lblDateNow.Size = new System.Drawing.Size(135, 23);
+            this.lblDateNow.Size = new System.Drawing.Size(51, 23);
             this.lblDateNow.TabIndex = 0;
-            this.lblDateNow.Text = "Дата: 10.04.2023";
+            this.lblDateNow.Text = "Дата:";
             // 
             // lblPackageNumber
             // 
@@ -182,9 +201,9 @@ namespace DeliveryApplication.Model
             this.lblPackageNumber.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.lblPackageNumber.Location = new System.Drawing.Point(186, 51);
             this.lblPackageNumber.Name = "lblPackageNumber";
-            this.lblPackageNumber.Size = new System.Drawing.Size(48, 23);
+            this.lblPackageNumber.Size = new System.Drawing.Size(120, 23);
             this.lblPackageNumber.TabIndex = 0;
-            this.lblPackageNumber.Text = "7424";
+            this.lblPackageNumber.Text = "Відправлення";
             // 
             // guna2PictureBox2
             // 
@@ -228,6 +247,8 @@ namespace DeliveryApplication.Model
             this.panelSender.BorderColor = System.Drawing.Color.White;
             this.panelSender.BorderRadius = 12;
             this.panelSender.BorderThickness = 2;
+            this.panelSender.Controls.Add(this.txtLastNumberStockSender);
+            this.panelSender.Controls.Add(this.txtCitySender);
             this.panelSender.Controls.Add(this.txtFullNameSender);
             this.panelSender.Controls.Add(this.imgAddOrgaSender);
             this.panelSender.Controls.Add(this.cbTypeSender);
@@ -241,6 +262,77 @@ namespace DeliveryApplication.Model
             this.panelSender.TabIndex = 0;
             this.panelSender.Enter += new System.EventHandler(this.panel_Enter);
             this.panelSender.Leave += new System.EventHandler(this.panel_Leave);
+            // 
+            // txtLastNumberStockSender
+            // 
+            this.txtLastNumberStockSender.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtLastNumberStockSender.AutoCompleteCustomSource.AddRange(new string[] {
+            "Дніпро (місто)",
+            "Київ (місто)",
+            "Львів (місто)",
+            "Одеса (місто)",
+            "Запоріжжя (місто)",
+            "Полтава (місто)",
+            "Харків (місто)"});
+            this.txtLastNumberStockSender.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.txtLastNumberStockSender.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.txtLastNumberStockSender.BorderRadius = 10;
+            this.txtLastNumberStockSender.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtLastNumberStockSender.DefaultText = "";
+            this.txtLastNumberStockSender.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtLastNumberStockSender.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtLastNumberStockSender.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtLastNumberStockSender.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtLastNumberStockSender.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(186)))), ((int)(((byte)(119)))));
+            this.txtLastNumberStockSender.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.txtLastNumberStockSender.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtLastNumberStockSender.Location = new System.Drawing.Point(17, 319);
+            this.txtLastNumberStockSender.Margin = new System.Windows.Forms.Padding(5);
+            this.txtLastNumberStockSender.Name = "txtLastNumberStockSender";
+            this.txtLastNumberStockSender.Padding = new System.Windows.Forms.Padding(3);
+            this.txtLastNumberStockSender.PasswordChar = '\0';
+            this.txtLastNumberStockSender.PlaceholderText = "Номер відділення";
+            this.txtLastNumberStockSender.SelectedText = "";
+            this.txtLastNumberStockSender.Size = new System.Drawing.Size(265, 36);
+            this.txtLastNumberStockSender.TabIndex = 10;
+            this.txtLastNumberStockSender.Visible = false;
+            // 
+            // txtCitySender
+            // 
+            this.txtCitySender.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCitySender.AutoCompleteCustomSource.AddRange(new string[] {
+            "Дніпро (місто)",
+            "Київ (місто)",
+            "Львів (місто)",
+            "Одеса (місто)",
+            "Запоріжжя (місто)",
+            "Полтава (місто)",
+            "Харків (місто)",
+            "Царичанка (село)"});
+            this.txtCitySender.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.txtCitySender.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.txtCitySender.BorderRadius = 10;
+            this.txtCitySender.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtCitySender.DefaultText = "";
+            this.txtCitySender.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtCitySender.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtCitySender.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtCitySender.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtCitySender.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(186)))), ((int)(((byte)(119)))));
+            this.txtCitySender.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.txtCitySender.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtCitySender.Location = new System.Drawing.Point(17, 257);
+            this.txtCitySender.Margin = new System.Windows.Forms.Padding(5);
+            this.txtCitySender.Name = "txtCitySender";
+            this.txtCitySender.Padding = new System.Windows.Forms.Padding(3);
+            this.txtCitySender.PasswordChar = '\0';
+            this.txtCitySender.PlaceholderText = "Місто / смт / село";
+            this.txtCitySender.SelectedText = "";
+            this.txtCitySender.Size = new System.Drawing.Size(265, 36);
+            this.txtCitySender.TabIndex = 9;
+            this.txtCitySender.Visible = false;
             // 
             // txtFullNameSender
             // 
@@ -266,6 +358,7 @@ namespace DeliveryApplication.Model
             this.txtFullNameSender.Size = new System.Drawing.Size(265, 36);
             this.txtFullNameSender.TabIndex = 2;
             this.txtFullNameSender.Visible = false;
+            this.txtFullNameSender.TextChanged += new System.EventHandler(this.GeneralFullName_TextChanged);
             // 
             // imgAddOrgaSender
             // 
@@ -304,6 +397,8 @@ namespace DeliveryApplication.Model
             this.cbTypeSender.StartIndex = 0;
             this.cbTypeSender.TabIndex = 1;
             this.cbTypeSender.Visible = false;
+            this.cbTypeSender.SelectedIndexChanged += new System.EventHandler(this.cbTypeSender_SelectedIndexChanged);
+            this.cbTypeSender.VisibleChanged += new System.EventHandler(this.cbTypeSender_VisibleChanged);
             // 
             // txtNumberSender
             // 
@@ -902,6 +997,7 @@ namespace DeliveryApplication.Model
             this.txtFullNameRecipient.Size = new System.Drawing.Size(265, 36);
             this.txtFullNameRecipient.TabIndex = 2;
             this.txtFullNameRecipient.Visible = false;
+            this.txtFullNameRecipient.TextChanged += new System.EventHandler(this.GeneralFullName_TextChanged);
             // 
             // txtNumberRecipient
             // 
@@ -954,6 +1050,8 @@ namespace DeliveryApplication.Model
             this.cbTypeRecipient.StartIndex = 0;
             this.cbTypeRecipient.TabIndex = 1;
             this.cbTypeRecipient.Visible = false;
+            this.cbTypeRecipient.SelectedIndexChanged += new System.EventHandler(this.cbTypeRecipient_SelectedIndexChanged);
+            this.cbTypeRecipient.VisibleChanged += new System.EventHandler(this.cbTypeRecipient_VisibleChanged);
             // 
             // label2
             // 
@@ -973,8 +1071,9 @@ namespace DeliveryApplication.Model
             this.panelPayment.BorderColor = System.Drawing.Color.White;
             this.panelPayment.BorderRadius = 12;
             this.panelPayment.BorderThickness = 2;
-            this.panelPayment.Controls.Add(this.guna2Button2);
-            this.panelPayment.Controls.Add(this.guna2Button1);
+            this.panelPayment.Controls.Add(this.rbtnNonCash);
+            this.panelPayment.Controls.Add(this.rbtnCash);
+            this.panelPayment.Controls.Add(this.panelTypePayer);
             this.panelPayment.Controls.Add(this.label5);
             this.panelPayment.Controls.Add(this.lblPrice3);
             this.panelPayment.Controls.Add(this.lblPrice2);
@@ -993,48 +1092,118 @@ namespace DeliveryApplication.Model
             this.panelPayment.Enter += new System.EventHandler(this.panelPayment_Enter);
             this.panelPayment.Leave += new System.EventHandler(this.panelPayment_Leave);
             // 
-            // guna2Button2
+            // rbtnNonCash
             // 
-            this.guna2Button2.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.guna2Button2.BorderRadius = 10;
-            this.guna2Button2.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
-            this.guna2Button2.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button2.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button2.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button2.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button2.FillColor = System.Drawing.Color.White;
-            this.guna2Button2.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2Button2.ForeColor = System.Drawing.Color.Black;
-            this.guna2Button2.Location = new System.Drawing.Point(156, 355);
-            this.guna2Button2.Name = "guna2Button2";
-            this.guna2Button2.Size = new System.Drawing.Size(134, 36);
-            this.guna2Button2.TabIndex = 10;
-            this.guna2Button2.Text = "Отримувач";
-            this.guna2Button2.Click += new System.EventHandler(this.guna2Button2_Click);
-            this.guna2Button2.Enter += new System.EventHandler(this.GeneralRadioButton_Enter);
-            this.guna2Button2.Leave += new System.EventHandler(this.GeneralRadioButton_Leave);
+            this.rbtnNonCash.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.rbtnNonCash.AutoSize = true;
+            this.rbtnNonCash.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(186)))), ((int)(((byte)(119)))));
+            this.rbtnNonCash.CheckedState.BorderThickness = 0;
+            this.rbtnNonCash.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(186)))), ((int)(((byte)(119)))));
+            this.rbtnNonCash.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.rbtnNonCash.CheckedState.InnerOffset = -4;
+            this.rbtnNonCash.Enabled = false;
+            this.rbtnNonCash.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.rbtnNonCash.Location = new System.Drawing.Point(180, 393);
+            this.rbtnNonCash.Name = "rbtnNonCash";
+            this.rbtnNonCash.Size = new System.Drawing.Size(116, 25);
+            this.rbtnNonCash.TabIndex = 10;
+            this.rbtnNonCash.Text = "Безготівкою";
+            this.rbtnNonCash.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(197)))), ((int)(((byte)(197)))), ((int)(((byte)(198)))));
+            this.rbtnNonCash.UncheckedState.BorderThickness = 2;
+            this.rbtnNonCash.UncheckedState.FillColor = System.Drawing.Color.Transparent;
+            this.rbtnNonCash.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
             // 
-            // guna2Button1
+            // rbtnCash
             // 
-            this.guna2Button1.BorderColor = System.Drawing.Color.White;
-            this.guna2Button1.BorderRadius = 5;
-            this.guna2Button1.BorderThickness = 1;
-            this.guna2Button1.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
-            this.guna2Button1.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button1.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button1.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button1.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button1.FillColor = System.Drawing.Color.White;
-            this.guna2Button1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2Button1.ForeColor = System.Drawing.Color.Black;
-            this.guna2Button1.Location = new System.Drawing.Point(16, 355);
-            this.guna2Button1.Name = "guna2Button1";
-            this.guna2Button1.Size = new System.Drawing.Size(134, 36);
-            this.guna2Button1.TabIndex = 9;
-            this.guna2Button1.Text = "Відправник";
-            this.guna2Button1.Click += new System.EventHandler(this.guna2Button1_Click);
-            this.guna2Button1.Enter += new System.EventHandler(this.GeneralRadioButton_Enter);
-            this.guna2Button1.Leave += new System.EventHandler(this.GeneralRadioButton_Leave);
+            this.rbtnCash.AutoSize = true;
+            this.rbtnCash.Checked = true;
+            this.rbtnCash.CheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(186)))), ((int)(((byte)(119)))));
+            this.rbtnCash.CheckedState.BorderThickness = 0;
+            this.rbtnCash.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(186)))), ((int)(((byte)(119)))));
+            this.rbtnCash.CheckedState.InnerColor = System.Drawing.Color.White;
+            this.rbtnCash.CheckedState.InnerOffset = -4;
+            this.rbtnCash.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.rbtnCash.Location = new System.Drawing.Point(16, 393);
+            this.rbtnCash.Name = "rbtnCash";
+            this.rbtnCash.Size = new System.Drawing.Size(148, 25);
+            this.rbtnCash.TabIndex = 9;
+            this.rbtnCash.TabStop = true;
+            this.rbtnCash.Text = "Оплата готівкою";
+            this.rbtnCash.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(197)))), ((int)(((byte)(197)))), ((int)(((byte)(198)))));
+            this.rbtnCash.UncheckedState.BorderThickness = 2;
+            this.rbtnCash.UncheckedState.FillColor = System.Drawing.Color.Transparent;
+            this.rbtnCash.UncheckedState.InnerColor = System.Drawing.Color.Transparent;
+            // 
+            // panelTypePayer
+            // 
+            this.panelTypePayer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelTypePayer.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(201)))), ((int)(((byte)(201)))), ((int)(((byte)(202)))));
+            this.panelTypePayer.BorderRadius = 7;
+            this.panelTypePayer.BorderThickness = 1;
+            this.panelTypePayer.Controls.Add(this.btnSenderPayer);
+            this.panelTypePayer.Controls.Add(this.btnRecPayer);
+            this.panelTypePayer.FillColor = System.Drawing.Color.White;
+            this.panelTypePayer.Location = new System.Drawing.Point(16, 347);
+            this.panelTypePayer.Name = "panelTypePayer";
+            this.panelTypePayer.Size = new System.Drawing.Size(266, 36);
+            this.panelTypePayer.TabIndex = 6;
+            // 
+            // btnSenderPayer
+            // 
+            this.btnSenderPayer.BorderColor = System.Drawing.Color.White;
+            this.btnSenderPayer.BorderRadius = 7;
+            this.btnSenderPayer.BorderThickness = 1;
+            this.btnSenderPayer.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
+            this.btnSenderPayer.CheckedState.BorderColor = System.Drawing.Color.Transparent;
+            this.btnSenderPayer.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
+            this.btnSenderPayer.CheckedState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(67)))));
+            this.btnSenderPayer.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnSenderPayer.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnSenderPayer.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnSenderPayer.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnSenderPayer.FillColor = System.Drawing.Color.White;
+            this.btnSenderPayer.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnSenderPayer.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(122)))), ((int)(((byte)(123)))), ((int)(((byte)(124)))));
+            this.btnSenderPayer.Location = new System.Drawing.Point(3, 3);
+            this.btnSenderPayer.Name = "btnSenderPayer";
+            this.btnSenderPayer.PressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(67)))));
+            this.btnSenderPayer.Size = new System.Drawing.Size(134, 30);
+            this.btnSenderPayer.TabIndex = 8;
+            this.btnSenderPayer.Text = "Відправник";
+            this.btnSenderPayer.EnabledChanged += new System.EventHandler(this.General_EnabledChanged);
+            this.btnSenderPayer.Click += new System.EventHandler(this.btnSenderPayer_Click);
+            this.btnSenderPayer.Enter += new System.EventHandler(this.GeneralRadioButton_Enter);
+            this.btnSenderPayer.Leave += new System.EventHandler(this.GeneralRadioButton_Leave);
+            // 
+            // btnRecPayer
+            // 
+            this.btnRecPayer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRecPayer.BorderColor = System.Drawing.Color.White;
+            this.btnRecPayer.BorderRadius = 7;
+            this.btnRecPayer.BorderThickness = 1;
+            this.btnRecPayer.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
+            this.btnRecPayer.Checked = true;
+            this.btnRecPayer.CheckedState.BorderColor = System.Drawing.Color.Transparent;
+            this.btnRecPayer.CheckedState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(237)))), ((int)(((byte)(237)))));
+            this.btnRecPayer.CheckedState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(67)))));
+            this.btnRecPayer.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnRecPayer.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnRecPayer.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnRecPayer.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnRecPayer.FillColor = System.Drawing.Color.White;
+            this.btnRecPayer.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnRecPayer.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(122)))), ((int)(((byte)(123)))), ((int)(((byte)(124)))));
+            this.btnRecPayer.Location = new System.Drawing.Point(129, 3);
+            this.btnRecPayer.Name = "btnRecPayer";
+            this.btnRecPayer.PressedColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(67)))));
+            this.btnRecPayer.Size = new System.Drawing.Size(134, 30);
+            this.btnRecPayer.TabIndex = 7;
+            this.btnRecPayer.Text = "Отримувач";
+            this.btnRecPayer.EnabledChanged += new System.EventHandler(this.General_EnabledChanged);
+            this.btnRecPayer.Click += new System.EventHandler(this.btnRecPayer_Click);
+            this.btnRecPayer.Enter += new System.EventHandler(this.GeneralRadioButton_Enter);
+            this.btnRecPayer.Leave += new System.EventHandler(this.GeneralRadioButton_Leave);
             // 
             // label5
             // 
@@ -1045,7 +1214,7 @@ namespace DeliveryApplication.Model
             this.label5.Margin = new System.Windows.Forms.Padding(3);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(73, 21);
-            this.label5.TabIndex = 8;
+            this.label5.TabIndex = 5;
             this.label5.Text = "Платник";
             // 
             // lblPrice3
@@ -1057,7 +1226,7 @@ namespace DeliveryApplication.Model
             this.lblPrice3.Margin = new System.Windows.Forms.Padding(3);
             this.lblPrice3.Name = "lblPrice3";
             this.lblPrice3.Size = new System.Drawing.Size(250, 20);
-            this.lblPrice3.TabIndex = 7;
+            this.lblPrice3.TabIndex = 4;
             this.lblPrice3.Text = "11";
             this.lblPrice3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblPrice3.Visible = false;
@@ -1071,7 +1240,7 @@ namespace DeliveryApplication.Model
             this.lblPrice2.Margin = new System.Windows.Forms.Padding(3);
             this.lblPrice2.Name = "lblPrice2";
             this.lblPrice2.Size = new System.Drawing.Size(250, 20);
-            this.lblPrice2.TabIndex = 5;
+            this.lblPrice2.TabIndex = 3;
             this.lblPrice2.Text = "11";
             this.lblPrice2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblPrice2.Visible = false;
@@ -1085,7 +1254,7 @@ namespace DeliveryApplication.Model
             this.lblPrice1.Margin = new System.Windows.Forms.Padding(3);
             this.lblPrice1.Name = "lblPrice1";
             this.lblPrice1.Size = new System.Drawing.Size(250, 20);
-            this.lblPrice1.TabIndex = 3;
+            this.lblPrice1.TabIndex = 2;
             this.lblPrice1.Text = "11";
             this.lblPrice1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblPrice1.Visible = false;
@@ -1099,7 +1268,7 @@ namespace DeliveryApplication.Model
             this.lblName3.Margin = new System.Windows.Forms.Padding(3);
             this.lblName3.Name = "lblName3";
             this.lblName3.Size = new System.Drawing.Size(22, 17);
-            this.lblName3.TabIndex = 6;
+            this.lblName3.TabIndex = 4;
             this.lblName3.Text = "11";
             this.lblName3.Visible = false;
             // 
@@ -1112,7 +1281,7 @@ namespace DeliveryApplication.Model
             this.lblName2.Margin = new System.Windows.Forms.Padding(3);
             this.lblName2.Name = "lblName2";
             this.lblName2.Size = new System.Drawing.Size(22, 17);
-            this.lblName2.TabIndex = 4;
+            this.lblName2.TabIndex = 3;
             this.lblName2.Text = "11";
             this.lblName2.Visible = false;
             // 
@@ -1133,7 +1302,7 @@ namespace DeliveryApplication.Model
             // 
             this.lblPriceMain.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblPriceMain.Font = new System.Drawing.Font("Segoe UI", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lblPriceMain.ForeColor = System.Drawing.Color.Red;
+            this.lblPriceMain.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(77)))), ((int)(((byte)(59)))));
             this.lblPriceMain.Location = new System.Drawing.Point(113, 26);
             this.lblPriceMain.Margin = new System.Windows.Forms.Padding(3);
             this.lblPriceMain.Name = "lblPriceMain";
@@ -1171,6 +1340,7 @@ namespace DeliveryApplication.Model
             this.btnCreate.Size = new System.Drawing.Size(118, 45);
             this.btnCreate.TabIndex = 4;
             this.btnCreate.Text = "СТВОРИТИ";
+            this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
             // 
             // SendForm
             // 
@@ -1208,6 +1378,7 @@ namespace DeliveryApplication.Model
             ((System.ComponentModel.ISupportInitialize)(this.imgAddOrgaRecipient)).EndInit();
             this.panelPayment.ResumeLayout(false);
             this.panelPayment.PerformLayout();
+            this.panelTypePayer.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1267,8 +1438,14 @@ namespace DeliveryApplication.Model
         private System.Windows.Forms.Label lblName1;
         private System.Windows.Forms.Label lblPrice3;
         private System.Windows.Forms.Label lblPrice2;
-        private Guna.UI2.WinForms.Guna2Button guna2Button2;
-        private Guna.UI2.WinForms.Guna2Button guna2Button1;
+        private Guna.UI2.WinForms.Guna2Button btnRecPayer;
+        private Guna.UI2.WinForms.Guna2Button btnSenderPayer;
         private System.Windows.Forms.Label label5;
+        private Guna.UI2.WinForms.Guna2Panel panelTypePayer;
+        private Guna.UI2.WinForms.Guna2RadioButton rbtnNonCash;
+        private Guna.UI2.WinForms.Guna2RadioButton rbtnCash;
+        private Guna.UI2.WinForms.Guna2TextBox txtLastNumberStockSender;
+        private Guna.UI2.WinForms.Guna2TextBox txtCitySender;
+        private System.Windows.Forms.Label lblDate;
     }
 }

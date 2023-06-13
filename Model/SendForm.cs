@@ -3,14 +3,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlTypes;
-using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace DeliveryApplication.Model
 {
@@ -29,12 +25,11 @@ namespace DeliveryApplication.Model
         public SendForm()
         {
             InitializeComponent();
+            lblDate.Text = DateTime.Now.ToShortDateString();
+            clients = new List<Client>();
+            stocks = new List<Stock>();
+            currentPackaging = new List<DataGridViewRow>();
             Obj = this;
-        }
-
-
-        private void SendForm_Load(object sender, EventArgs e)
-        {
             #region Отрисовка основных панелей управления формы Отправить
             int padding = 10;
             int workSizeWidth = (Screen.PrimaryScreen.Bounds.Width - padding * 5);
@@ -60,7 +55,165 @@ namespace DeliveryApplication.Model
 
             btnCreate.Location = new Point((panelPayment.Location.X + panelPayment.Size.Width) - btnCreate.Size.Width, panelPayment.Location.Y + panelPayment.Size.Height + padding);
             #endregion
+        }
+        public SendForm(int ID) : this()
+        {
+            string qry = $"SELECT * FROM PackageDocument WHERE PDID = {ID}";
+            DataTable dt = DataBaseControl.GetData(qry);
+            if (dt.Rows.Count == 1)
+            {
+                ShowPackageDocumentOnSendForm(dt.Rows[0]);
+                qry = $"SELECT * FROM PackagePacking WHERE PackageID = {ID}";
+                dt = DataBaseControl.GetData(qry);
+                foreach (DataRow row in dt.Rows)
+                {
+                    DataGridViewRow pac = new DataGridViewRow();
 
+                    DataGridViewCheckBoxCell cell1 = new DataGridViewCheckBoxCell();
+                    cell1.Value = false;
+                    pac.Cells.Add(cell1);
+
+                    DataGridViewTextBoxCell cell2 = new DataGridViewTextBoxCell();
+                    cell2.Value = row[1].ToString();
+                    pac.Cells.Add(cell2);
+
+                    DataGridViewImageCell cell3 = new DataGridViewImageCell();
+                    cell3.Value = Service.LefttArrow;
+                    pac.Cells.Add(cell3);
+
+                    DataGridViewTextBoxCell cell4 = new DataGridViewTextBoxCell();
+                    cell4.Value = row[2];
+                    pac.Cells.Add(cell4);
+
+                    DataGridViewImageCell cell5 = new DataGridViewImageCell();
+                    cell5.Value = Service.RightArrow;
+                    pac.Cells.Add(cell5);
+
+                    DataGridViewTextBoxCell cell6 = new DataGridViewTextBoxCell();
+                    cell6.Value = row[3];
+                    pac.Cells.Add(cell6);
+
+                    pac.Height = 30;
+
+                    currentPackaging.Add(pac);
+                }
+                if (currentPackaging.Count > 0)
+                {
+                    btnAddPackage.Text = $"Переглянути пакування [{currentPackaging.Count}]";
+                }
+                else
+                {
+                    btnAddPackage.Text = "Пакування відсутнє";
+                }
+                btnAddPackage.TextAlign = HorizontalAlignment.Center;
+                PriceСalculation();
+                SetNotActiveElements();
+            }
+
+        }
+
+        private void SetNotActiveElements()
+        {
+            txtNumberSender.Enabled = false;
+            cbTypeSender.Enabled = false;
+            txtFullNameSender.Enabled = false;
+            txtCitySender.Enabled = false;
+            txtLastNumberStockSender.Enabled = false;
+
+            txtNumberRecipient.Enabled = false;
+            cbTypeRecipient.Enabled = false;
+            txtFullNameRecipient.Enabled = false;
+            txtCityRecipient.Enabled = false;
+            txtLastNumberStockRecipient.Enabled = false;
+
+            txtDesPackage.Enabled = false;
+            cbTypeDelivery.Enabled = false;
+            txtPriceParcel.Enabled = false;
+            txtWeight.Enabled = false;
+            txtWidth.Enabled = false;
+            txtLength.Enabled = false;
+            txtHeight.Enabled = false;
+            panelTypePayer.Enabled = false;
+            //btnSenderPayer.Enabled = false;
+            //btnRecPayer.Enabled = false;
+            rbtnCash.Enabled = false;
+            rbtnNonCash.Enabled = false;
+            btnCreate.Visible = false;
+
+        }
+
+        private void ShowPackageDocumentOnSendForm(DataRow row)
+        {
+            lblVisitNumber.Visible = false;
+            lblPackageNumber.Text = "Відправлення №" + row["PDID"].ToString();
+            lblDate.Text = DateTime.Parse(row["PDDateCreate"].ToString()).ToShortDateString();
+            lblDateNow.Location = new Point(lblPackageNumber.Location.X + lblPackageNumber.Width, lblPackageNumber.Location.Y);
+            lblDate.Location = new Point(lblDateNow.Location.X + lblDateNow.Width, lblDateNow.Location.Y);
+
+            txtNumberSender.Text = row["PDNumberPhoneSender"].ToString();
+
+            cbTypeSender.SelectedItem = row["PDCategorySender"].ToString();
+            txtFullNameSender.Text = row["PDFullNameSender"].ToString();
+            txtCitySender.Text = row["PDCitySender"].ToString();
+
+            txtLastNumberStockSender.Text = row["PDStockSender"].ToString();
+            cbTypeSender.Visible = true;
+            cbTypeSender.Width = txtFullNameSender.Width;
+            txtFullNameSender.Visible = true;
+            txtCitySender.Visible = true;
+            txtLastNumberStockSender.Visible = true;
+            txtLastNumberStockSender.Width = txtFullNameSender.Width;
+
+            txtDesPackage.Text = row["PDDescription"].ToString();
+            cbTypeDelivery.SelectedItem = bool.Parse(row["PDTypeDelivery"].ToString()) ? "Фаст Експрес" : "Експрес";
+            txtPriceParcel.Text = row["PDInsurance"].ToString();
+
+            txtWeight.Text = row["PDWeight"].ToString();
+            txtWidth.Text = row["PDWidth"].ToString();
+            txtLength.Text = row["PDLength"].ToString();
+            txtHeight.Text = row["PDHeight"].ToString();
+
+            txtNumberRecipient.Text = row["PDNumberPhoneRecipient"].ToString();
+            cbTypeRecipient.Visible = true;
+            cbTypeRecipient.Width = txtFullNameRecipient.Width;
+            txtFullNameRecipient.Visible = true;
+            txtCityRecipient.Visible = true;
+            txtLastNumberStockRecipient.Visible = true;
+            txtLastNumberStockRecipient.Width = txtFullNameRecipient.Width;
+            cbTypeRecipient.SelectedItem = row["PDCategoryRecipient"].ToString();
+            txtFullNameRecipient.Text = row["PDFullNameRecipient"].ToString();
+            txtCityRecipient.Text = row["PDCityRecipient"].ToString();
+            txtLastNumberStockRecipient.Text = row["PDStockRecipient"].ToString();
+
+
+            if (bool.Parse(row["PDPayerSender"].ToString()))
+            {
+                btnRecPayer.Checked = false;
+                btnSenderPayer.Checked = true;
+                btnSenderPayer.Enabled = false;
+            }
+            else
+            {
+                btnSenderPayer.Checked = false;
+                btnRecPayer.Checked = true;
+                btnRecPayer.Enabled = false;
+            }
+
+            if (bool.Parse(row["PDFormPayCash"].ToString()))
+            {
+                rbtnNonCash.Checked = false;
+                rbtnCash.Checked = true;
+            }
+            else
+            {
+                rbtnCash.Checked = false;
+                rbtnNonCash.Checked = true;
+            }
+
+        }
+
+        private void SendForm_Load(object sender, EventArgs e)
+        {
             #region Размещение кнопок ширина/длина/высота согласно размеру экрана
             int widthSetup = (txtDesPackage.Size.Width - 10) / 3;
             txtWidth.Width = widthSetup;
@@ -72,13 +225,22 @@ namespace DeliveryApplication.Model
             txtHeight.Location = new Point(txtDesPackage.Location.X + 10 + txtLength.Size.Width + txtWidth.Size.Width, btnAddPackage.Location.Y + 62);
             #endregion
 
-
             lblWidthError.Location = new Point(txtWidth.Location.X, txtWidth.Location.Y + 36);
             lblLengthError.Location = new Point(txtLength.Location.X, txtLength.Location.Y + 36);
             lblHeightError.Location = new Point(txtHeight.Location.X, txtHeight.Location.Y + 36);
-            clients = new List<Client>();
-            stocks = new List<Stock>();
+
+            btnSenderPayer.Width = (panelTypePayer.Width - 9) / 2;
+            btnRecPayer.Width = (panelTypePayer.Width - 9) / 2;
+            btnRecPayer.Location = new Point(btnSenderPayer.Width + 6, 3);
+
+            int indent = (panelPayment.Width - (rbtnCash.Width + rbtnNonCash.Width + 40)) / 2;
+            rbtnCash.Location = new Point(indent, 405);
+            rbtnNonCash.Location = new Point(rbtnCash.Width + indent + 40, 405);
+
+
             listBox1.Size = new Size(txtNumberSender.Width, 20);
+            txtCitySender.Text = Service.SityLocation;
+            txtLastNumberStockSender.Text = Service.StockLocation;
             panelSender.Focus();
             txtNumberSender.Focus();
 
@@ -228,6 +390,7 @@ namespace DeliveryApplication.Model
         {
             listBox1.Visible = false;
             imgAddOrgaSender.Visible = false;
+            txtNumberSender.BorderColor = Color.FromArgb(213, 218, 223);
             listBox1.Items.Clear();
             clients.Clear();
             Generel_TextChanged(sender, e);
@@ -368,7 +531,6 @@ namespace DeliveryApplication.Model
 
                             txtNumberRecipient.Text = cl.NumberPhone;
 
-
                             for (int i = 0; i < cl.Companies.Count; i++)
                             {
                                 cbTypeRecipient.Items.Add(cl.Companies[i].Name);
@@ -484,6 +646,7 @@ namespace DeliveryApplication.Model
             imgAddOrgaRecipient.Visible = false;
             imgListStocks.Visible = false;
             lbStocks.Visible = false;
+            txtNumberRecipient.BorderColor = Color.FromArgb(213, 218, 223);
             lbStocks.Items.Clear();
             stocks.Clear();
             listBox1.Items.Clear();
@@ -557,6 +720,7 @@ namespace DeliveryApplication.Model
         private void txtLastNumberStockRecipient_TextChanged(object sender, EventArgs e)
         {
             lbStocks.Visible = false;
+            txtLastNumberStockRecipient.BorderColor = Color.FromArgb(213, 218, 223);
             lbStocks.Items.Clear();
             int number;
             if (int.TryParse(txtLastNumberStockRecipient.Text, out number))
@@ -664,9 +828,13 @@ namespace DeliveryApplication.Model
 
         private void btnAddPackage_Click(object sender, EventArgs e)
         {
-            if (currentPackaging == null)
+            if (!txtDesPackage.Enabled)
             {
-                currentPackaging = new List<DataGridViewRow>();
+                AddPackagingForm form = new AddPackagingForm(currentPackaging);
+                MainForm.BlurBackground(form);
+            }
+            else if (currentPackaging.Count == 0)
+            {
                 AddPackagingForm form = new AddPackagingForm(txtDesPackage.Text);
                 form.SaveTable += Form_SaveTable;
                 MainForm.BlurBackground(form);
@@ -842,7 +1010,7 @@ namespace DeliveryApplication.Model
                     insurance = CalcPercent();
                 }
                 int packingPrice = CalcPackingPrice();
-                FillHashTable(ht, locality,priceDelivery, insurance, packingPrice);
+                FillHashTable(ht, locality, priceDelivery, insurance, packingPrice);
                 ShowPriceDelivery(ht, priceDelivery + insurance + packingPrice);
             }
 
@@ -851,7 +1019,7 @@ namespace DeliveryApplication.Model
 
         private void ShowPriceDelivery(Hashtable ht, int mainSum)
         {
-            Label[] labelsName = { lblName1, lblName2, lblName3 }; 
+            Label[] labelsName = { lblName1, lblName2, lblName3 };
             Label[] labelsPrice = { lblPrice1, lblPrice2, lblPrice3 };
             int i = 0;
             foreach (DictionaryEntry entry in ht)
@@ -862,7 +1030,7 @@ namespace DeliveryApplication.Model
                 labelsPrice[i].Visible = true;
                 i++;
             }
-            lblPriceMain.Text = $"₴ {mainSum.ToString("N").Replace(',','.')}";
+            lblPriceMain.Text = $"₴ {mainSum.ToString("N").Replace(',', '.')}";
             lblPriceMain.Visible = true;
         }
 
@@ -908,7 +1076,7 @@ namespace DeliveryApplication.Model
             if (float.TryParse(txtPriceParcel.Text, out price))
             {
                 percent = price * 0.005f;
-                
+
                 if (percent % 1 >= 0.5)
                 {
                     roundedPercent = (float)Math.Ceiling(percent);
@@ -1036,14 +1204,15 @@ namespace DeliveryApplication.Model
 
         private void panelPayment_Enter(object sender, EventArgs e)
         {
-            panel_Enter(sender,e);
+            panel_Enter(sender, e);
             PriceСalculation();
         }
 
         private void panelPayment_Leave(object sender, EventArgs e)
         {
-            panel_Leave(sender,e);
-            HideLabelsPrice();
+            panel_Leave(sender, e);
+            if (txtDesPackage.Enabled)
+                HideLabelsPrice();
         }
 
         private void HideLabelsPrice()
@@ -1061,7 +1230,6 @@ namespace DeliveryApplication.Model
 
         private void GeneralRadioButton_Enter(object sender, EventArgs e)
         {
-
             ((Guna2Button)sender).BorderColor = Color.Gray;
         }
 
@@ -1070,23 +1238,307 @@ namespace DeliveryApplication.Model
             ((Guna2Button)sender).BorderColor = Color.White;
         }
 
-        private void guna2Button1_Click(object sender, EventArgs e)
+        private void btnSenderPayer_Click(object sender, EventArgs e)
         {
-            guna2Button2.Checked = false;
-            guna2Button1.Checked = true;
+            btnSenderPayer.Checked = true;
+            btnRecPayer.Checked = false;
+            cbTypeSender_SelectedIndexChanged(sender, e);
+        }
 
-            guna2Button2.FillColor = Color.White;
-            guna2Button1.FillColor = Color.FromArgb(46, 186, 119);
+        private void btnRecPayer_Click(object sender, EventArgs e)
+        {
+            if (txtDesPackage.Enabled)
+            {
+                btnRecPayer.Checked = true;
+                btnSenderPayer.Checked = false;
+                cbTypeRecipient_SelectedIndexChanged(sender, e);
+            }
+
+
 
         }
 
-        private void guna2Button2_Click(object sender, EventArgs e)
+        private void cbTypeRecipient_SelectedIndexChanged(object sender, EventArgs e)
         {
-            guna2Button2.Checked = true;
-            guna2Button1.Checked = false;
+            if (cbTypeRecipient.Text != "Приватна особа" && btnRecPayer.Checked)
+            {
+                rbtnNonCash.Enabled = true;
+                rbtnNonCash.Checked = true;
+            }
+            else if (cbTypeRecipient.Text == "Приватна особа" && btnRecPayer.Checked)
+            {
+                rbtnNonCash.Enabled = false;
+                rbtnNonCash.Checked = false;
+                rbtnCash.Checked = true;
+            }
+        }
 
-            guna2Button1.FillColor = Color.White;
-            guna2Button2.FillColor = Color.FromArgb(46, 186, 119);
+        private void cbTypeSender_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbTypeSender.Text != "Приватна особа" && btnSenderPayer.Checked)
+            {
+                rbtnNonCash.Enabled = true;
+                rbtnNonCash.Checked = true;
+            }
+            else if (cbTypeSender.Text == "Приватна особа" && btnSenderPayer.Checked)
+            {
+                rbtnNonCash.Enabled = false;
+                rbtnNonCash.Checked = false;
+                rbtnCash.Checked = true;
+            }
+        }
+
+        private void cbTypeRecipient_VisibleChanged(object sender, EventArgs e)
+        {
+            if (btnRecPayer.Checked && !cbTypeRecipient.Visible)
+            {
+                rbtnNonCash.Enabled = false;
+                rbtnNonCash.Checked = false;
+                rbtnCash.Checked = true;
+            }
+        }
+
+        private void cbTypeSender_VisibleChanged(object sender, EventArgs e)
+        {
+            if (btnSenderPayer.Checked && !cbTypeSender.Visible)
+            {
+                rbtnNonCash.Enabled = false;
+                rbtnNonCash.Checked = false;
+                rbtnCash.Checked = true;
+            }
+        }
+
+        private void btnCreate_Click(object sender, EventArgs e)
+        {
+
+            if (IsAllCorrect())
+            {
+                Save();
+                SaveClient(txtNumberSender.Text,txtFullNameSender.Text,cbTypeSender.Text,txtCitySender.Text,txtLastNumberStockSender.Text);
+                SaveClient(txtNumberRecipient.Text,txtFullNameRecipient.Text,cbTypeRecipient.Text,txtCityRecipient.Text,txtLastNumberStockRecipient.Text);
+            }
+            else
+            {
+                MessageBox.Show("Error");
+            }
+
+        }
+
+        private void SaveClient(string phone, string fullName, string typeClient, string city, string stock)
+        {
+            string[] fullNameClient = fullName.Split(' ');
+            int clientID;
+            int cityID = DataBaseControl.GetCityIDByName(city);
+            int stockID = GetStockIDByString(stock, cityID);
+            string qry = $@"SELECT * FROM Client WHERE cl_NumberPhone = '{phone}' 
+                             AND cl_Surname = N'{fullNameClient[0]}' AND cl_Name = N'{fullNameClient[1]}' 
+                             AND cl_Patronymic = N'{fullNameClient[2]}'";
+
+            DataTable dt = DataBaseControl.GetData(qry);
+            //Клиент уже записан в базу
+            if (dt.Rows.Count > 0)
+            {
+                clientID = Convert.ToInt32(dt.Rows[0][0].ToString());
+                qry = $"UPDATE Client SET cl_City = @city, cl_LastNumberStock = @stock WHERE cl_Id = @clID";
+                Hashtable ht = new Hashtable();
+                ht.Add("@city", cityID);
+                ht.Add("@stock", stockID);
+                ht.Add("@clID", clientID);
+                DataBaseControl.Add(qry, ht);
+            }
+            //Создаем нового клиента
+            else
+            {
+                qry = @"INSERT INTO Client VALUES (@phone,@name,@surname,@patronymic,
+                          @city,@stock);SELECT SCOPE_IDENTITY();";
+                Hashtable ht = new Hashtable();
+                ht.Add("@phone", phone);
+                ht.Add("@surname", fullNameClient[0]);
+                ht.Add("@name", fullNameClient[1]);
+                ht.Add("@patronymic", fullNameClient[2]);
+                ht.Add("@city", cityID);
+                ht.Add("@stock", stockID);
+                clientID = DataBaseControl.AddWithReturnID(qry, ht);
+
+            }
+            if (!(typeClient.Equals("Приватна особа")))
+            {
+                qry = $"SELECT * FROM Companies WHERE com_Name = N'{typeClient}'";
+                dt = DataBaseControl.GetData(qry);
+                int companyID = Convert.ToInt32(dt.Rows[0][0].ToString());
+                qry = $"SELECT * FROM PeopleCompanies WHERE cl_Id = '{clientID}' AND com_Id = '{companyID}'";
+                dt = DataBaseControl.GetData(qry);
+                if (dt.Rows.Count == 0)
+                {
+                    qry = $"INSERT INTO PeopleCompanies VALUES (@clID, @comID)";
+                    Hashtable ht = new Hashtable();
+                    ht.Add("@clID", clientID);
+                    ht.Add("@comID", companyID);
+                    DataBaseControl.Add(qry,ht);
+                }
+            }
+        }
+
+        private int GetStockIDByString(string text, int cityID)
+        {
+            int result = 0;
+            int colonIndexAddress = text.IndexOf(':');
+            string address = text.Substring(colonIndexAddress + 2).Trim();
+            int startIndex = text.IndexOf("№") + 1;
+            int endIndex = text.IndexOf(":");
+            int number = Convert.ToInt32(text.Substring(startIndex, endIndex - startIndex).Trim());
+            string qry = $@"SELECT Stock.StockID  FROM Stock WHERE Stock.StockNumber = '{number}' AND 
+                                Stock.StockSityID = '{cityID}' AND 
+                                Stock.StockAddress = N'{address}'";
+            DataTable dt = DataBaseControl.GetData(qry);
+            if (dt.Rows.Count > 0)
+            {
+                result = Convert.ToInt32(dt.Rows[0][0].ToString());
+            }
+            return result;
+        }
+
+        private void Save()
+        {
+            try
+            {
+                string qry = @"INSERT PackageDocument VALUES (@senderPhone,@senderCategory,@senderFullName,
+                        @senderCity,@senderStock,@recipientPhone,@recipientCategory,@recipientFullName,
+                        @recipientCity,@recipientStock,@dateCreate,@desc,@insurance,@typeDelivery,@weight,@volumeWeight,
+                        @width,@length,@height,@payerSender,@formPayCash); SELECT SCOPE_IDENTITY();";
+                Hashtable ht = new Hashtable();
+
+                ht.Add("@senderPhone", txtNumberSender.Text);
+                ht.Add("@senderCategory", cbTypeSender.SelectedItem.ToString());
+                ht.Add("@senderFullName", txtFullNameSender.Text);
+                ht.Add("@senderCity", Service.SityLocation);
+                ht.Add("@senderStock", Service.StockLocation);
+                ht.Add("@recipientPhone", txtNumberRecipient.Text);
+                ht.Add("@recipientCategory", cbTypeRecipient.SelectedItem.ToString());
+                ht.Add("@recipientFullName", txtFullNameRecipient.Text);
+                ht.Add("@recipientCity", txtCityRecipient.Text);
+                ht.Add("@recipientStock", txtLastNumberStockRecipient.Text);
+                ht.Add("@dateCreate", DateTime.Now);
+                ht.Add("@desc", txtDesPackage.Text);
+                ht.Add("@insurance", txtPriceParcel.Text);
+                ht.Add("@typeDelivery", cbTypeDelivery.SelectedIndex);
+                ht.Add("@weight", txtWeight.Text);
+                ht.Add("@volumeWeight", txtValue.Text.Replace(" кг", ""));
+                ht.Add("@width", txtWidth.Text);
+                ht.Add("@length", txtLength.Text);
+                ht.Add("@height", txtHeight.Text);
+                ht.Add("@payerSender", btnSenderPayer.Checked);
+                ht.Add("@formPayCash", rbtnCash.Checked);
+
+                int packageID = DataBaseControl.AddWithReturnID(qry, ht);
+
+                foreach (DataGridViewRow row in currentPackaging)
+                {
+                    string packagingName = row.Cells[1].Value.ToString();
+                    int packagingCount = Convert.ToInt32(row.Cells[3].Value.ToString());
+                    int packagingPrice = (int)Convert.ToDecimal(row.Cells[5].Value.ToString());
+
+                    qry = $@"INSERT INTO PackagePacking VALUES (@PackageID,@PackagingName,@PackagingCount,
+                      @PackagingPrice)";
+                    ht.Clear();
+                    ht.Add("PackageID", packageID);
+                    ht.Add("@PackagingName", packagingName);
+                    ht.Add("@PackagingCount", packagingCount);
+                    ht.Add("@PackagingPrice", packagingPrice);
+                    DataBaseControl.Add(qry, ht);
+                }
+                MessageBox.Show("Good Save");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Не вдалося з'єднатися з базою " + ex.Message, "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+
+        }
+
+        private bool IsCorrectFullName(Guna2TextBox FIO)
+        {
+            bool result = false;
+            string fullNameUser = FIO.Text.Trim();
+            if (fullNameUser.Count(c => c == ' ') == 2)
+            {
+                string[] words = fullNameUser.Split(' ');
+
+                foreach (string word in words)
+                {
+                    if (!(word.Length >= 2))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            return result;
+        }
+        private bool IsAllCorrect()
+        {
+            if (!IsCorrectNumber(txtNumberSender))
+            {
+                txtNumberSender.BorderColor = Color.Red;
+            }
+            if (!IsCorrectNumber(txtNumberRecipient))
+            {
+                txtNumberRecipient.BorderColor = Color.Red;
+            }
+            if (!IsCorrectFullName(txtFullNameSender))
+            {
+                txtFullNameSender.BorderColor = Color.Red;
+            }
+            if (!IsCorrectFullName(txtFullNameRecipient))
+            {
+                txtFullNameRecipient.BorderColor = Color.Red;
+            }
+            IsStockCorrect();
+            PackageIsCorrect();
+
+            Guna2Panel[] panels = { panelSender, panelRecipient, panelPackageInfo };
+            for (int i = 0; i < panels.Length; i++)
+            {
+                foreach (Control item in panels[i].Controls)
+                {
+                    if (item is Guna2TextBox box)
+                    {
+                        if (box.BorderColor == Color.Red)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+        private void IsStockCorrect()
+        {
+            if (stocks.SingleOrDefault(s => s.ToString() == txtLastNumberStockRecipient.Text) == null)
+                txtLastNumberStockRecipient.BorderColor = Color.Red;
+        }
+        private void GeneralFullName_TextChanged(object sender, EventArgs e)
+        {
+            ((Guna2TextBox)sender).BorderColor = Color.FromArgb(213, 218, 223);
+        }
+        private void General_EnabledChanged(object sender, EventArgs e)
+        {
+            if (sender is Guna2Button btn)
+            {
+                if (!btn.Enabled && btn.Checked)
+                {
+                    btn.DisabledState.FillColor = Color.FromArgb(237, 237, 237);
+                    btn.DisabledState.ForeColor = Color.FromArgb(64, 64, 67);
+                }
+                else
+                {
+                    btn.DisabledState.FillColor = Color.White;
+                    btn.DisabledState.ForeColor = Color.FromArgb(122, 123, 124);
+                }
+                btn.DisabledState.BorderColor = Color.Transparent;
+            }
+
         }
     }
 }

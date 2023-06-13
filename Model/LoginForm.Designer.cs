@@ -114,22 +114,22 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Agency FB", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(59)))), ((int)(((byte)(74)))));
-            this.label3.Location = new System.Drawing.Point(154, 50);
+            this.label3.Location = new System.Drawing.Point(154, 58);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(124, 45);
+            this.label3.Size = new System.Drawing.Size(164, 36);
             this.label3.TabIndex = 0;
             this.label3.Text = "DELIVERY";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Agency FB", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(59)))), ((int)(((byte)(74)))));
-            this.label2.Location = new System.Drawing.Point(154, 11);
+            this.label2.Location = new System.Drawing.Point(154, 19);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(74, 45);
+            this.label2.Size = new System.Drawing.Size(92, 36);
             this.label2.TabIndex = 0;
             this.label2.Text = "FAST";
             // 

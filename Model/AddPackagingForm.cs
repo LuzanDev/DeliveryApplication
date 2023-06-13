@@ -28,12 +28,12 @@ namespace DeliveryApplication.Model
         public AddPackagingForm()
         {
             InitializeComponent();
+            materials = Service.Materials;
         }
 
         public AddPackagingForm(string productDescription, bool table = false) : this()
         {
             description = productDescription;
-            materials = Service.Materials;
             materialsForDocument = new List<PackagingMaterial>();
             currentMaterials = new List<PackagingMaterial>();
             
@@ -47,6 +47,24 @@ namespace DeliveryApplication.Model
                     currentMaterials.Add(mater);
                 }
             }
+        }
+        public AddPackagingForm(List<DataGridViewRow> list) : this()
+        {
+            foreach (var row in list)
+            {
+                dataGridView1.Rows.Add(row);
+            }
+            SetNotActiveElements();
+        }
+
+        private void SetNotActiveElements()
+        {
+            txtSearchPackaging.Enabled = false;
+            guna2Panel1.Enabled = false;
+            dataGridView1.Enabled = false;
+            btnSave.Visible = false;
+            btnCancel.Location = btnSave.Location;
+            btnCancel.Focus();
         }
 
         private void FillPackagingMaterialForDoc()
@@ -154,10 +172,8 @@ namespace DeliveryApplication.Model
                     else if (!(currentMaterials.Contains(material)))
                     {
                         currentMaterials.Add(material);
-                        Image rightArrow = Image.FromFile(@"D:\arrmore.png");
-                        Image leftArrow = Image.FromFile(@"D:\arrdown.png");
 
-                        dataGridView1.Rows.Add(new object[] { false, material.Name, leftArrow, 1, rightArrow, material.Price });
+                        dataGridView1.Rows.Add(new object[] { false, material.Name, Service.LefttArrow, 1, Service.RightArrow, material.Price });
                         listBox1.Visible = false;
                         txtSearchPackaging.Text = string.Empty;
                         txtSearchPackaging.Focus();

@@ -161,7 +161,12 @@ namespace DeliveryApplication
 
             return packagings;
         }
-
+        /// <summary>
+        /// Проверить существование
+        /// </summary>
+        /// <param name="qry"></param>
+        /// <param name="ht"></param>
+        /// <returns></returns>
         public static int CheckExistence(string qry, Hashtable ht)
         {
             int result = 0;
@@ -227,6 +232,37 @@ namespace DeliveryApplication
                 }
             }
             return price;
+        }
+
+        /// <summary>
+        /// Добавить данные и вернуть ID строки результата
+        /// </summary>
+        /// <param name="qry"></param>
+        /// <param name="ht"></param>
+        /// <returns>ID последней добавленной строки</returns>
+        public static int AddWithReturnID(string qry, Hashtable ht)
+        {
+            int result = 0;
+            try
+            {
+                SqlCommand cmd = new SqlCommand(qry, GetConnection());
+                cmd.CommandType = CommandType.Text;
+
+                foreach (DictionaryEntry item in ht)
+                {
+                    cmd.Parameters.AddWithValue(item.Key.ToString(), item.Value);
+                }
+
+                if (GetConnection().State == ConnectionState.Closed) { GetConnection().Open(); }
+                result = Convert.ToInt32(cmd.ExecuteScalar());
+                if (GetConnection().State == ConnectionState.Open) { GetConnection().Close(); }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                GetConnection().Close();
+            }
+            return result;
         }
     }
 }
