@@ -190,7 +190,7 @@ namespace DeliveryApplication
             return result;
         }
 
-        public static int Add(string qry, Hashtable ht)
+        public static int Execute(string qry, Hashtable ht)
         {
             int result = 0;
             try

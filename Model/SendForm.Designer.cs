@@ -129,7 +129,7 @@ namespace DeliveryApplication.Model
             this.lblDate.AutoSize = true;
             this.lblDate.Font = new System.Drawing.Font("Segoe UI Semibold", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
-            this.lblDate.Location = new System.Drawing.Point(359, 52);
+            this.lblDate.Location = new System.Drawing.Point(372, 52);
             this.lblDate.Name = "lblDate";
             this.lblDate.Size = new System.Drawing.Size(0, 23);
             this.lblDate.TabIndex = 3;
@@ -187,7 +187,7 @@ namespace DeliveryApplication.Model
             this.lblDateNow.AutoSize = true;
             this.lblDateNow.Font = new System.Drawing.Font("Segoe UI Semibold", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblDateNow.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
-            this.lblDateNow.Location = new System.Drawing.Point(309, 52);
+            this.lblDateNow.Location = new System.Drawing.Point(322, 52);
             this.lblDateNow.Name = "lblDateNow";
             this.lblDateNow.Size = new System.Drawing.Size(51, 23);
             this.lblDateNow.TabIndex = 0;
@@ -199,7 +199,7 @@ namespace DeliveryApplication.Model
             this.lblPackageNumber.AutoSize = true;
             this.lblPackageNumber.Font = new System.Drawing.Font("Segoe UI Semibold", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblPackageNumber.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
-            this.lblPackageNumber.Location = new System.Drawing.Point(186, 51);
+            this.lblPackageNumber.Location = new System.Drawing.Point(199, 51);
             this.lblPackageNumber.Name = "lblPackageNumber";
             this.lblPackageNumber.Size = new System.Drawing.Size(120, 23);
             this.lblPackageNumber.TabIndex = 0;
@@ -210,7 +210,7 @@ namespace DeliveryApplication.Model
             this.guna2PictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.guna2PictureBox2.Image = global::DeliveryApplication.Properties.Resources.arrowDown;
             this.guna2PictureBox2.ImageRotate = 0F;
-            this.guna2PictureBox2.Location = new System.Drawing.Point(155, 50);
+            this.guna2PictureBox2.Location = new System.Drawing.Point(168, 50);
             this.guna2PictureBox2.Name = "guna2PictureBox2";
             this.guna2PictureBox2.Size = new System.Drawing.Size(25, 25);
             this.guna2PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -225,9 +225,9 @@ namespace DeliveryApplication.Model
             this.lblVisitNumber.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.lblVisitNumber.Location = new System.Drawing.Point(71, 51);
             this.lblVisitNumber.Name = "lblVisitNumber";
-            this.lblVisitNumber.Size = new System.Drawing.Size(78, 23);
+            this.lblVisitNumber.Size = new System.Drawing.Size(98, 23);
             this.lblVisitNumber.TabIndex = 0;
-            this.lblVisitNumber.Text = "Візит 10";
+            this.lblVisitNumber.Text = "Візит 9999";
             // 
             // imgClientLogo
             // 
@@ -1360,6 +1360,7 @@ namespace DeliveryApplication.Model
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SendForm";
             this.Load += new System.EventHandler(this.SendForm_Load);
+            this.VisibleChanged += new System.EventHandler(this.SendForm_VisibleChanged);
             this.guna2Panel1.ResumeLayout(false);
             this.guna2Panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).EndInit();

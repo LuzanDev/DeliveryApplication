@@ -34,7 +34,10 @@ namespace DeliveryApplication
 
         private void btnAcceptParcel_Click(object sender, EventArgs e)
         {
+            //Visit visit = new Visit(MainForm.CountVisit++);
+            MainForm.CountVisit++;
             MainForm.Instance.AddControls(new SendForm ());
+            //int i = 0;
         }
 
         private void btnGiveParcel_Click(object sender, EventArgs e)
@@ -44,7 +47,7 @@ namespace DeliveryApplication
 
         private void guna2Button1_Click(object sender, EventArgs e)
         {
-            MainForm.Instance.AddControls(new SendForm(13));
+            MainForm.Instance.AddControls(new SendForm(1));
         }
     }
 }

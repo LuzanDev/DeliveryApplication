@@ -2,27 +2,49 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
+using System.IO.Packaging;
 using System.Linq;
+using System.ServiceModel.Channels;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace DeliveryApplication.Model
 {
+    public delegate void MyEventHandler(int sendingID);
+
     public partial class SendForm : Form
     {
         private List<Client> clients;
         private List<Stock> stocks;
         private List<DataGridViewRow> currentPackaging;
+        private int sendingID;
+        private Visit activeVisit;
+
+        public Visit ActiveVisit
+        {
+            get { return activeVisit; }
+            set { activeVisit = value; }
+        }
+
+        public int SendingID
+        {
+            get { return sendingID; }
+        }
+
         public List<DataGridViewRow> CurrentPackaging
         {
             get { return currentPackaging; }
         }
+        public event MyEventHandler Editing;
 
         public static SendForm Obj { get; private set; }
 
-        public SendForm()
+        public SendForm(Visit visit = null)
         {
             InitializeComponent();
             lblDate.Text = DateTime.Now.ToShortDateString();
@@ -55,6 +77,33 @@ namespace DeliveryApplication.Model
 
             btnCreate.Location = new Point((panelPayment.Location.X + panelPayment.Size.Width) - btnCreate.Size.Width, panelPayment.Location.Y + panelPayment.Size.Height + padding);
             #endregion
+            if (visit != null)
+            {
+                ActiveVisit = visit;
+                lblVisitNumber.Text = visit.VisitCount;
+
+                txtNumberSender.Text = visit.PhoneClient;
+                txtNumberSender.Enabled = false;
+
+                txtFullNameSender.Text = visit.FullNameClient;
+                txtFullNameSender.Enabled = false;
+
+                cbTypeSender.Items.Add(visit.CompanyName);
+                cbTypeSender.SelectedItem = visit.CompanyName;
+                cbTypeSender.Enabled = false;
+
+                txtNumberSender.Visible = true;
+                txtFullNameSender.Visible = true;
+                cbTypeSender.Visible = true;
+                imgAddOrgaSender.Visible = false;
+                cbTypeSender.Width = txtFullNameSender.Width;
+            }
+            else
+            {
+                lblVisitNumber.Text = "Візит " + MainForm.CountVisit.ToString();
+            }
+
+
         }
         public SendForm(int ID) : this()
         {
@@ -147,8 +196,7 @@ namespace DeliveryApplication.Model
             lblVisitNumber.Visible = false;
             lblPackageNumber.Text = "Відправлення №" + row["PDID"].ToString();
             lblDate.Text = DateTime.Parse(row["PDDateCreate"].ToString()).ToShortDateString();
-            lblDateNow.Location = new Point(lblPackageNumber.Location.X + lblPackageNumber.Width, lblPackageNumber.Location.Y);
-            lblDate.Location = new Point(lblDateNow.Location.X + lblDateNow.Width, lblDateNow.Location.Y);
+            DatePosition();
 
             txtNumberSender.Text = row["PDNumberPhoneSender"].ToString();
 
@@ -212,6 +260,12 @@ namespace DeliveryApplication.Model
 
         }
 
+        private void DatePosition()
+        {
+            lblDateNow.Location = new Point(lblPackageNumber.Location.X + lblPackageNumber.Width, lblPackageNumber.Location.Y);
+            lblDate.Location = new Point(lblDateNow.Location.X + lblDateNow.Width, lblDateNow.Location.Y);
+        }
+
         private void SendForm_Load(object sender, EventArgs e)
         {
             #region Размещение кнопок ширина/длина/высота согласно размеру экрана
@@ -241,14 +295,31 @@ namespace DeliveryApplication.Model
             listBox1.Size = new Size(txtNumberSender.Width, 20);
             txtCitySender.Text = Service.SityLocation;
             txtLastNumberStockSender.Text = Service.StockLocation;
-            panelSender.Focus();
-            txtNumberSender.Focus();
 
+            if (activeVisit != null)
+            {
+                panelPackageInfo.Focus();
+                txtDesPackage.Focus();
+            }
+            else
+            {
+                panelSender.Focus();
+                txtNumberSender.Focus();
+            }
         }
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            MainForm.Instance.AddControls(new ControlMenu());
+            if (activeVisit != null)
+            {
+                this.Hide();
+                MainForm.Instance.AddControls(activeVisit);
+            }
+            else
+            {
+                MainForm.Instance.AddControls(new ControlMenu());
+            }
+
         }
 
         private void guna2TextBox1_TextChanged(object sender, EventArgs e)
@@ -1311,17 +1382,78 @@ namespace DeliveryApplication.Model
         private void btnCreate_Click(object sender, EventArgs e)
         {
 
+            PriceСalculation();
             if (IsAllCorrect())
             {
-                Save();
-                SaveClient(txtNumberSender.Text,txtFullNameSender.Text,cbTypeSender.Text,txtCitySender.Text,txtLastNumberStockSender.Text);
-                SaveClient(txtNumberRecipient.Text,txtFullNameRecipient.Text,cbTypeRecipient.Text,txtCityRecipient.Text,txtLastNumberStockRecipient.Text);
-            }
-            else
-            {
-                MessageBox.Show("Error");
-            }
+                if (btnCreate.Text == "СТВОРИТИ")
+                {
+                    sendingID = Save();
+                    lblPackageNumber.Text += $" №{sendingID}";
+                    SaveClient(txtNumberSender.Text, txtFullNameSender.Text, cbTypeSender.Text, txtCitySender.Text, txtLastNumberStockSender.Text);
+                    SaveClient(txtNumberRecipient.Text, txtFullNameRecipient.Text, cbTypeRecipient.Text, txtCityRecipient.Text, txtLastNumberStockRecipient.Text);
+                    if (ActiveVisit == null)
+                    {
+                        Visit visit = new Visit(lblVisitNumber.Text, txtFullNameSender.Text, cbTypeSender.Text, txtNumberSender.Text, sendingID, Obj);
+                        this.Hide();
+                        MainForm.Instance.AddControls(visit);
+                    }
+                    else
+                    {
+                        this.Hide();
+                        activeVisit.AddNewSending(sendingID, this);
+                        MainForm.Instance.AddControls(activeVisit);
+                    }
+                }
+                else
+                {
+                    SaveClient(txtNumberRecipient.Text, txtFullNameRecipient.Text, cbTypeRecipient.Text, txtCityRecipient.Text, txtLastNumberStockRecipient.Text);
+                    string qry = $@"UPDATE PackageDocument SET PDNumberPhoneRecipient = @rPhone,PDCategoryRecipient = @rCat,
+                            PDFullNameRecipient = @rFullName,PDCityRecipient = @rCity,
+                            PDStockRecipient = @rStock,PDDescription = @des,PDInsurance = @insurance,PDTypeDelivery = @typeDel,
+                            PDWeight = @weight,
+                            PDVolumeWeight = @volWeight,PDWidth = @width, PDLength = @length, PDHeight = @height,
+                            PDPriceDelivery = @priceDel,
+                            PDPayerSender = @paySender, PDFormPayCash = @payCash, PDPaid = @paid WHERE PDID = @sendingID";
 
+                    Hashtable ht = new Hashtable();
+                    ht.Add("@rPhone", txtNumberRecipient.Text);
+                    ht.Add("@rCat", cbTypeRecipient.SelectedItem.ToString());
+                    ht.Add("@rFullName", txtFullNameRecipient.Text);
+                    ht.Add("@rCity", txtCityRecipient.Text);
+                    ht.Add("@rStock", txtLastNumberStockRecipient.Text);
+                    ht.Add("@des", txtDesPackage.Text);
+                    ht.Add("@insurance", txtPriceParcel.Text);
+                    ht.Add("@typeDel", cbTypeDelivery.SelectedIndex);
+                    ht.Add("@weight", txtWeight.Text);
+                    ht.Add("@volWeight", txtValue.Text.Replace(" кг", ""));
+                    ht.Add("@width", txtWidth.Text);
+                    ht.Add("@length", txtLength.Text);
+                    ht.Add("@height", txtHeight.Text);
+                    ht.Add("@priceDel", Convert.ToSingle(lblPriceMain.Text.Replace("₴ ", "").Replace('.', ',')));
+                    ht.Add("@paySender", btnSenderPayer.Checked);
+                    ht.Add("@payCash", rbtnCash.Checked);
+                    ht.Add("@sendingID", sendingID);
+                    ht.Add("@paid", rbtnNonCash.Checked ? true : false);
+                    DataBaseControl.Execute(qry, ht);
+
+                    qry = $"SELECT * FROM PackagePacking WHERE PackageID = '{sendingID}'";
+                    DataTable dt = DataBaseControl.GetData(qry);
+                    if (dt.Rows.Count > 0)
+                    {
+                        qry = "DELETE FROM PackagePacking WHERE PackageID = @sendingID";
+                        ht.Clear();
+                        ht.Add("@sendingID", sendingID);
+                        DataBaseControl.Execute(qry, ht);
+                    }
+
+                    AddPackaging(sendingID);
+                    Editing?.Invoke(sendingID);
+                    this.Hide();
+                    MainForm.Instance.AddControls(activeVisit);
+                }
+
+
+            }
         }
 
         private void SaveClient(string phone, string fullName, string typeClient, string city, string stock)
@@ -1344,7 +1476,7 @@ namespace DeliveryApplication.Model
                 ht.Add("@city", cityID);
                 ht.Add("@stock", stockID);
                 ht.Add("@clID", clientID);
-                DataBaseControl.Add(qry, ht);
+                DataBaseControl.Execute(qry, ht);
             }
             //Создаем нового клиента
             else
@@ -1374,7 +1506,7 @@ namespace DeliveryApplication.Model
                     Hashtable ht = new Hashtable();
                     ht.Add("@clID", clientID);
                     ht.Add("@comID", companyID);
-                    DataBaseControl.Add(qry,ht);
+                    DataBaseControl.Execute(qry, ht);
                 }
             }
         }
@@ -1398,14 +1530,14 @@ namespace DeliveryApplication.Model
             return result;
         }
 
-        private void Save()
+        private int Save()
         {
             try
             {
                 string qry = @"INSERT PackageDocument VALUES (@senderPhone,@senderCategory,@senderFullName,
                         @senderCity,@senderStock,@recipientPhone,@recipientCategory,@recipientFullName,
                         @recipientCity,@recipientStock,@dateCreate,@desc,@insurance,@typeDelivery,@weight,@volumeWeight,
-                        @width,@length,@height,@payerSender,@formPayCash); SELECT SCOPE_IDENTITY();";
+                        @width,@length,@height,@priceDelivery,@payerSender,@formPayCash,@paid); SELECT SCOPE_IDENTITY();";
                 Hashtable ht = new Hashtable();
 
                 ht.Add("@senderPhone", txtNumberSender.Text);
@@ -1427,36 +1559,43 @@ namespace DeliveryApplication.Model
                 ht.Add("@width", txtWidth.Text);
                 ht.Add("@length", txtLength.Text);
                 ht.Add("@height", txtHeight.Text);
+                ht.Add("@priceDelivery", Convert.ToSingle(lblPriceMain.Text.Replace("₴ ", "").Replace('.', ',')));
                 ht.Add("@payerSender", btnSenderPayer.Checked);
                 ht.Add("@formPayCash", rbtnCash.Checked);
+                ht.Add("@paid", rbtnNonCash.Checked ? true : false);
 
                 int packageID = DataBaseControl.AddWithReturnID(qry, ht);
+                AddPackaging(packageID);
 
-                foreach (DataGridViewRow row in currentPackaging)
-                {
-                    string packagingName = row.Cells[1].Value.ToString();
-                    int packagingCount = Convert.ToInt32(row.Cells[3].Value.ToString());
-                    int packagingPrice = (int)Convert.ToDecimal(row.Cells[5].Value.ToString());
-
-                    qry = $@"INSERT INTO PackagePacking VALUES (@PackageID,@PackagingName,@PackagingCount,
-                      @PackagingPrice)";
-                    ht.Clear();
-                    ht.Add("PackageID", packageID);
-                    ht.Add("@PackagingName", packagingName);
-                    ht.Add("@PackagingCount", packagingCount);
-                    ht.Add("@PackagingPrice", packagingPrice);
-                    DataBaseControl.Add(qry, ht);
-                }
                 MessageBox.Show("Good Save");
+                return packageID;
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Не вдалося з'єднатися з базою " + ex.Message, "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-
+            return 0;
         }
 
+        private void AddPackaging(int sendingID)
+        {
+            foreach (DataGridViewRow row in currentPackaging)
+            {
+                string packagingName = row.Cells[1].Value.ToString();
+                int packagingCount = Convert.ToInt32(row.Cells[3].Value.ToString());
+                int packagingPrice = (int)Convert.ToDecimal(row.Cells[5].Value.ToString());
+
+                string qry = $@"INSERT INTO PackagePacking VALUES (@PackageID,@PackagingName,@PackagingCount,
+                      @PackagingPrice)";
+                Hashtable ht = new Hashtable();
+                ht.Add("PackageID", sendingID);
+                ht.Add("@PackagingName", packagingName);
+                ht.Add("@PackagingCount", packagingCount);
+                ht.Add("@PackagingPrice", packagingPrice);
+                DataBaseControl.Execute(qry, ht);
+            }
+        }
         private bool IsCorrectFullName(Guna2TextBox FIO)
         {
             bool result = false;
@@ -1540,5 +1679,25 @@ namespace DeliveryApplication.Model
             }
 
         }
+
+        private void SendForm_VisibleChanged(object sender, EventArgs e)
+        {
+            if (this.Visible)
+            {
+                if (lblPackageNumber.Text.Contains('№'))
+                {
+                    DatePosition();
+                    txtNumberSender.Enabled = false;
+                    cbTypeSender.Enabled = false;
+                    imgAddOrgaSender.Visible = false;
+                    cbTypeSender.Width = txtFullNameSender.Width;
+                    txtFullNameSender.Enabled = false;
+                    btnCreate.Text = "ЗАПИСАТИ";
+                }
+            }
+        }
+
+        
     }
+    
 }

@@ -183,6 +183,16 @@ namespace DeliveryApplication.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap iconCompany {
+            get {
+                object obj = ResourceManager.GetObject("iconCompany", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_send_delivery_100 {
             get {
                 object obj = ResourceManager.GetObject("icons8-send-delivery-100", resourceCulture);

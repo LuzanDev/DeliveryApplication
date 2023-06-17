@@ -163,7 +163,7 @@ namespace DeliveryApplication.Model
                     ht.Clear();
                     ht.Add("@companyName", txtNameCompany.Text);
                     ht.Add("@companyCode", txtCodeCompany.Text);
-                    result = DataBaseControl.Add(qry, ht);
+                    result = DataBaseControl.Execute(qry, ht);
                     if (result > 0)
                     {
                         guna2MessageDialog1.Buttons = MessageDialogButtons.OK;

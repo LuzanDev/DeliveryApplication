@@ -360,6 +360,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>FastDeliveryDB.mdf</DependentUpon>
     </Content>
+    <None Include="Resources\iconCompany.png" />
     <None Include="Resources\phoneLogo.png" />
     <None Include="Resources\userLogo.png" />
     <None Include="Resources\list.png" />

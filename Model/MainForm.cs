@@ -17,6 +17,15 @@ namespace DeliveryApplication
             if (CurrentEmployee != null)
                 guna2CircleButton1.Text = CurrentEmployee.Surname[0].ToString();
         }
+        private static int countVisit;
+
+        public static int CountVisit
+        {
+            get { return countVisit; }
+            set { countVisit = value; }
+        }
+
+
 
         private static string startDateWork;
         public static string StartDateWork
