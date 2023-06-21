@@ -245,6 +245,7 @@
     <Compile Include="Container.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="Company.cs" />
+    <Compile Include="DeliveryNote.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Model\AddCompanyForm.cs">
       <SubType>Form</SubType>

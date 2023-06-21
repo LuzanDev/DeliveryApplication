@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.btnAcceptParcel = new Guna.UI2.WinForms.Guna2GradientButton();
-            this.guna2Button4 = new Guna.UI2.WinForms.Guna2Button();
             this.btnGiveParcel = new Guna.UI2.WinForms.Guna2Button();
             this.btnSaleBoxes = new Guna.UI2.WinForms.Guna2Button();
             this.guna2Button1 = new Guna.UI2.WinForms.Guna2Button();
@@ -59,29 +58,6 @@
             this.btnAcceptParcel.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             this.btnAcceptParcel.TextOffset = new System.Drawing.Point(0, 55);
             this.btnAcceptParcel.Click += new System.EventHandler(this.btnAcceptParcel_Click);
-            // 
-            // guna2Button4
-            // 
-            this.guna2Button4.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Button4.BorderRadius = 10;
-            this.guna2Button4.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button4.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button4.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button4.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button4.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
-            this.guna2Button4.Font = new System.Drawing.Font("Segoe UI Symbol", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2Button4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.guna2Button4.Image = global::DeliveryApplication.Properties.Resources.f4;
-            this.guna2Button4.ImageAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.guna2Button4.ImageOffset = new System.Drawing.Point(0, -95);
-            this.guna2Button4.ImageSize = new System.Drawing.Size(32, 28);
-            this.guna2Button4.Location = new System.Drawing.Point(1192, 12);
-            this.guna2Button4.Name = "guna2Button4";
-            this.guna2Button4.Size = new System.Drawing.Size(187, 230);
-            this.guna2Button4.TabIndex = 8;
-            this.guna2Button4.Text = "Автостворення\nна основі ІД";
-            this.guna2Button4.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.guna2Button4.TextOffset = new System.Drawing.Point(0, 55);
             // 
             // btnGiveParcel
             // 
@@ -153,7 +129,6 @@
             this.ClientSize = new System.Drawing.Size(1410, 664);
             this.Controls.Add(this.guna2Button1);
             this.Controls.Add(this.btnAcceptParcel);
-            this.Controls.Add(this.guna2Button4);
             this.Controls.Add(this.btnGiveParcel);
             this.Controls.Add(this.btnSaleBoxes);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -167,7 +142,6 @@
         #endregion
 
         private Guna.UI2.WinForms.Guna2GradientButton btnAcceptParcel;
-        private Guna.UI2.WinForms.Guna2Button guna2Button4;
         private Guna.UI2.WinForms.Guna2Button btnGiveParcel;
         private Guna.UI2.WinForms.Guna2Button btnSaleBoxes;
         private Guna.UI2.WinForms.Guna2Button guna2Button1;

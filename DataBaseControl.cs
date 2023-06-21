@@ -5,6 +5,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -263,6 +264,12 @@ namespace DeliveryApplication
                 GetConnection().Close();
             }
             return result;
+        }
+
+        public static DataTable GetParcelCurrentStock()
+        {
+            string qry = $"SELECT * FROM PackageDocument WHERE PDCityRecipient = N'{Service.SityLocation}' AND PDStockRecipient = N'{Service.StockLocation}'";
+            return GetData(qry);
         }
     }
 }

@@ -1537,7 +1537,7 @@ namespace DeliveryApplication.Model
                 string qry = @"INSERT PackageDocument VALUES (@senderPhone,@senderCategory,@senderFullName,
                         @senderCity,@senderStock,@recipientPhone,@recipientCategory,@recipientFullName,
                         @recipientCity,@recipientStock,@dateCreate,@desc,@insurance,@typeDelivery,@weight,@volumeWeight,
-                        @width,@length,@height,@priceDelivery,@payerSender,@formPayCash,@paid); SELECT SCOPE_IDENTITY();";
+                        @width,@length,@height,@priceDelivery,@payerSender,@formPayCash,@paid,@location); SELECT SCOPE_IDENTITY();";
                 Hashtable ht = new Hashtable();
 
                 ht.Add("@senderPhone", txtNumberSender.Text);
@@ -1563,6 +1563,7 @@ namespace DeliveryApplication.Model
                 ht.Add("@payerSender", btnSenderPayer.Checked);
                 ht.Add("@formPayCash", rbtnCash.Checked);
                 ht.Add("@paid", rbtnNonCash.Checked ? true : false);
+                ht.Add("@location", DBNull.Value);
 
                 int packageID = DataBaseControl.AddWithReturnID(qry, ht);
                 AddPackaging(packageID);
@@ -1697,7 +1698,12 @@ namespace DeliveryApplication.Model
             }
         }
 
-        
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Visit visit = new Visit("Візит 11", "Макаров Олег Олегович", "Приватна особа", "+38 (050) 720 79 36", 11, Obj);
+            this.Hide();
+            MainForm.Instance.AddControls(visit);
+        }
     }
     
 }

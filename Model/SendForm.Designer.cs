@@ -92,6 +92,7 @@ namespace DeliveryApplication.Model
             this.lblPriceMain = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.btnCreate = new Guna.UI2.WinForms.Guna2Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.guna2PictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgClientLogo)).BeginInit();
@@ -1071,6 +1072,7 @@ namespace DeliveryApplication.Model
             this.panelPayment.BorderColor = System.Drawing.Color.White;
             this.panelPayment.BorderRadius = 12;
             this.panelPayment.BorderThickness = 2;
+            this.panelPayment.Controls.Add(this.button1);
             this.panelPayment.Controls.Add(this.rbtnNonCash);
             this.panelPayment.Controls.Add(this.rbtnCash);
             this.panelPayment.Controls.Add(this.panelTypePayer);
@@ -1342,6 +1344,16 @@ namespace DeliveryApplication.Model
             this.btnCreate.Text = "СТВОРИТИ";
             this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(59, 509);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 11;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // SendForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1448,5 +1460,6 @@ namespace DeliveryApplication.Model
         private Guna.UI2.WinForms.Guna2TextBox txtLastNumberStockSender;
         private Guna.UI2.WinForms.Guna2TextBox txtCitySender;
         private System.Windows.Forms.Label lblDate;
+        private System.Windows.Forms.Button button1;
     }
 }
