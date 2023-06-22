@@ -13,6 +13,7 @@ namespace DeliveryApplication.Model
         private List<PackagingMaterial> materials;
         private List<PackagingMaterial> materialsForDocument;
         private List<PackagingMaterial> currentMaterials;
+        private bool SellPackaging;
         public List<PackagingMaterial> CurrentMaterials
         {
             get { return currentMaterials; }
@@ -29,13 +30,17 @@ namespace DeliveryApplication.Model
         {
             InitializeComponent();
             materials = Service.Materials;
+            currentMaterials = new List<PackagingMaterial>();
         }
-
+        public AddPackagingForm(bool IsSell):this()
+        {
+            SellPackaging = IsSell; 
+        }
+        //конкструктор для добавления упаковки в посылку
         public AddPackagingForm(string productDescription, bool table = false) : this()
         {
             description = productDescription;
             materialsForDocument = new List<PackagingMaterial>();
-            currentMaterials = new List<PackagingMaterial>();
             
             FillPackagingMaterialForDoc();
             if (table)
@@ -48,6 +53,7 @@ namespace DeliveryApplication.Model
                 }
             }
         }
+        //конструктор только для просмотра упаковки
         public AddPackagingForm(List<DataGridViewRow> list) : this()
         {
             foreach (var row in list)
@@ -148,47 +154,64 @@ namespace DeliveryApplication.Model
             {
                 if (listBox1.SelectedItem is PackagingMaterial material)
                 {
-                    bool attached = false;
-                    //Коробка уже добавлена
-                    foreach (PackagingMaterial item in currentMaterials)
+                    if (!SellPackaging)
                     {
-                        if (item is Container)
+                        bool attached = false;
+                        //Коробка уже добавлена
+                        foreach (PackagingMaterial item in currentMaterials)
                         {
-                            attached = true;
-                            break;
+                            if (item is Container)
+                            {
+                                attached = true;
+                                break;
+                            }
                         }
-                    }
-                    if (listBox1.SelectedItem is Container && attached)
-                    {
-                        guna2MessageDialog1.Buttons = MessageDialogButtons.OK;
-                        guna2MessageDialog1.Icon = Guna.UI2.WinForms.MessageDialogIcon.Warning;
+                        if (listBox1.SelectedItem is Container && attached)
+                        {
+                            guna2MessageDialog1.Buttons = MessageDialogButtons.OK;
+                            guna2MessageDialog1.Icon = Guna.UI2.WinForms.MessageDialogIcon.Warning;
 
-                        if (guna2MessageDialog1.Show("Заборонено додавати пакування одного типу") == DialogResult.OK)
+                            if (guna2MessageDialog1.Show("Заборонено додавати пакування одного типу") == DialogResult.OK)
+                            {
+                                txtSearchPackaging.Focus();
+                                txtSearchPackaging.SelectionStart = txtSearchPackaging.Text.Length;
+                            }
+                        }
+                        else if (!(currentMaterials.Contains(material)))
                         {
+                            currentMaterials.Add(material);
+
+                            dataGridView1.Rows.Add(new object[] { false, material.Name, Service.LefttArrow, 1, Service.RightArrow, material.Price });
+                            listBox1.Visible = false;
+                            txtSearchPackaging.Text = string.Empty;
                             txtSearchPackaging.Focus();
-                            txtSearchPackaging.SelectionStart = txtSearchPackaging.Text.Length;
+                        }
+                        else
+                        {
+                            guna2MessageDialog1.Buttons = MessageDialogButtons.OK;
+                            guna2MessageDialog1.Icon = Guna.UI2.WinForms.MessageDialogIcon.Information;
+                            if (guna2MessageDialog1.Show("Пакування вже додано") == DialogResult.OK)
+                            {
+                                txtSearchPackaging.Focus();
+                                txtSearchPackaging.SelectionStart = txtSearchPackaging.Text.Length;
+                            }
                         }
                     }
-                    else if (!(currentMaterials.Contains(material)))
+                    else
                     {
                         currentMaterials.Add(material);
-
                         dataGridView1.Rows.Add(new object[] { false, material.Name, Service.LefttArrow, 1, Service.RightArrow, material.Price });
                         listBox1.Visible = false;
                         txtSearchPackaging.Text = string.Empty;
                         txtSearchPackaging.Focus();
                     }
-                    else
-                    {
-                        guna2MessageDialog1.Buttons = MessageDialogButtons.OK;
-                        guna2MessageDialog1.Icon = Guna.UI2.WinForms.MessageDialogIcon.Information;
-                        if (guna2MessageDialog1.Show("Пакування вже додано") == DialogResult.OK)
-                        {
-                            txtSearchPackaging.Focus();
-                            txtSearchPackaging.SelectionStart = txtSearchPackaging.Text.Length;
-                        }
-                    }
+
                 }
+
+
+
+
+
 
             }
         }
@@ -205,7 +228,7 @@ namespace DeliveryApplication.Model
             {
                 DataGridViewRow row = dataGridView1.CurrentRow;
                 var item = materials.SingleOrDefault(m => m.Name.Equals(row.Cells["dgvName"].Value.ToString()));
-                if (item is Container)
+                if (item is Container && !SellPackaging)
                 {
                     guna2MessageDialog1.Buttons = MessageDialogButtons.OK;
                     guna2MessageDialog1.Icon = Guna.UI2.WinForms.MessageDialogIcon.Warning;
@@ -227,7 +250,7 @@ namespace DeliveryApplication.Model
                             dataGridView1.Rows[e.RowIndex].Cells["dgvPrice"].Value = price * (count + 1);
                         }
                     }
-                     //count = Convert.ToInt32(dataGridView1.CurrentRow.Cells["dgvCount"].Value);
+                     
                     
                     
                 }
@@ -310,14 +333,16 @@ namespace DeliveryApplication.Model
 
         private void dataGridView1_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
-            DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
-            var type = materials.SingleOrDefault(m => m.Name == row.Cells["dgvName"].Value.ToString());
-            if (type is Container)
+            if (!SellPackaging)
             {
-                DataGridViewCell cell = row.Cells["dgvCount"];
-                cell.ReadOnly = true;
+                DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+                var type = materials.SingleOrDefault(m => m.Name == row.Cells["dgvName"].Value.ToString());
+                if (type is Container)
+                {
+                    DataGridViewCell cell = row.Cells["dgvCount"];
+                    cell.ReadOnly = true;
+                }
             }
-
         }
 
         private void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
@@ -375,6 +400,7 @@ namespace DeliveryApplication.Model
         {
             dataGridView1.Rows.Clear();
             this.Close();
+            //??
             SendForm.Obj.Show();
         }
 

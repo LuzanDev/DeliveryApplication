@@ -397,12 +397,20 @@ namespace DeliveryApplication.Model
                 {
                     int parcelID = Convert.ToInt32(information[1]);
                     DataRow row = Service.GetRowByUsingID(parcelID);
-                    if (row != null)
+                    if (row != null )
                     {
-                        AddReceivingInTable(row);
-                        SetClientInfo(row);
-                        txtAddElementInVisit.Text = string.Empty;
-                        txtAddElementInVisit.Focus();
+                        if (!Available(parcelID))
+                        {
+                            AddReceivingInTable(row);
+                            SetClientInfo(row);
+                            txtAddElementInVisit.Text = string.Empty;
+                            txtAddElementInVisit.Focus();
+                        }
+                        else
+                        {
+                            guna2MessageDialog1.Show("Посилка вже додана у візит!");
+                            txtAddElementInVisit.Focus();//убрать банер при изменении строк  добавить множественное добавление в визит
+                        }
                     }
                     
                 }
@@ -411,6 +419,21 @@ namespace DeliveryApplication.Model
                     string typeClient = information[0];
                     string fullNameClient = information[1];
                     string countParcel = information[2].Replace("[", "").Replace("]", "");
+                    foreach (DataRow row in Service.CurrentStockPackage.Rows)
+                    {
+                        if (row["PDCategoryRecipient"].ToString().Equals(typeClient)
+                            && row["PDFullNameRecipient"].ToString().Equals(fullNameClient))
+                        {
+                            if (!Available(Convert.ToInt32(row["PDID"])))
+                            {
+                                AddReceivingInTable(row);
+                                SetClientInfo(row);
+                            }
+                            
+                        }
+                    }
+                    txtAddElementInVisit.Text = string.Empty;
+                    txtAddElementInVisit.Focus();
                 }
 
                 
@@ -445,15 +468,19 @@ namespace DeliveryApplication.Model
             }
 
         }
+        /// <summary>
+        /// Проверяет добавлено ли получение в визит
+        /// </summary>
+        /// <param name="parcelID">ID посылки</param>
+        /// <returns></returns>
         private bool Available(int parcelID)
         {
-            bool result = false;
-            foreach (var item in dgv)
+            foreach (DataGridViewRow row in dgvGetPackage.Rows)
             {
-
+                if (Convert.ToInt32(row.Cells[2].Value) == parcelID)
+                    return true;
             }
-
-            return result;
+            return false;
         }
         private void AddReceivingInTable(DataRow row)
         {
@@ -495,6 +522,114 @@ namespace DeliveryApplication.Model
             dgvGetPackage.Visible = true;
         }
 
-        
+        private void dgvSend_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+
+        }
+
+        private void guna2CheckBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (guna2CheckBox1.Checked)
+            {
+                foreach (DataGridViewRow row in dgvSend.Rows)
+                {
+                    DataGridViewCheckBoxCell checkBoxCell = row.Cells["dgvSentCheck"] as DataGridViewCheckBoxCell;
+                    checkBoxCell.Value = true;
+                }
+                foreach (DataGridViewRow row in dgvGetPackage.Rows)
+                {
+                    DataGridViewCheckBoxCell checkBoxCell = row.Cells["dgvCheck"] as DataGridViewCheckBoxCell;
+                    checkBoxCell.Value = true;
+                }
+                foreach (DataGridViewRow row in dgvSellPac.Rows)
+                {
+                    DataGridViewCheckBoxCell checkBoxCell = row.Cells["dgvSellCheck"] as DataGridViewCheckBoxCell;
+                    checkBoxCell.Value = true;
+                }
+            }
+            else
+            {
+                foreach (DataGridViewRow row in dgvSend.Rows)
+                {
+                    DataGridViewCheckBoxCell checkBoxCell = row.Cells["dgvSentCheck"] as DataGridViewCheckBoxCell;
+                    checkBoxCell.Value = false;
+                }
+                foreach (DataGridViewRow row in dgvGetPackage.Rows)
+                {
+                    DataGridViewCheckBoxCell checkBoxCell = row.Cells["dgvCheck"] as DataGridViewCheckBoxCell;
+                    checkBoxCell.Value = false;
+                }
+                foreach (DataGridViewRow row in dgvSellPac.Rows)
+                {
+                    DataGridViewCheckBoxCell checkBoxCell = row.Cells["dgvSellCheck"] as DataGridViewCheckBoxCell;
+                    checkBoxCell.Value = false;
+                }
+            }
+        }
+
+        private void GeneralTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (sender is DataGridView table)
+            {
+                if (e.ColumnIndex == table.Columns[0].Index)
+                {
+                    DataGridViewCheckBoxCell cell = table.Rows[e.RowIndex].Cells[0] as DataGridViewCheckBoxCell;
+                    cell.Value = !(bool)cell.Value;
+                }
+            }
+        }
+
+        private void GeneralTable_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (sender is DataGridView table)
+            {
+                if (e.ColumnIndex == table.Columns[0].Index)
+                {
+                    bool checkBox = false;
+                    foreach (DataGridViewRow row in dgvSend.Rows)
+                    {
+                        if ((bool)row.Cells[0].Value)
+                        {
+                            checkBox = true;
+                            break;
+                        }
+                    }
+                    foreach (DataGridViewRow row in dgvGetPackage.Rows)
+                    {
+                        if ((bool)row.Cells[0].Value)
+                        {
+                            checkBox = true;
+                            break;
+                        }
+                    }
+                    foreach (DataGridViewRow row in dgvSellPac.Rows)
+                    {
+                        if ((bool)row.Cells[0].Value)
+                        {
+                            checkBox = true;
+                            break;
+                        }
+                    }
+                    if (checkBox)
+                    {
+                        btnDelete.Visible = true;
+                    }
+                    else
+                    {
+                        guna2CheckBox1.Checked = false;
+                        btnDelete.Visible = false;
+                    }
+                }
+            }
+        }
+
+        private void btnSellPackaging_Click(object sender, EventArgs e)
+        {
+            if (!txtFullNameClient.Visible && !txtPhoneClient.Visible)
+            {
+                AddPackagingForm form = new AddPackagingForm(true);
+                MainForm.BlurBackground(form);
+            }
+        }
     }
 }
